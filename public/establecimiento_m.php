@@ -9,10 +9,10 @@
 	$workModo 		    = $_GET['mode'];
 
 	if ($workCodigo <> 0){
-		$dataJSON			= get_curl('400/'.$workCodigo);
+		$dataJSON			= get_curl('700/'.$workCodigo);
 
 		if ($dataJSON['code'] == 200){
-			$row_01			= $dataJSON['data'][0]['estado_compania_codigo'];
+			$row_01			= $dataJSON['data'][0]['estado_establecimiento_codigo'];
 			$row_02			= $dataJSON['data'][0]['pais_codigo'];
 			$row_03			= $dataJSON['data'][0]['pais_nombre'];
 			$row_04			= $dataJSON['data'][0]['pais_observacion'];
@@ -22,9 +22,10 @@
 			$row_08			= $dataJSON['data'][0]['distrito_codigo'];
 			$row_09			= $dataJSON['data'][0]['distrito_nombre'];
 			$row_10			= $dataJSON['data'][0]['distrito_observacion'];
-			$row_11			= $dataJSON['data'][0]['compania_codigo'];
-			$row_12			= $dataJSON['data'][0]['compania_nombre'];
-			$row_13			= $dataJSON['data'][0]['compania_observacion'];
+			$row_11			= $dataJSON['data'][0]['establecimiento_codigo'];
+            $row_12			= $dataJSON['data'][0]['establecimiento_nombre'];
+            $row_13			= $dataJSON['data'][0]['establecimiento_sigor'];
+			$row_14			= $dataJSON['data'][0]['establecimiento_observacion'];
 			
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
@@ -68,7 +69,7 @@
     include '../include/header.php';
 ?>
 	
-	<title>Panel Administrador - Localidad Compa&ntilde;ia</title>
+	<title>Panel Administrador - Establecimiento</title>
 </head>
 
 <body>
@@ -109,7 +110,7 @@
                                         <a href="../public/home.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/localidad_compania_l.php">Localidad Compa&ntilde;ia</a>
+                                        <a href="../public/establecimiento_l.php">Establecimiento</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -133,15 +134,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Localidad Compa&ntilde;ia</h4>
-                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/localidad_compania_a.php">
+                                <h4 class="card-title">Establecimiento</h4>
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/establecimiento_a.php">
                                 	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="companiaEstado">Estado</label>
-                                		<select id="companiaEstado" name="companiaEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                        <label for="establecimientoEstado">Estado</label>
+                                		<select id="establecimientoEstado" name="establecimientoEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
                                     		<optgroup label="Estado">
                                         		<option value="1" <?php echo $row_01_h; ?>>Habilitado</option>
                                         		<option value="2" <?php echo $row_01_d; ?>>Deshabilitado</option>
@@ -149,8 +150,8 @@
                                 		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="companiaDistrito">Pa&iacute;s - Departamento - Distrito</label>
-                                		<select id="companiaDistrito" name="companiaDistrito" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                        <label for="establecimientoDistrito">Pa&iacute;s - Departamento - Distrito</label>
+                                		<select id="establecimientoDistrito" name="establecimientoDistrito" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
 <?php
     if ($departamentoJSON['code'] == 200) {
         foreach ($departamentoJSON['data'] as $departamentoKey=>$departamentoArray) {
@@ -189,15 +190,19 @@
                                 		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="companiaNombre">Compa&ntilde;ia</label>
-                                        <input id="companiaNombre" name="companiaNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_12; ?>" required <?php echo $workReadonly; ?>>
+                                        <label for="establecimientoNombre">Establecimiento</label>
+                                        <input id="establecimientoNombre" name="establecimientoNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_12; ?>" required <?php echo $workReadonly; ?>>
                                     </div>
                                     <div class="form-group">
-                                    	<label for="companiaObservacion">Observaci&oacute;n</label>
-                                    	<textarea id="companiaObservacion" name="companiaObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_13; ?></textarea>
+                                        <label for="establecimientoSigor">Código SIGOR</label>
+                                        <input id="establecimientoSigor" name="establecimientoSigor" class="form-control" type="text" placeholder="SIGOR" value="<?php echo $row_13; ?>" required <?php echo $workReadonly; ?>>
+                                    </div>
+                                    <div class="form-group">
+                                    	<label for="establecimientoObservacion">Observaci&oacute;n</label>
+                                    	<textarea id="establecimientoObservacion" name="establecimientoObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_14; ?></textarea>
                                 	</div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/localidad_compania_l.php">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_l.php">Volver</a>
                                 </form>
                             </div>
                         </div>
