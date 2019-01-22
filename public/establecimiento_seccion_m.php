@@ -3,21 +3,23 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-	$workCodigo 	= $_GET['codigo'];
-	$workModo 		= $_GET['mode'];
-    $workValor 		= $_GET['dominio'];
-    $dominioJSON	= get_curl('500');
+    $establecimientoJSON		= get_curl('700');
+	$workCodigo 	            = $_GET['codigo'];
+	$workModo 		            = $_GET['mode'];
 
 	if ($workCodigo <> 0){
-		$dataJSON			= get_curl('600/'.$workCodigo);
+		$dataJSON			= get_curl('800/'.$workCodigo);
 
 		if ($dataJSON['code'] == 200){
-			$row_01			= $dataJSON['data'][0]['estado_tipo_subtipo_codigo'];
-			$row_02			= $dataJSON['data'][0]['tipo_codigo'];
-			$row_03			= $dataJSON['data'][0]['subtipo_codigo'];
-			$row_04			= $dataJSON['data'][0]['tipo_subtipo_valor'];
-			$row_05			= $dataJSON['data'][0]['tipo_subtipo_observacion'];
-
+			$row_01			= $dataJSON['data'][0]['estado_seccion_codigo'];
+			$row_02			= $dataJSON['data'][0]['establecimiento_codigo'];
+            $row_03			= $dataJSON['data'][0]['establecimiento_nombre'];
+            $row_05			= $dataJSON['data'][0]['establecimiento_sigor'];
+			$row_06			= $dataJSON['data'][0]['establecimiento_observacion'];
+			$row_07			= $dataJSON['data'][0]['seccion_codigo'];
+			$row_08			= $dataJSON['data'][0]['seccion_nombre'];
+			$row_09			= $dataJSON['data'][0]['seccion_observacion'];
+			
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
 				$row_01_d = '';
@@ -25,7 +27,7 @@
 				$row_01_h = '';
 				$row_01_d = 'selected';
 			}
-        }
+		}
 	}
 
 	switch($workModo){
@@ -50,37 +52,6 @@
 			$workAStyle		= 'btn-danger';
 			break;
 	}
-
-	switch($workValor){
-        case 'ESPECIERAZA':
-            $dominioTitulo  = 'Especie/Raza';
-            $dominioTit1    = 'ESPECIE';
-            $dominioDom1    = 'ANIMALESPECIE';
-            $dominioTit2    = 'RAZA';
-            $dominioDom2    = 'ANIMALRAZA';
-            break;
-        case 'CATEGORIASUBCATEGORIA':
-            $dominioTitulo  = 'Categoria/SubCategoria';
-            $dominioTit1    = 'CATEGORIA';
-            $dominioDom1    = 'ANIMALCATEGORIA';
-            $dominioTit2    = 'SUBCATEGORIA';
-            $dominioDom2    = 'ANIMALSUBCATEGORIA';
-            break;
-        case 'ROLACCESO':
-            $dominioTitulo  = 'Rol/Acceso';
-            $dominioTit1    = 'ROL';
-            $dominioDom1    = 'USUARIOROL';
-            $dominioTit2    = 'ACCESO';
-            $dominioDom2    = 'USUARIOACCESO';
-            break;
-        case 'ROLPROGRAMA':
-            $dominioTitulo  = 'Rol/Programa';
-            $dominioTit1    = 'ROL';
-            $dominioDom1    = 'USUARIOROL';
-            $dominioTit2    = 'Programa';
-            $dominioDom2    = 'USUARIOPROGRAMA';
-            break;
-	}
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +62,7 @@
     include '../include/header.php';
 ?>
 	
-	<title>Panel Administrador - Par&aacute;metro Tipo/Sub Dominio</title>
+	<title>Panel Administrador - Establecimiento Secci&oacute;n</title>
 </head>
 
 <body>
@@ -132,7 +103,7 @@
                                         <a href="../public/home.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/dominio_sub_l.php?dominio=<?php echo $workValor; ?>">Par&aacute;metro <?php echo $dominioTitulo; ?></a>
+                                        <a href="../public/establecimiento_seccion_l.php">Establecimiento Secci&oacute;n</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -156,16 +127,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Par&aacute;metro <?php echo $dominioTitulo; ?></h4>
-                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/dominio_sub_a.php">
-                                   	<div class="form-group">
+                                <h4 class="card-title">Establecimiento Secci&oacute;n</h4>
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/establecimiento_seccion_a.php">
+                                	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
-                                        <input id="workDominio" name="workDominio" class="form-control" type="hidden" placeholder="Dominio" value="<?php echo $workValor; ?>" required readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dominioSubEstado">Estado</label>
-                                		<select id="dominioSubEstado" name="dominioSubEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                        <label for="seccionEstado">Estado</label>
+                                		<select id="seccionEstado" name="seccionEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
                                     		<optgroup label="Estado">
                                         		<option value="1" <?php echo $row_01_h; ?>>Habilitado</option>
                                         		<option value="2" <?php echo $row_01_d; ?>>Deshabilitado</option>
@@ -173,71 +143,38 @@
                                 		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dominioSubTipo"><?php echo $dominioTit1; ?></label>
-                                		<select id="dominioSubTipo" name="dominioSubTipo" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-													<optgroup label="<?php echo $dominioTit1; ?>">
+                                        <label for="seccionEstablecimiento">Establecimiento</label>
+                                		<select id="seccionEstablecimiento" name="seccionEstablecimiento" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                    		<optgroup label="Pa&iacute;s">
 <?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_tipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_tipo_01          	= $dominioArray['dominio_codigo'];
-            $row_tipo_02          	= $dominioArray['dominio_nombre'];
-            $row_tipo_03          	= $dominioArray['dominio_valor'];
-            $row_tipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedTipo 			= '';
-
-            if ($row_tipo_00 == 1 && $row_tipo_03 == $dominioDom1) {
-                if ($row_02 == $row_tipo_01){
-                    $selectedTipo = 'selected';
-                }
+    if ($establecimientoJSON['code'] == 200) {
+        foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
+            $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
+			$row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
+			$selected 				            = '';
+			
+			if ($row_02 == $row_establecimiento_00){
+				$selected = 'selected';
+			}
 ?>
-														<option value="<?php echo $row_tipo_01; ?>" <?php echo $selectedTipo; ?>><?php echo $row_tipo_02; ?></option>
+												<option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
 <?php
-            }
-        }
-    }
+		}
+	}
 ?>
-													</optgroup>
-												</select>
+                                    		</optgroup>
+                                		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dominioSubTipoSub"><?php echo $dominioTit2; ?></label>
-                                		<select id="dominioSubTipoSub" name="dominioSubTipoSub" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-													<optgroup label="<?php echo $dominioTit2; ?>">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_subtipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_subtipo_01          	= $dominioArray['dominio_codigo'];
-            $row_subtipo_02          	= $dominioArray['dominio_nombre'];
-            $row_subtipo_03          	= $dominioArray['dominio_valor'];
-            $row_subtipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedSubTipo 			= '';
-
-            if ($row_subtipo_00 == 1 && $row_subtipo_03 == $dominioDom2) {
-                if ($row_03 == $row_subtipo_01){
-                    $selectedSubTipo = 'selected';
-                }
-?>
-														<option value="<?php echo $row_subtipo_01; ?>" <?php echo $selectedSubTipo; ?>><?php echo $row_subtipo_02; ?></option>
-<?php
-            }
-        }
-    }
-?>
-													</optgroup>
-												</select>
+                                        <label for="seccionNombre">Secci&oacute;n</label>
+                                        <input id="seccionNombre" name="seccionNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_08; ?>" required <?php echo $workReadonly; ?>>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dominioSubValor">Dominio</label>
-                                        <input id="dominioSubValor" name="dominioSubValor" class="form-control" type="text" placeholder="Dominio" value="<?php echo $workValor; ?>" required readonly>
-                                    </div>
-                                    <div class="form-group">
-                                    	<label for="dominioSubObservacion">Observaci&oacute;n</label>
-                                    	<textarea id="dominioSubObservacion" name="dominioSubObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_05; ?></textarea>
+                                    	<label for="seccionObservacion">Observaci&oacute;n</label>
+                                    	<textarea id="seccionObservacion" name="seccionObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_09; ?></textarea>
                                 	</div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/dominio_sub_l.php?dominio=<?php echo $workValor; ?>">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_seccion_l.php">Volver</a>
                                 </form>
                             </div>
                         </div>
@@ -283,5 +220,4 @@
 ?>
 
 </body>
-
 </html>

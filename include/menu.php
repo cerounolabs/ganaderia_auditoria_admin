@@ -166,8 +166,20 @@
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
                                		<a href="../public/establecimiento_l.php" class="sidebar-link">
-                               			<i class="mdi mdi-localidad"></i>
-                               			<span class="hide-menu"> Listado </span>
+                               			<i class="mdi mdi-establecimiento-establecimiento"></i>
+                               			<span class="hide-menu"> Establecimiento </span>
+                               		</a>
+                               	</li>
+								<li class="sidebar-item">
+                               		<a href="../public/establecimiento_seccion_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-establecimiento-seccion"></i>
+                               			<span class="hide-menu"> Secci&oacute;n </span>
+                               		</a>
+                               	</li>
+								<li class="sidebar-item">
+                               		<a href="../public/establecimiento_potrero_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-establecimiento-potrero"></i>
+                               			<span class="hide-menu"> Potrero </span>
                                		</a>
                                	</li>
                             </ul>
