@@ -5,4 +5,9 @@
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
+
+    function getOT(){
+        $result = date("Ymdhisv");
+        return $result;
+    }
 ?>

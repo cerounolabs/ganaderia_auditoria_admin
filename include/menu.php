@@ -191,8 +191,8 @@
                            	</a>
                             <ul aria-expanded="false" class="collapse first-level">
                             	<li class="sidebar-item">
-                               		<a href="../public/permpel.php" class="sidebar-link">
-                               			<i class="mdi mdi-sistema"></i>
+                               		<a href="../public/ot_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-ot-ot"></i>
                                			<span class="hide-menu"> Orden Trabajo </span>
                                		</a>
                                	</li>
