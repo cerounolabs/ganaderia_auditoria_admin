@@ -33,8 +33,10 @@
 				break;
 		}
 	}
+
+	$result		= json_decode($result, true);
 	
-	header('Location: ../../public/establecimiento_seccion_m.php?mode='.$work02.'&codigo='.$work01);
+	header('Location: ../../public/establecimiento_seccion_m.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>

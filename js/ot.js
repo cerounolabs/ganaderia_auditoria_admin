@@ -29,7 +29,7 @@ $(document).ready(function() {
 			{ data				: 'estado_ot_nombre', name : 'estado_ot_nombre'},
 			{ data				: 'ot_fecha_inicio_trabajo_2', name : 'ot_fecha_inicio_trabajo_2'},
 			{ data				: 'ot_numero', name : 'ot_numero'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_m.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-warning"><i class="ti-clipboard"></i>&nbsp;</a>';}},
+			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_detalle_l.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-warning"><i class="ti-clipboard"></i>&nbsp;</a>&nbsp;';}},
 			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_m.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/ot_m.php?mode=U&codigo=' + full.ot_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/ot_m.php?mode=D&codigo=' + full.ot_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}},
 		]
 	});

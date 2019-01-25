@@ -42,6 +42,10 @@
     <script src="../assets/libs/raphael/raphael.min.js"></script>
     <script src="../assets/libs/morris.js/morris.min.js"></script>
     <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+
+    <!-- Chart JS -->
+    <script src="../dist/js/pages/chartjs/chartjs.init.js"></script>
+    <script src="../assets/libs/Chart.js/dist/Chart.min.js"></script>
     
     <!--select2 -->
     <script src="../assets/libs/select2/dist/js/select2.full.min.js"></script>

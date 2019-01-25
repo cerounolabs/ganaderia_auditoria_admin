@@ -189,7 +189,26 @@
     <div class="chat-windows"></div>
 <?php
     include '../include/footer.php';
-?>
 
+    if ($codeRest == 200) {
+?>
+    <script>
+        $(function() {
+            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
+        });
+    </script>
+<?php
+    }
+    
+    if ($codeRest == 204) {
+?>
+    <script>
+        $(function() {
+            toastr.error('<?php echo $msgRest; ?>', 'Error!');
+        });
+    </script>
+<?php
+    }
+?>
 </body>
 </html>

@@ -35,9 +35,11 @@
 				$result	= delete_curl('600/'.$work01, $dataJSON);
 				break;
 		}
-    }
+	}
+	
+	$result		= json_decode($result, true);
 
-	header('Location: ../../public/dominio_sub_m.php?dominio='.$work03.'&mode='.$work02.'&codigo='.$work01);
+	header('Location: ../../public/dominio_sub_m.php?dominio='.$work03.'&mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>
