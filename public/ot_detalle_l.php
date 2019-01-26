@@ -12,6 +12,7 @@
 
 	if ($workCodigo <> 0){
         $otJSON             = get_curl('1000/'.$workCodigo);
+        $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
 
 		if ($otJSON['code'] == 200){
 			$row_ot_00  = $otJSON['data'][0]['ot_codigo'];
@@ -27,7 +28,26 @@
             $row_ot_10	= $otJSON['data'][0]['ot_fecha_final_trabajo'];
             $row_ot_11	= $otJSON['data'][0]['ot_fecha_final_trabajo_2'];
             $row_ot_12	= $otJSON['data'][0]['ot_observacion'];
-		}
+        }
+        
+        if ($otExiJSON['code'] == 200){
+            $acuTotAdu = 0;
+            $acuTotTer = 0;
+
+            foreach ($otExiJSON['data'] as $otExiKey=>$otExiArray) {
+                $row_ot_existencia_01 = $otExiArray['categoria_codigo'];
+                $row_ot_existencia_02 = $otExiArray['subcategoria_codigo'];
+                $row_ot_existencia_03 = $otExiArray['ot_existencia_cantidad'];
+
+                if ($row_ot_existencia_01 == 40) {
+                    $acuTotTer = $acuTotTer + $row_ot_existencia_03;
+                } else {
+                    $acuTotAdu = $acuTotAdu + $row_ot_existencia_03;
+                }
+            }
+
+            $acuTotGen = $acuTotTer + $acuTotAdu;
+        }
     }
 ?>
 
@@ -111,8 +131,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-10 card-title">&nbsp;</h4>
-                                	<h4 class="col-2 card-title" style="text-align: right;">
+                                	<h4 class="col-8 card-title">&nbsp;</h4>
+                                	<h4 class="col-4 card-title" style="text-align: right;">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-pdf"><i class="far fa-file-pdf"></i></button>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-contact"><i class="ti-plus"></i></button>
                                 	</h4>
 								</div>
@@ -120,7 +141,7 @@
                                     <table id="tableLoadExistencia" class="table table-striped table-bordered">
                                         <thead id="tableExistencia" class="<?php echo $workCodigo; ?>">
                                             <tr>
-                                                <th>&Oacute;</th>
+                                                <th>C&Oacute;DIGO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -129,15 +150,32 @@
                                                 <th>OBSERVACI&Oacute;N</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                        </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>&Oacute;</th>
+                                                <th>C&Oacute;DIGO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
                                                 <th>SUBCATEGOR&Iacute;A</th>
                                                 <th>CANTIDAD</th>
                                                 <th>OBSERVACI&Oacute;N</th>
+                                            </tr>
+                                            <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
+                                                <th>&nbsp;</th>
+                                                <th>TOTAL ADULTO</th>
+                                                <th colspan="5" style="text-align:right;"><?php echo number_format($acuTotAdu, 0, ',', '.'); ?></th>
+                                            </tr>
+                                            <tr style="font-weight: bold;">
+                                                <th>&nbsp;</th>
+                                                <th>TOTAL TENERO</th>
+                                                <th colspan="5" style="text-align:right;"><?php echo number_format($acuTotTer, 0, ',', '.'); ?></th>
+                                            </tr>
+                                            <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
+                                                <th>&nbsp;</th>
+                                                <th>TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="5" style="text-align:right;"><?php echo number_format($acuTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
