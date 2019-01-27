@@ -16,22 +16,20 @@ $(document).ready(function() {
 			dataSrc				: 'data'
 		},
 		columnDefs	: [
-			{ targets			: [0], visible : false, searchable : false, orderData : [0, 0] },
+			{ targets			: [0], visible : true,  searchable : true,  orderData : [0, 0] },
 			{ targets			: [1], visible : true,  searchable : true,  orderData : [1, 0] },
 			{ targets			: [2], visible : true,  searchable : true,  orderData : [2, 0] },
 			{ targets			: [3], visible : true,  searchable : true,  orderData : [3, 0] },
 			{ targets			: [4], visible : true,  searchable : true,  orderData : [4, 0] },
-			{ targets			: [5], visible : true,  searchable : true,  orderData : [5, 0] },
-			{ targets			: [6], visible : true,  searchable : true,  orderData : [6, 0] }
+			{ targets			: [5], visible : true,  searchable : true,  orderData : [5, 0], className	: 'text-right' }
 		],
 		columns		: [
-			{ data				: 'ot_existencia_codigo', name : 'ot_existencia_codigo'},
 			{ data				: 'origen_nombre', name : 'origen_nombre'},
 			{ data				: 'raza_nombre', name : 'raza_nombre'},
 			{ data				: 'categoria_nombre', name : 'categoria_nombre'},
 			{ data				: 'subcategoria_nombre', name : 'subcategoria_nombre'},
-			{ data				: 'ot_existencia_cantidad', name : 'ot_existencia_cantidad'},
 			{ data				: 'ot_existencia_observacion', name : 'ot_existencia_observacion'},
+			{ data				: 'ot_existencia_cantidad', name : 'ot_existencia_cantidad'}
 		]
 	});
 });
