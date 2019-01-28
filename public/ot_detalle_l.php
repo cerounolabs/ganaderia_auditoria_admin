@@ -30,46 +30,6 @@
             $row_ot_11	= $otJSON['data'][0]['ot_fecha_final_trabajo_2'];
             $row_ot_12	= $otJSON['data'][0]['ot_observacion'];
         }
-        
-        if ($otExiJSON['code'] == 200){
-            $exiTotAdu = 0;
-            $exiTotTer = 0;
-            $exiTotGen = 0;
-
-            foreach ($otExiJSON['data'] as $otExiKey=>$otExiArray) {
-                $row_ot_existencia_01 = $otExiArray['categoria_codigo'];
-                $row_ot_existencia_02 = $otExiArray['subcategoria_codigo'];
-                $row_ot_existencia_03 = $otExiArray['ot_existencia_cantidad'];
-
-                if ($row_ot_existencia_01 == 40) {
-                    $exiTotTer = $exiTotTer + $row_ot_existencia_03;
-                } else {
-                    $exiTotAdu = $exiTotAdu + $row_ot_existencia_03;
-                }
-            }
-
-            $exiTotGen = $exiTotTer + $exiTotAdu;
-        }
-
-        if ($otAudJSON['code'] == 200){
-            $audTotAdu = 0;
-            $audTotTer = 0;
-            $audTotGen = 0;
-
-            foreach ($otAudJSON['data'] as $otAudKey=>$otAudArray) {
-                $row_ot_auditada_01 = $otAudArray['categoria_codigo'];
-                $row_ot_auditada_02 = $otAudArray['subcategoria_codigo'];
-                $row_ot_auditada_03 = $otAudArray['ot_auditada_cantidad'];
-
-                if ($row_ot_auditada_01 == 40) {
-                    $audTotTer = $audTotTer + $row_ot_auditada_03;
-                } else {
-                    $audTotAdu = $audTotAdu + $row_ot_auditada_03;
-                }
-            }
-
-            $audTotGen = $audTotTer + $audTotAdu;
-        }
     }
 
     $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
@@ -155,9 +115,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-8 card-title">&nbsp;</h4>
-                                	<h4 class="col-4 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#existencia-pdf"><i class="far fa-file-pdf"></i></button>
+                                	<h4 class="col-6 card-title">&nbsp;</h4>
+                                	<h4 class="col-6 card-title" style="text-align: right;">
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#existencia-animal"><i class="ti-plus"></i></button>
                                 	</h4>
 								</div>
@@ -174,6 +133,44 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+<?php
+    if ($otExiJSON['code'] == 200) {
+        $exiTotAdu = 0;
+        $exiTotTer = 0;
+        $exiTotGen = 0;
+
+        foreach ($otExiJSON['data'] as $existenciaKey=>$existenciaArray) {
+            $row_existencia_00  = $existenciaArray['origen_codigo'];
+            $row_existencia_01  = $existenciaArray['origen_nombre'];
+            $row_existencia_02  = $existenciaArray['raza_codigo'];
+            $row_existencia_03  = $existenciaArray['raza_nombre'];
+            $row_existencia_04  = $existenciaArray['categoria_codigo'];
+            $row_existencia_05  = $existenciaArray['categoria_nombre'];
+            $row_existencia_06  = $existenciaArray['subcategoria_codigo'];
+            $row_existencia_07  = $existenciaArray['subcategoria_nombre'];
+            $row_existencia_08  = 0.00;
+            $row_existencia_09  = $existenciaArray['ot_existencia_cantidad'];
+
+            if ($row_existencia_04 == 40) {
+                $exiTotTer = $exiTotTer + $row_existencia_09;
+            } else {
+                $exiTotAdu = $exiTotAdu + $row_existencia_09;
+            }
+?>
+                                            <tr>
+                                                <td> <?php echo $row_existencia_01; ?> </td>
+                                                <td> <?php echo $row_existencia_03; ?> </td>
+                                                <td> <?php echo $row_existencia_05; ?> </td>
+                                                <td> <?php echo $row_existencia_07; ?> </td>
+                                                <td class="text-right"> <?php echo $row_existencia_08; ?> </td>
+                                                <td class="text-right"> <?php echo $row_existencia_09; ?> </td>
+                                            </tr>
+<?php
+        }
+
+        $exiTotGen = $exiTotTer + $exiTotAdu;
+    }
+?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -212,9 +209,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-8 card-title">&nbsp;</h4>
-                                	<h4 class="col-4 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#auditada-pdf"><i class="far fa-file-pdf"></i></button>
+                                	<h4 class="col-6 card-title">&nbsp;</h4>
+                                	<h4 class="col-6 card-title" style="text-align: right;">
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#auditada-animal"><i class="ti-plus"></i></button>
                                 	</h4>
 								</div>
@@ -231,6 +227,44 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+<?php
+    if ($otAudJSON['code'] == 200) {
+        $audTotAdu = 0;
+        $audTotTer = 0;
+        $audTotGen = 0;
+
+        foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+            $row_auditada_00  = $auditadaArray['origen_codigo'];
+            $row_auditada_01  = $auditadaArray['origen_nombre'];
+            $row_auditada_02  = $auditadaArray['raza_codigo'];
+            $row_auditada_03  = $auditadaArray['raza_nombre'];
+            $row_auditada_04  = $auditadaArray['categoria_codigo'];
+            $row_auditada_05  = $auditadaArray['categoria_nombre'];
+            $row_auditada_06  = $auditadaArray['subcategoria_codigo'];
+            $row_auditada_07  = $auditadaArray['subcategoria_nombre'];
+            $row_auditada_08  = $auditadaArray['ot_auditada_cantidad'];
+            $row_auditada_09  = $auditadaArray['ot_auditada_peso'];
+
+            if ($row_auditada_04 == 40) {
+                $audTotTer = $audTotTer + $row_auditada_09;
+            } else {
+                $audTotAdu = $audTotAdu + $row_auditada_09;
+            }
+?>
+                                            <tr>
+                                                <td> <?php echo $row_auditada_01; ?> </td>
+                                                <td> <?php echo $row_auditada_03; ?> </td>
+                                                <td> <?php echo $row_auditada_05; ?> </td>
+                                                <td> <?php echo $row_auditada_07; ?> </td>
+                                                <td class="text-right"> <?php echo $row_auditada_08; ?></td>
+                                                <td class="text-right"> <?php echo $row_auditada_09; ?> </td>
+                                            </tr>
+<?php
+        }
+
+        $audTotGen = $audTotTer + $audTotAdu;
+    }
+?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -611,7 +645,6 @@
 <?php
     }
 ?>
-    <script src="../js/ot_detalle_existencia.js"></script>
-    <script src="../js/ot_detalle_auditada.js"></script>
+    <script src="../js/ot_detalle.js"></script>
 </body>
 </html>

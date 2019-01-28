@@ -29,6 +29,16 @@
     <!--datatables.net -->
     <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
     
     <!--chartis chart-->
     <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
@@ -41,10 +51,8 @@
     <!--chartjs -->
     <script src="../assets/libs/raphael/raphael.min.js"></script>
     <script src="../assets/libs/morris.js/morris.min.js"></script>
-    <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
 
     <!-- Chart JS -->
-    <script src="../dist/js/pages/chartjs/chartjs.init.js"></script>
     <script src="../assets/libs/Chart.js/dist/Chart.min.js"></script>
     
     <!--select2 -->
@@ -55,3 +63,15 @@
     <!--toast -->
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/extra-libs/toastr/toastr-init.js"></script>
+
+
+    <script src="../assets/libs/gaugeJS/dist/gauge.min.js"></script>
+
+    <!--Flot -->
+    <script src="../assets/libs/flot/excanvas.min.js"></script>
+    <script src="../assets/libs/flot/jquery.flot.js"></script>
+    <script src="../assets/libs/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+
+    <!--JVector -->
+    <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
