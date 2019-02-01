@@ -75,3 +75,6 @@
     <!--JVector -->
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!--Sweet Alert2 -->
+    <script src="../assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>

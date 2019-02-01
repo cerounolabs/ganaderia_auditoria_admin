@@ -17,3 +17,34 @@ $(function() {
 		]
 	});
 });
+
+function deteleItem(codPage, urlDetalle, idDetalle) {
+	xhr = new XMLHttpRequest();
+	
+	var url			= "https://www.cerouno.me/ganaderia_auditoria/public/api/v1/" + urlDetalle + "/" + idDetalle;
+	var dataCode	= "";
+	var dataMessage = "";
+
+	xhr.open("DELETE", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onload = function () {
+		var dataJSON = JSON.parse(xhr.responseText);
+		if (xhr.readyState == 4 && xhr.status == "200") {
+			dataCode 	= dataJSON.code;
+			dataMessage = dataJSON.message;
+			console.log(dataCode);
+	console.log(dataMessage);
+		} else {
+			dataCode 	= dataJSON.code;
+			dataMessage = dataJSON.message;
+			console.log(dataCode);
+	console.log(dataMessage);
+		}
+		window.location.href = "http://auditoria.cerouno.com.py/public/ot_detalle_l.php?mode=R&codigo=" + codPage + "&code=" + dataCode + "&msg=" + dataMessage;
+	}
+
+	xhr.send(null);
+	
+
+	//
+}

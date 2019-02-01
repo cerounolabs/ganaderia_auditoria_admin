@@ -124,6 +124,7 @@
                                     <table id="tableLoadExistencia" class="table table-striped table-bordered">
                                         <thead id="tableExistencia" class="<?php echo $workCodigo; ?>">
                                             <tr>
+                                                <th>ELIMINAR</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -150,6 +151,7 @@
             $row_existencia_07  = $existenciaArray['subcategoria_nombre'];
             $row_existencia_08  = 0.00;
             $row_existencia_09  = $existenciaArray['ot_existencia_cantidad'];
+            $row_existencia_10  = $existenciaArray['ot_existencia_codigo'];
 
             if ($row_existencia_04 == 40) {
                 $exiTotTer = $exiTotTer + $row_existencia_09;
@@ -158,6 +160,9 @@
             }
 ?>
                                             <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-success" onclick="deteleItem(<?php echo $workCodigo; ?>, 1100, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
+                                                </td>
                                                 <td> <?php echo $row_existencia_01; ?> </td>
                                                 <td> <?php echo $row_existencia_03; ?> </td>
                                                 <td> <?php echo $row_existencia_05; ?> </td>
@@ -174,6 +179,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>ELIMINAR</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -182,15 +188,15 @@
                                                 <th>CANTIDAD</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="5">TOTAL ADULTO</th>
+                                                <th colspan="6">TOTAL ADULTO</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotAdu, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="5">TOTAL TENERO</th>
+                                                <th colspan="6">TOTAL TENERO</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotTer, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="5">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
@@ -218,6 +224,7 @@
                                     <table id="tableLoadAuditada" class="table table-striped table-bordered">
                                         <thead id="tableAuditada" class="<?php echo $workCodigo; ?>">
                                             <tr>
+                                                <th>ELIMINAR</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -252,6 +259,9 @@
             }
 ?>
                                             <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
+                                                </td>
                                                 <td> <?php echo $row_auditada_01; ?> </td>
                                                 <td> <?php echo $row_auditada_03; ?> </td>
                                                 <td> <?php echo $row_auditada_05; ?> </td>
@@ -268,6 +278,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>ELIMINAR</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -276,15 +287,15 @@
                                                 <th>CANTIDAD</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="5">TOTAL ADULTO</th>
+                                                <th colspan="6">TOTAL ADULTO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotAdu, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="5">TOTAL TENERO</th>
+                                                <th colspan="6">TOTAL TENERO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotTer, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="5">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
