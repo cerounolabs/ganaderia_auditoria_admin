@@ -158,6 +158,7 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="sidebar-item">
                         	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                            		<i class="icon-File-HorizontalText"></i>
@@ -182,8 +183,15 @@
                                			<span class="hide-menu"> Potrero </span>
                                		</a>
                                	</li>
+								<li class="sidebar-item">
+                               		<a href="../public/establecimiento_propietario_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-establecimiento-propietario"></i>
+                               			<span class="hide-menu"> Propietario </span>
+                               		</a>
+                               	</li>
                             </ul>
                         </li>
+
                         <li class="sidebar-item">
                         	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                            		<i class="icon-Neutron"></i>
@@ -198,6 +206,22 @@
                                	</li>
                             </ul>
                         </li>
+
+						<li class="sidebar-item">
+                        	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                           		<i class="icon-Affiliate"></i>
+                           		<span class="hide-menu"> Persona </span>
+                           	</a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                            	<li class="sidebar-item">
+                               		<a href="../public/persona_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-persona-persona"></i>
+                               			<span class="hide-menu"> Persona </span>
+                               		</a>
+                               	</li>
+                            </ul>
+                        </li>
+
                         <li class="sidebar-item">
                         	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                            		<i class="icon-Box-withFolders"></i>
