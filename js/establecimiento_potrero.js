@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	var urlDominio = 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/900';
+	var codigo		= document.getElementById('tableCodigo').className;
+	var urlDominio 	= 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/900/establecimiento/'+ codigo;
 	
 	$('#tableLoad').DataTable({
 		processing	: true,
@@ -28,7 +29,7 @@ $(document).ready(function() {
 			{ data				: 'establecimiento_nombre', name : 'establecimiento_nombre'},
 			{ data				: 'seccion_nombre', name : 'seccion_nombre'},
 			{ data				: 'potrero_nombre', name : 'potrero_nombre'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/establecimiento_potrero_m.php?mode=R&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/establecimiento_potrero_m.php?mode=U&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/establecimiento_potrero_m.php?mode=D&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}},
+			{ render			: function (data, type, full, meta) {return '<a href="../public/establecimiento_potrero_m.php?id1='+ codigo +'&mode=R&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/establecimiento_potrero_m.php?id1='+ codigo +'&mode=U&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/establecimiento_potrero_m.php?id1='+ codigo +'&mode=D&codigo=' + full.potrero_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
 		]
 	});
 });

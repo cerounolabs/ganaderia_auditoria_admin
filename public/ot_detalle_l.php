@@ -5,8 +5,8 @@
 
 	$workCodigo 	    = $_GET['codigo'];
     $workModo 		    = $_GET['mode'];
-    $codeRest           = $_GET['code'];;
-    $msgRest            = $_GET['msg'];;
+    $codeRest           = $_GET['code'];
+    $msgRest            = $_GET['msg'];
     $dominioJSON        = get_curl('500');
     $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
 

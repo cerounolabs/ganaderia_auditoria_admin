@@ -86,10 +86,13 @@
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
+                                                <th>ESTABLECIMIENTO</th>
                                                 <th>PA&Iacute;S</th>
                                                 <th>DEPARTAMENTO</th>
                                                 <th>DISTRITO</th>
-                                                <th>ESTABLECIMIENTO</th>
+                                                <th>SECCI&Oacute;N</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -97,10 +100,13 @@
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
+                                                <th>ESTABLECIMIENTO</th>
                                                 <th>PA&Iacute;S</th>
                                                 <th>DEPARTAMENTO</th>
                                                 <th>DISTRITO</th>
-                                                <th>ESTABLECIMIENTO</th>
+                                                <th>SECCI&Oacute;N</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </tfoot>

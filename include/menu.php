@@ -171,24 +171,6 @@
                                			<span class="hide-menu"> Establecimiento </span>
                                		</a>
                                	</li>
-								<li class="sidebar-item">
-                               		<a href="../public/establecimiento_seccion_l.php" class="sidebar-link">
-                               			<i class="mdi mdi-establecimiento-seccion"></i>
-                               			<span class="hide-menu"> Secci&oacute;n </span>
-                               		</a>
-                               	</li>
-								<li class="sidebar-item">
-                               		<a href="../public/establecimiento_potrero_l.php" class="sidebar-link">
-                               			<i class="mdi mdi-establecimiento-potrero"></i>
-                               			<span class="hide-menu"> Potrero </span>
-                               		</a>
-                               	</li>
-								<li class="sidebar-item">
-                               		<a href="../public/establecimiento_propietario_l.php" class="sidebar-link">
-                               			<i class="mdi mdi-establecimiento-propietario"></i>
-                               			<span class="hide-menu"> Propietario </span>
-                               		</a>
-                               	</li>
                             </ul>
                         </li>
 

@@ -10,7 +10,8 @@
     $val04                          = $_POST['potreroObservacion'];
 
     $work01                         = $_POST['workCodigo'];
-    $work02                         = $_POST['workModo'];
+	$work02                         = $_POST['workModo'];
+	$work03                         = $_POST['workId1'];
 
     if (isset($val01) && isset($val02) && isset($val03)) {
         $dataJSON = json_encode(
@@ -36,7 +37,7 @@
 
 	$result		= json_decode($result, true);
 	
-	header('Location: ../../public/establecimiento_potrero_m.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
+	header('Location: ../../public/establecimiento_potrero_m.php?id1='.$work03 .'&mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>

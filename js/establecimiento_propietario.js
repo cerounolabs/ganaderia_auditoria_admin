@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	var urlDominio = 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/1400';
+	var codigo		= document.getElementById('tableCodigo').className;
+	var urlDominio	= 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/1400/establecimiento/'+ codigo;
 	
 	$('#tableLoad').DataTable({
 		processing	: true,
@@ -26,7 +27,7 @@ $(document).ready(function() {
 			{ data				: 'estado_establecimiento_propietario_nombre', name : 'estado_establecimiento_propietario_nombre'},
 			{ data				: 'establecimiento_nombre', name : 'establecimiento_nombre'},
 			{ data				: 'persona_completo', name : 'persona_completo'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/establecimiento_propietario_m.php?mode=R&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/establecimiento_propietario_m.php?mode=U&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/establecimiento_propietario_m.php?mode=D&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
+			{ render			: function (data, type, full, meta) {return '<a href="../public/establecimiento_propietario_m.php?id1='+ codigo +'&mode=R&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/establecimiento_propietario_m.php?id1='+ codigo +'&mode=U&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/establecimiento_propietario_m.php?id1='+ codigo +'&mode=D&codigo=' + full.establecimiento_propietario_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
 		]
 	});
 });

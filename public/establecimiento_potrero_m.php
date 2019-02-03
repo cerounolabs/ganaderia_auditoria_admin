@@ -3,10 +3,12 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-    $establecimientoJSON    = get_curl('700');
-    $seccionJSON		    = get_curl('800');
 	$workCodigo 	        = $_GET['codigo'];
-	$workModo               = $_GET['mode'];
+    $workModo               = $_GET['mode'];
+    $workEstablecimiento    = $_GET['id1'];
+    $codeRest               = $_GET['code'];
+    $msgRest                = $_GET['msg'];
+    $seccionJSON		    = get_curl('800');
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('900/'.$workCodigo);
@@ -50,7 +52,7 @@
 			$workAStyle		= 'btn-success';
 			break;
 		case 'D':
-			$workReadonly	= 'disabled';
+			$workReadonly	= '';
 			$workATitulo	= 'Eliminar';
 			$workAStyle		= 'btn-danger';
 			break;
@@ -106,7 +108,10 @@
                                         <a href="../public/home.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/establecimiento_potrero_l.php">Establecimiento Potrero</a>
+                                        <a href="../public/establecimiento_l.php">Establecimiento</a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        <a href="../public/establecimiento_potrero_l.php?id1=<?php echo $workEstablecimiento; ?>">Establecimiento Potrero</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -135,6 +140,7 @@
                                 	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
+                                        <input id="workId1" name="workId1" class="form-control" type="hidden" placeholder="Establecimiento" value="<?php echo $workEstablecimiento; ?>" required readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="potreroEstado">Estado</label>
@@ -148,13 +154,7 @@
                                     <div class="form-group">
                                         <label for="potreroSeccion">Establecimiento - Secci&oacute;n</label>
                                 		<select id="potreroSeccion" name="potreroSeccion" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-<?php
-    if ($establecimientoJSON['code'] == 200) {
-        foreach ($establecimientoJSON['data'] as $establecimientoKey=>$establecimientoArray) {
-            $row_establecimiento_00      	= $establecimientoArray['establecimiento_codigo'];
-			$row_establecimiento_01      	= $establecimientoArray['establecimiento_nombre'];			
-?>
-                                  			<optgroup label="<?php echo $row_establecimiento_01; ?>">
+                                  			<optgroup label="Establecimiento - Sección">
 								
 <?php
             if ($seccionJSON['code'] == 200) {
@@ -163,7 +163,7 @@
                     $row_seccion_01      	= $seccionArray['establecimiento_codigo'];
                     $row_seccion_02      	= $seccionArray['seccion_nombre'];
                     
-                    if ($row_establecimiento_00 == $row_seccion_01) {
+                    if ($workEstablecimiento == $row_seccion_01) {
                         $selected			= '';
                         if ($row_05 == $row_seccion_00){
                             $selected 		= 'selected';
@@ -176,10 +176,6 @@
             }
 ?>
                                     		</optgroup>
-<?php
-		}
-	}
-?>
                                 		</select>
                                     </div>
                                     <div class="form-group">
@@ -191,7 +187,7 @@
                                     	<textarea id="potreroObservacion" name="potreroObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_10; ?></textarea>
                                 	</div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_potrero_l.php">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_potrero_l.php?id1=<?php echo $workEstablecimiento; ?>">Volver</a>
                                 </form>
                             </div>
                         </div>

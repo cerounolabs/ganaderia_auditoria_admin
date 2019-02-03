@@ -2,6 +2,8 @@
     require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
+
+    $workEstablecimiento  = $_GET['id1'];
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +54,9 @@
                                     <li class="breadcrumb-item">
                                         <a href="../public/home.php">Home</a>
                                     </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        <a href="../public/establecimiento_l.php">Establecimiento</a>
+                                    </li>
                                     <li class="breadcrumb-item active" aria-current="page">Establecimiento Secci&oacute;n</li>
                                 </ol>
                             </nav>
@@ -77,12 +82,12 @@
                                 <div class="row">
                                 	<h4 class="col-10 card-title">Establecimiento Secci&oacute;n</h4>
                                 	<h4 class="col-2 card-title" style="text-align: right;">
-                                		<a class="btn btn-info" href="../public/establecimiento_seccion_m.php?mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                		<a class="btn btn-info" href="../public/establecimiento_seccion_m.php?id1=<?php echo $workEstablecimiento; ?>&mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table table-striped table-bordered">
-                                        <thead>
+                                        <thead id="tableCodigo" class="<?php echo $workEstablecimiento; ?>">
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>

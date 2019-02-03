@@ -3,25 +3,21 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-	$workCodigo 	            = $_GET['codigo'];
-    $workModo 		            = $_GET['mode'];
-    $workEstablecimiento        = $_GET['id1'];
-    $codeRest                   = $_GET['code'];
-    $msgRest                    = $_GET['msg'];
+	$workCodigo 	        = $_GET['codigo'];
+    $workModo 		        = $_GET['mode'];
+    $workEstablecimiento    = $_GET['id1'];
+    $codeRest               = $_GET['code'];
+    $msgRest                = $_GET['msg'];
+    $personaJSON	        = get_curl('1300');
 
 	if ($workCodigo <> 0){
-		$dataJSON			= get_curl('800/'.$workCodigo);
+		$dataJSON			= get_curl('1400/'.$workCodigo);
 
 		if ($dataJSON['code'] == 200){
-			$row_01			= $dataJSON['data'][0]['estado_seccion_codigo'];
+			$row_01			= $dataJSON['data'][0]['estado_establecimiento_propietario_codigo'];
 			$row_02			= $dataJSON['data'][0]['establecimiento_codigo'];
-            $row_03			= $dataJSON['data'][0]['establecimiento_nombre'];
-            $row_05			= $dataJSON['data'][0]['establecimiento_sigor'];
-			$row_06			= $dataJSON['data'][0]['establecimiento_observacion'];
-			$row_07			= $dataJSON['data'][0]['seccion_codigo'];
-			$row_08			= $dataJSON['data'][0]['seccion_nombre'];
-			$row_09			= $dataJSON['data'][0]['seccion_observacion'];
-			
+			$row_03			= $dataJSON['data'][0]['persona_codigo'];
+
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
 				$row_01_d = '';
@@ -29,29 +25,33 @@
 				$row_01_h = '';
 				$row_01_d = 'selected';
 			}
-		}
+        }
 	}
 
 	switch($workModo){
 		case 'C':
 			$workReadonly	= '';
 			$workATitulo	= 'Agregar';
-			$workAStyle		= 'btn-info';
+            $workAStyle		= 'btn-info';
+            $workSelect		= 'selected';
 			break;
 		case 'R':
 			$workReadonly	= 'disabled';
 			$workATitulo	= 'Ver';
-			$workAStyle		= 'btn-primary';
+            $workAStyle		= 'btn-primary';
+            $workSelect		= '';
 			break;
 		case 'U':
 			$workReadonly	= '';
 			$workATitulo	= 'Actualizar';
-			$workAStyle		= 'btn-success';
+            $workAStyle		= 'btn-success';
+            $workSelect		= '';
 			break;
 		case 'D':
 			$workReadonly	= '';
 			$workATitulo	= 'Eliminar';
-			$workAStyle		= 'btn-danger';
+            $workAStyle		= 'btn-danger';
+            $workSelect		= '';
 			break;
 	}
 ?>
@@ -64,7 +64,7 @@
     include '../include/header.php';
 ?>
 	
-	<title>Panel Administrador - Establecimiento Secci&oacute;n</title>
+	<title>Panel Administrador - Establecimiento Propietario</title>
 </head>
 
 <body>
@@ -108,7 +108,7 @@
                                         <a href="../public/establecimiento_l.php">Establecimiento</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/establecimiento_seccion_l.php?id1=<?php echo $workEstablecimiento; ?>">Establecimiento Secci&oacute;n</a>
+                                        <a href="../public/establecimiento_propietario_l.php?id1=<?php echo $workEstablecimiento; ?>">Establecimiento Propietario</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -132,16 +132,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Establecimiento Secci&oacute;n</h4>
-                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/establecimiento_seccion_a.php">
-                                	<div class="form-group">
+                                <h4 class="card-title">Establecimiento Propietario</h4>
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/establecimiento_propietario_a.php">
+                                   	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
                                         <input id="workId1" name="workId1" class="form-control" type="hidden" placeholder="Establecimiento" value="<?php echo $workEstablecimiento; ?>" required readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="seccionEstado">Estado</label>
-                                		<select id="seccionEstado" name="seccionEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                        <label for="propietarioEstado">Estado</label>
+                                		<select id="propietarioEstado" name="propietarioEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
                                     		<optgroup label="Estado">
                                         		<option value="1" <?php echo $row_01_h; ?>>Habilitado</option>
                                         		<option value="2" <?php echo $row_01_d; ?>>Deshabilitado</option>
@@ -149,15 +149,45 @@
                                 		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="seccionNombre">Secci&oacute;n</label>
-                                        <input id="seccionNombre" name="seccionNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_08; ?>" required <?php echo $workReadonly; ?>>
+                                        <label for="propietarioPersona">Persona</label>
+                                		<select id="propietarioPersona" name="propietarioPersona" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+													<optgroup label="Persona">
+                                                        <option value="0" <?php echo $workSelect; ?> disabled>Seleccionar</option>
+<?php
+    if ($personaJSON['code'] == 200) {
+        foreach ($personaJSON['data'] as $personaKey=>$personaArray) {
+            $row_persona_00          	= $personaArray['estado_persona_codigo'];
+            $row_persona_01          	= $personaArray['persona_codigo'];
+            $row_persona_02          	= $personaArray['persona_nombre'];
+            $row_persona_03          	= $personaArray['persona_apellido'];
+            $row_persona_04         	= $personaArray['persona_razon_social'];
+            $row_persona_05         	= $personaArray['persona_documento'];
+            $row_persona_06         	= $personaArray['tipo_persona_codigo'];
+            $row_persona_07         	= $personaArray['tipo_documento_codigo'];
+            $selectedPersona 			= '';
+
+            if ($row_persona_06 == 53){
+                $nombrePersona = 'CI '.$row_persona_05.', '.$row_persona_02.' '.$row_persona_03;
+            } else {
+                $nombrePersona = 'RUC '.$row_persona_05.', '.$row_persona_04;
+            }
+
+            if ($row_persona_00 == 1) {
+                if ($row_03 == $row_persona_01){
+                    $selectedPersona = 'selected';
+                }
+?>
+														<option value="<?php echo $row_persona_01; ?>" <?php echo $selectedPersona; ?>><?php echo $nombrePersona; ?></option>
+<?php
+            }
+        }
+    }
+?>
+													</optgroup>
+												</select>
                                     </div>
-                                    <div class="form-group">
-                                    	<label for="seccionObservacion">Observaci&oacute;n</label>
-                                    	<textarea id="seccionObservacion" name="seccionObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_09; ?></textarea>
-                                	</div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_seccion_l.php?id1=<?php echo $workEstablecimiento; ?>">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/establecimiento_propietario_l.php?id1=<?php echo $workEstablecimiento; ?>">Volver</a>
                                 </form>
                             </div>
                         </div>

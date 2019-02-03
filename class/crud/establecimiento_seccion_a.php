@@ -5,20 +5,20 @@
 
     $val00                          = $_POST['seccionCodigo'];
     $val01                          = $_POST['seccionEstado'];
-    $val02                          = $_POST['seccionEstablecimiento'];
-	$val03                          = $_POST['seccionNombre'];
-    $val04                          = $_POST['seccionObservacion'];
+	$val02                          = $_POST['seccionNombre'];
+    $val03                          = $_POST['seccionObservacion'];
 
     $work01                         = $_POST['workCodigo'];
-    $work02                         = $_POST['workModo'];
+	$work02                         = $_POST['workModo'];
+	$work03                         = $_POST['workId1'];
 
-    if (isset($val01) && isset($val02) && isset($val03)) {
+    if (isset($val01) && isset($val02)) {
         $dataJSON = json_encode(
             array(
                 'estado_seccion_codigo'            			=> $val01,
-				'establecimiento_codigo'       				=> $val02,
-				'seccion_nombre'							=> $val03,
-				'seccion_observacion'						=> $val04
+				'establecimiento_codigo'       				=> $work03,
+				'seccion_nombre'							=> $val02,
+				'seccion_observacion'						=> $val03
             ));
 		
 		switch($work02){
@@ -36,7 +36,7 @@
 
 	$result		= json_decode($result, true);
 	
-	header('Location: ../../public/establecimiento_seccion_m.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
+	header('Location: ../../public/establecimiento_seccion_m.php?id1='.$work03 .'&mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>
