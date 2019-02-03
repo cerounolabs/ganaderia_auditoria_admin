@@ -6,6 +6,8 @@
 	$workCodigo 	= $_GET['codigo'];
 	$workModo 		= $_GET['mode'];
     $workValor 		= $_GET['dominio'];
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
     $dominioJSON	= get_curl('500');
 
 	if ($workCodigo <> 0){

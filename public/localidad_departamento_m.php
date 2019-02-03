@@ -3,9 +3,11 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-    $paisJSON		= get_curl('100');
 	$workCodigo 	= $_GET['codigo'];
-	$workModo 		= $_GET['mode'];
+    $workModo 		= $_GET['mode'];
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
+    $paisJSON		= get_curl('100');
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('200/'.$workCodigo);

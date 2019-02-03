@@ -3,10 +3,12 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
+	$workCodigo 	    = $_GET['codigo'];
+    $workModo 		    = $_GET['mode'];
+    $codeRest           = $_GET['code'];
+    $msgRest            = $_GET['msg'];
     $departamentoJSON	= get_curl('200');
     $distritoJSON		= get_curl('300');
-	$workCodigo 	    = $_GET['codigo'];
-	$workModo 		    = $_GET['mode'];
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('700/'.$workCodigo);
@@ -54,7 +56,7 @@
 			$workAStyle		= 'btn-success';
 			break;
 		case 'D':
-			$workReadonly	= 'disabled';
+			$workReadonly	= '';
 			$workATitulo	= 'Eliminar';
 			$workAStyle		= 'btn-danger';
 			break;

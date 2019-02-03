@@ -5,7 +5,9 @@
 
 	$workCodigo 	= $_GET['codigo'];
 	$workModo 		= $_GET['mode'];
-	$workValor 		= $_GET['dominio'];
+    $workValor 		= $_GET['dominio'];
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('500/'.$workCodigo);

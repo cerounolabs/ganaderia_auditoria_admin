@@ -4,7 +4,9 @@
     require '../class/function/function.php';
 	
 	$workCodigo 	= $_GET['codigo'];
-	$workModo 		= $_GET['mode'];
+    $workModo 		= $_GET['mode'];
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('100/'.$workCodigo);

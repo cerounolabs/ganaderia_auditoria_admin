@@ -7,8 +7,6 @@
     $workModo 		    = $_GET['mode'];
     $codeRest           = $_GET['code'];
     $msgRest            = $_GET['msg'];
-    $dominioJSON        = get_curl('500');
-    $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
 
 	if ($workCodigo <> 0){
         $otJSON             = get_curl('1000/'.$workCodigo);
@@ -30,9 +28,12 @@
             $row_ot_11	= $otJSON['data'][0]['ot_fecha_final_trabajo_2'];
             $row_ot_12	= $otJSON['data'][0]['ot_observacion'];
         }
-    }
 
-    $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
+        $dominioJSON        = get_curl('500');
+        $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
+        $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
+        $propietarioJSON    = get_curl('1400/establecimiento/'.$row_ot_03);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -102,6 +103,45 @@
                                         <p class="card-text"><span style="font-weight:bold;">O.T. Nro.:</span> <?php echo $row_ot_07; ?></p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-secondary">
+                            <div class="card-header bg-secondary">
+                                <h4 class="m-b-0 text-white">PROPIETARIOS</h4></div>
+                            <div class="card-body">
+<?php
+    if ($propietarioJSON['code'] == 200) {
+        foreach ($propietarioJSON['data'] as $propietarioKey=>$propietarioArray) {
+            $row_propietario_00  = $propietarioArray['establecimiento_propietario_codigo'];
+            $row_propietario_01  = $propietarioArray['persona_nombre'].' '.$propietarioArray['persona_apellido'];
+            $row_propietario_02  = $propietarioArray['persona_razon_social'];
+            $row_propietario_03  = $propietarioArray['persona_documento'];
+            $row_propietario_04  = $propietarioArray['persona_telefono'];
+            $row_propietario_05  = $propietarioArray['persona_correo_electronico'];
+?>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Persona:</span> <?php echo $row_propietario_01; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Raz&oacute;n Social:</span>  <?php echo $row_propietario_02; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Tel&eacute;fono:</span>  <?php echo $row_propietario_04; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Email:</span> <?php echo $row_propietario_05; ?></p>
+                                    </div>
+                                </div>
+                                <?php
+        }
+    }
+?>
                             </div>
                         </div>
                     </div>

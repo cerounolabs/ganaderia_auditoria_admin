@@ -3,11 +3,14 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
+	$workCodigo 	            = $_GET['codigo'];
+    $workModo 		            = $_GET['mode'];
+    $codeRest                   = $_GET['code'];
+    $msgRest                    = $_GET['msg'];
     $dominioJSON		        = get_curl('500');
     $establecimientoJSON		= get_curl('700');
-	$workCodigo 	            = $_GET['codigo'];
-	$workModo 		            = $_GET['mode'];
     $row_05                     = getOT();
+
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('1000/'.$workCodigo);
 
@@ -180,7 +183,7 @@
                                     <div class="form-group">
                                         <label for="otEstablecimiento">Establecimiento</label>
                                 		<select id="otEstablecimiento" name="otEstablecimiento" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-                                    		<optgroup label="Pa&iacute;s">
+                                    		<optgroup label="Establecimiento">
 <?php
     if ($establecimientoJSON['code'] == 200) {
         foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
