@@ -289,8 +289,8 @@
             $row_auditada_05  = $auditadaArray['categoria_nombre'];
             $row_auditada_06  = $auditadaArray['subcategoria_codigo'];
             $row_auditada_07  = $auditadaArray['subcategoria_nombre'];
-            $row_auditada_08  = $auditadaArray['ot_auditada_cantidad'];
-            $row_auditada_09  = $auditadaArray['ot_auditada_peso'];
+            $row_auditada_08  = $auditadaArray['ot_auditada_peso'];
+            $row_auditada_09  = $auditadaArray['ot_auditada_cantidad'];
 
             if ($row_auditada_04 == 40) {
                 $audTotTer = $audTotTer + $row_auditada_09;
@@ -444,7 +444,7 @@
 			
 			            if ($row_dominio_00 == $row_dominio_sub_05) {
 ?>
-												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_04; ?></option>
+												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option>
 <?php
 			            }
 		            }
@@ -599,7 +599,7 @@
 			
 			            if ($row_dominio_00 == $row_dominio_sub_05) {
 ?>
-												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_04; ?></option>
+												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option>
 <?php
 			            }
 		            }
@@ -623,7 +623,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="auditadaPesoPromedio">Peso Promedio</label>
-                                            <input id="auditadaPesoPromedio" name="auditadaPesoPromedio" class="form-control" type="number" step=".01">
+                                            <input id="auditadaPesoPromedio" name="auditadaPesoPromedio" class="form-control" type="number" step=".01" value="0">
                                         </div>
                                         <div class="form-group">
                                             <label for="auditadaObservacion">Observaci&oacute;n</label>
