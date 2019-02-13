@@ -16,7 +16,8 @@
 		if ($dataJSON['code'] == 200){
 			$row_01			= $dataJSON['data'][0]['estado_establecimiento_propietario_codigo'];
 			$row_02			= $dataJSON['data'][0]['establecimiento_codigo'];
-			$row_03			= $dataJSON['data'][0]['persona_codigo'];
+            $row_03			= $dataJSON['data'][0]['persona_codigo'];
+            $row_04			= $dataJSON['data'][0]['establecimiento_propietario_marca'];
 
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
@@ -151,8 +152,8 @@
                                     <div class="form-group">
                                         <label for="propietarioPersona">Persona</label>
                                 		<select id="propietarioPersona" name="propietarioPersona" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-													<optgroup label="Persona">
-                                                        <option value="0" <?php echo $workSelect; ?> disabled>Seleccionar</option>
+										    <optgroup label="Persona">
+                                                <option value="0" <?php echo $workSelect; ?> disabled>Seleccionar</option>
 <?php
     if ($personaJSON['code'] == 200) {
         foreach ($personaJSON['data'] as $personaKey=>$personaArray) {
@@ -177,14 +178,18 @@
                     $selectedPersona = 'selected';
                 }
 ?>
-														<option value="<?php echo $row_persona_01; ?>" <?php echo $selectedPersona; ?>><?php echo $nombrePersona; ?></option>
+											    <option value="<?php echo $row_persona_01; ?>" <?php echo $selectedPersona; ?>><?php echo $nombrePersona; ?></option>
 <?php
             }
         }
     }
 ?>
-													</optgroup>
-												</select>
+											</optgroup>
+									    </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="propietarioMarca">Marca</label>
+                                        <input id="propietarioMarca" name="propietarioMarca" class="form-control" type="text" placeholder="Marca" value="<?php echo $row_04; ?>" required <?php echo $workReadonly; ?> maxlength="10">
                                     </div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
                                     <a role="button" class="btn btn-dark" href="../public/establecimiento_propietario_l.php?id1=<?php echo $workEstablecimiento; ?>">Volver</a>

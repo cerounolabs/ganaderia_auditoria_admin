@@ -255,9 +255,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-6 card-title">&nbsp;</h4>
-                                	<h4 class="col-6 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#auditada-animal"><i class="ti-plus"></i></button>
+                                	<h4 class="col-10 card-title">&nbsp;</h4>
+                                    <h4 class="col-2 card-title" style="text-align: right;">
+                                		<a class="btn btn-danger" href="../public/ot_detalle_auditada_m.php?id1=<?php echo $row_ot_03; ?>&mode=C&codigo=<?php echo $workCodigo; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">

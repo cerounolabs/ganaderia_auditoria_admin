@@ -6,6 +6,7 @@
 	$val00                          = $_POST['propietarioCodigo'];
 	$val01                          = $_POST['propietarioEstado'];
 	$val02                          = $_POST['propietarioPersona'];
+	$val03                          = $_POST['propietarioMarca'];
 
     $work01                         = $_POST['workCodigo'];
     $work02                         = $_POST['workModo'];
@@ -16,7 +17,8 @@
             array(
                 'estado_establecimiento_propietario_codigo'	=> $val01,
 				'establecimiento_codigo'       				=> $work03,
-				'persona_codigo'							=> $val02
+				'persona_codigo'							=> $val02,
+				'estado_establecimiento_propietario_marca'	=> $val03
             ));
 		
 		switch($work02){

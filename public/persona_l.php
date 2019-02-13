@@ -2,8 +2,6 @@
     require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
-
-    $workEstablecimiento  = $_GET['id1'];
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +12,7 @@
     include '../include/header.php';
 ?>
 	
-	<title>Panel Administrador - Establecimiento Propietario</title>
+	<title>Panel Administrador - Persona</title>
 </head>
 
 <body>
@@ -54,10 +52,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="../public/home.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/establecimiento_l.php">Establecimiento</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Establecimiento Propietario</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Persona</li>
                                 </ol>
                             </nav>
                         </div>
@@ -80,20 +75,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                	<h4 class="col-10 card-title">Establecimiento Propietario</h4>
+                                	<h4 class="col-10 card-title">Persona</h4>
                                 	<h4 class="col-2 card-title" style="text-align: right;">
-                                		<a class="btn btn-info" href="../public/establecimiento_propietario_m.php?id1=<?php echo $workEstablecimiento; ?>&mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                		<a class="btn btn-info" href="../public/persona_m.php?mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                 	</h4>
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table table-striped table-bordered">
-                                        <thead id="tableCodigo" class="<?php echo $workEstablecimiento; ?>">
+                                        <thead>
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
-                                                <th>ESTABLECIMIENTO</th>
-                                                <th>PROPIETARIO</th>
-                                                <th>MARCA</th>
+                                                <th>TIPO</th>
+                                                <th>DOCUMENTO</th>
+                                                <th>N&Uacute;MERO</th>
+                                                <th>PERSONA O RAZ&Oacute;N SOCIAL</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -101,9 +97,10 @@
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
-                                                <th>ESTABLECIMIENTO</th>
-                                                <th>PROPIETARIO</th>
-                                                <th>MARCA</th>
+                                                <th>TIPO</th>
+                                                <th>DOCUMENTO</th>
+                                                <th>N&Uacute;MERO</th>
+                                                <th>PERSONA O RAZ&Oacute;N SOCIAL</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </tfoot>
@@ -151,6 +148,6 @@
     include '../include/footer.php';
 ?>
     
-    <script src="../js/establecimiento_propietario.js"></script>
+    <script src="../js/persona.js"></script>
 </body>
 </html>
