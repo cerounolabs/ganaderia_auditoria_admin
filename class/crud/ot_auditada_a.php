@@ -1,7 +1,8 @@
 <?php
 	ob_start();
 
-    require '../../class/function/curl_api.php';
+	require '../../class/function/curl_api.php';
+
 
 	$val01                          = $_POST['auditadaPotrero'];
 	$val02                          = $_POST['auditadaFecha'];
@@ -37,7 +38,6 @@
 			switch($work02){
 				case 'C':
 					$result	= post_curl('1200', $dataJSON);
-					$work02 = 'R';
 					break;
 				case 'U':
 					$result	= put_curl('1200/'.$work01, $dataJSON);
@@ -46,9 +46,9 @@
 					$result	= delete_curl('1200/'.$work01, $dataJSON);
 					break;
 			}
-		}
 
-		$result		= json_decode($result, true);
+			$result		= json_decode($result, true);
+		}
 	}
 
 	header('Location: ../../public/ot_detalle_l.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);

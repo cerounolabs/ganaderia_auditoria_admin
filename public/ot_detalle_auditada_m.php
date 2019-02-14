@@ -12,6 +12,7 @@
     include '../include/header.php';
     $workEstablecimiento    = $_GET['id1'];
     $workCodigo             = $_GET['codigo'];
+    $workModo               = $_GET['mode'];
     $dominioJSON            = get_curl('500');
     $dominio_subJSON        = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
     $potreroJSON            = get_curl('900/establecimiento/'.$workEstablecimiento);
