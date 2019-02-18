@@ -3,11 +3,9 @@
 
 	require '../../class/function/curl_api.php';
 
-
 	$val01                          = $_POST['auditadaPotrero'];
 	$val02                          = $_POST['auditadaFecha'];
 
-	
 	$work01                         = $_POST['workCodigo'];
 	$work02                         = $_POST['workModo'];
 

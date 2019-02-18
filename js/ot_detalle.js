@@ -1,6 +1,4 @@
 $(function() {
-	'use strict';
-
 	$('#tableLoadExistencia').DataTable({
 		dom: 'Bfrtip',
 		buttons: [
@@ -33,13 +31,9 @@ function deteleItem(codPage, urlDetalle, idDetalle) {
 			if (xhr.readyState == 4 && xhr.status == "200") {
 				dataCode 	= dataJSON.code;
 				dataMessage = dataJSON.message;
-				console.log(dataCode);
-		console.log(dataMessage);
 			} else {
 				dataCode 	= dataJSON.code;
 				dataMessage = dataJSON.message;
-				console.log(dataCode);
-		console.log(dataMessage);
 			}
 			window.location.href = "http://auditoria.cerouno.com.py/public/ot_detalle_l.php?mode=R&codigo=" + codPage + "&code=" + dataCode + "&msg=" + dataMessage;
 		}

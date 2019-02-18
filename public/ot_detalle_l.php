@@ -8,11 +8,9 @@
     $codeRest           = $_GET['code'];
     $msgRest            = $_GET['msg'];
 
-	if ($workCodigo <> 0){
+	if ($workCodigo <> 0) {
         $otJSON             = get_curl('1000/'.$workCodigo);
-        $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
-        $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
-
+        
 		if ($otJSON['code'] == 200){
 			$row_ot_00  = $otJSON['data'][0]['ot_codigo'];
 			$row_ot_01	= $otJSON['data'][0]['estado_ot_codigo'];
@@ -32,8 +30,81 @@
         $dominioJSON        = get_curl('500');
         $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
         $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
-        $propietarioJSON    = get_curl('1400/establecimiento/'.$row_ot_03);
+        $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
+        $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
+
+        if ($otExiJSON['code'] == 200) {
+            $exiTotAdu = 0;
+            $exiTotTer = 0;
+            $exiTotGen = 0;
+    
+            foreach ($otExiJSON['data'] as $existenciaKey=>$existenciaArray) {
+                $row_existencia_00  = $existenciaArray['origen_codigo'];
+                $row_existencia_01  = $existenciaArray['origen_nombre'];
+                $row_existencia_02  = $existenciaArray['raza_codigo'];
+                $row_existencia_03  = $existenciaArray['raza_nombre'];
+                $row_existencia_04  = $existenciaArray['categoria_codigo'];
+                $row_existencia_05  = $existenciaArray['categoria_nombre'];
+                $row_existencia_06  = $existenciaArray['subcategoria_codigo'];
+                $row_existencia_07  = $existenciaArray['subcategoria_nombre'];
+                $row_existencia_08  = 0.00;
+                $row_existencia_09  = $existenciaArray['ot_existencia_cantidad'];
+                $row_existencia_10  = $existenciaArray['ot_existencia_codigo'];
+                
+    
+                if ($row_existencia_04 == 40) {
+                    $exiTotTer = $exiTotTer + $row_existencia_09;
+                } else {
+                    $exiTotAdu = $exiTotAdu + $row_existencia_09;
+                }
+            }
+
+            $exiTotGen = $exiTotTer + $exiTotAdu;
+        }
+
+        if ($otAudJSON['code'] == 200) {
+            $audTotAdu = 0;
+            $audTotTer = 0;
+            $audTotGen = 0;
+    
+            foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+                $row_auditada_00  = $auditadaArray['origen_codigo'];
+                $row_auditada_01  = $auditadaArray['origen_nombre'];
+                $row_auditada_02  = $auditadaArray['raza_codigo'];
+                $row_auditada_03  = $auditadaArray['raza_nombre'];
+                $row_auditada_04  = $auditadaArray['categoria_codigo'];
+                $row_auditada_05  = $auditadaArray['categoria_nombre'];
+                $row_auditada_06  = $auditadaArray['subcategoria_codigo'];
+                $row_auditada_07  = $auditadaArray['subcategoria_nombre'];
+                $row_auditada_08  = $auditadaArray['ot_auditada_peso'];
+                $row_auditada_09  = $auditadaArray['ot_auditada_cantidad'];
+    
+                if ($row_auditada_04 == 40) {
+                    $audTotTer = $audTotTer + $row_auditada_09;
+                } else {
+                    $audTotAdu = $audTotAdu + $row_auditada_09;
+                }
+            }
+
+            $audTotGen = $audTotTer + $audTotAdu;
+        }
+
+        if ($audTotGen > 0) {
+            if ($exiTotGen == 0) {
+                $bovTotGen = number_format((($audTotGen * 100) / 1), 2, ',', '.');
+            } else {
+                $bovTotGen = number_format((($audTotGen * 100) / $exiTotGen), 2, ',', '.');
+            }
+
+            
+        } else {
+            $bovTotGen = number_format(0 , 2, ',', '.');
+        }
     }
+
+    $charPotrero        = getCantPotrero($potreroJSON, $otAudJSON);
+    $charCategoria      = getCantCategoria($dominio_subJSON, $otAudJSON);
+    $charSubCategoria   = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
 
 <!DOCTYPE html>
@@ -109,39 +180,57 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card border-secondary">
-                            <div class="card-header bg-secondary">
-                                <h4 class="m-b-0 text-white">PROPIETARIOS</h4></div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card bg-light-success border-success">
                             <div class="card-body">
-<?php
-    if ($propietarioJSON['code'] == 200) {
-        foreach ($propietarioJSON['data'] as $propietarioKey=>$propietarioArray) {
-            $row_propietario_00  = $propietarioArray['establecimiento_propietario_codigo'];
-            $row_propietario_01  = $propietarioArray['persona_nombre'].' '.$propietarioArray['persona_apellido'];
-            $row_propietario_02  = $propietarioArray['persona_razon_social'];
-            $row_propietario_03  = $propietarioArray['persona_documento'];
-            $row_propietario_04  = $propietarioArray['persona_telefono'];
-            $row_propietario_05  = $propietarioArray['persona_correo_electronico'];
-?>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <p class="card-text"><span style="font-weight:bold;">Persona:</span> <?php echo $row_propietario_01; ?></p>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA AUDITADA <?php echo $bovTotGen; ?>%</h4>
+                                <div class="d-flex no-block">
+                                    <div class="align-self-end no-shrink">
+                                        <h6 class="text-muted">Cantidad Existencia</h6>
+                                        <h2 id="totExi" value="<?php echo $exiTotGen; ?>" class="m-b-0"><?php echo number_format($exiTotGen, 0, ',', '.'); ?></h2>
+                                        <br><br>
+                                        <h6 class="text-muted">Cantidad Auditada</h6>
+                                        <h2 id="totAud" value="<?php echo $audTotGen; ?>" class="m-b-0"><?php echo number_format($audTotGen, 0, ',', '.'); ?></h2>
                                     </div>
-                                    <div class="col-md-3">
-                                        <p class="card-text"><span style="font-weight:bold;">Raz&oacute;n Social:</span>  <?php echo $row_propietario_02; ?></p>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="card-text"><span style="font-weight:bold;">Tel&eacute;fono:</span>  <?php echo $row_propietario_04; ?></p>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="card-text"><span style="font-weight:bold;">Email:</span> <?php echo $row_propietario_05; ?></p>
+                                    <div class="ml-auto">
+                                        <div id="cantPoblacionRealizado"></div>
                                     </div>
                                 </div>
-                                <?php
-        }
-    }
-?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X POTRERO (AUDITADA)</h4>
+                                <div id="cantPoblacionxPotrero">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X CATEGOR&Iacute;A (AUDITADA)</h4>
+                                <div id="cantPoblacionxCategoria"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X SUBCATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
+                                <div id="cantPoblacionxSubCategoria">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -696,6 +785,175 @@
 <?php
     }
 ?>
+
+    <script>
+        $(function() {
+            'use strict';
+
+            var totExi = $('#totExi').attr('value');
+	        var totAud = $('#totAud').attr('value');
+	        var totRea = (totAud * 100) / totExi;
+            
+            totRea = totRea.toFixed(2);
+
+            var chart_01 = c3.generate({
+                bindto: "#cantPoblacionRealizado",
+                data: {
+                    columns: [
+                        ["TOTAL AUDITADA " + totAud, totRea]
+                    ],
+                    type: "gauge",
+                        onclick: function(d, i) {
+                            console.log("onclick", d, i);
+                        },
+                        onmouseover: function(d, i) {
+                            console.log("onmouseover", d, i);
+                        },
+                        onmouseout: function(d, i) {
+                            console.log("onmouseout", d, i);
+                        }
+                },
+                color: {
+                    pattern: ["#20aee3", "#20aee3", "#20aee3", "#24d2b5"],
+                    threshold: {
+                        values: [30, 60, 90, 100]
+                    }
+                },
+                size: {
+                    height: 120,
+                    width: 150
+                },
+                gauge: {
+                    width: 22
+                },
+            });
+    
+            var chart_02 = c3.generate({
+                bindto: "#cantPoblacionxPotrero",
+                data: {
+                    x : "x",
+                    columns: [
+                        ["x", <?php echo $charPotrero[0]; ?>],
+                        ["Cantidad Bovino", <?php echo $charPotrero[1]; ?>],
+                    ],
+                    type: "bar"
+                },
+                color: { 
+                    pattern: ["#4fc3f7"] 
+                },
+                size: { 
+                    height: 270 
+                },
+                axis: { 
+                    rotated: !0,
+                    x: {
+                        type: "category"
+                    }
+                },
+                grid: { 
+                    x: { 
+                        show: true 
+                    },
+                    y: {
+                        show: !0 
+                    }
+                },
+                legend: {
+                    hide: true
+                }
+            });
+
+            var chart_03 = c3.generate({
+                bindto: "#cantPoblacionxCategoria",
+                data: {
+                    x : "x",
+                    columns: [
+                        ["x", <?php echo $charCategoria[0]; ?>],
+                        ["Población Auditada", <?php echo $charCategoria[1]; ?>]
+                    ],
+                    type: "bar"
+                },
+                color: { 
+                    pattern: ["#4fc3f7"] 
+                },
+                size: { 
+                    height: 270 
+                },
+                axis: {
+                    x: {
+                        type: "category"
+                    },
+                    y: {
+                        tick: {
+                            count: 3,
+                            outer: false
+                        }
+                    }
+                },
+                legend: {
+                    hide: false
+                },
+                grid: { 
+                    x: { 
+                        show: true 
+                    },
+                    y: {
+                        show: true
+                    }
+                },
+                bar: {
+                    space: 0.2,
+                    width: 15
+                }
+            });
+
+            var chart_04 = c3.generate({
+                bindto: "#cantPoblacionxSubCategoria",
+                data: {
+                    x : "x",
+                    columns: [
+                        ["x", <?php echo $charSubCategoria[0]; ?>],
+                        ["Población Existencia", <?php echo $charSubCategoria[1]; ?>],
+                        ["Población Auditada", <?php echo $charSubCategoria[2]; ?>]
+                    ],
+                    type: "bar"
+                },
+                color: { 
+                    pattern: ["#ccc", "#4fc3f7"] 
+                },
+                size: { 
+                    height: 270 
+                },
+                axis: {
+                    x: {
+                        type: "category"
+                    },
+                    y: {
+                        tick: {
+                            count: 3,
+                            outer: false
+                        }
+                    }
+                },
+                legend: {
+                    hide: false
+                },
+                grid: { 
+                    x: { 
+                        show: true 
+                    },
+                    y: {
+                        show: true
+                    }
+                },
+                bar: {
+                    space: 0.2,
+                    width: 15
+                }
+            });
+        });
+    </script>
+
     <script src="../js/ot_detalle.js"></script>
 </body>
 </html>

@@ -10,4 +10,167 @@
         $result = date("Ymdhisv");
         return $result;
     }
+
+    function getCantPotrero($dataJSON01, $dataJSON02){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            $charTitulo     = '';
+            $charCantidad   = '';
+            $charBandera    = 0;
+
+            foreach ($dataJSON01['data'] as $potreroKey=>$potreroArray) {
+                $row_potrero_00 = $potreroArray['potrero_codigo'];
+                $row_potrero_01 = $potreroArray['potrero_nombre'];
+    
+                if ($dataJSON02['code'] == 200) {
+                    $totalAnimal = 0;
+            
+                    foreach ($dataJSON02['data'] as $auditadaKey=>$auditadaArray) {
+                        $row_auditada_00  = $auditadaArray['potrero_codigo'];
+                        $row_auditada_01  = $auditadaArray['ot_auditada_cantidad'];
+                        if ($row_auditada_00 == $row_potrero_00) {
+                            $totalAnimal = $totalAnimal + $row_auditada_01;
+                        }
+                    }
+                }
+    
+                if ($totalAnimal > 0) {
+                    if ($charBandera == 0) {
+                        $charBandera    = 1;
+                        $charTitulo     = '"'.$row_potrero_01.'"';
+                        $charCantidad   = $totalAnimal;
+                    } else {
+                        $charTitulo     = $charTitulo.', "'.$row_potrero_01.'"';
+                        $charCantidad   = $charCantidad.', '.$totalAnimal;
+                    }
+                }
+            }
+        }
+
+        $result = array($charTitulo, $charCantidad);
+
+        return $result;
+    }
+
+    function getCantCategoria($dataJSON01, $dataJSON02){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            $charTitulo     = '';
+            $charCantAud    = '';
+            $charBandera    = 0;
+            $totalAuditada  = 0;
+
+            foreach ($dataJSON01['data'] as $dominioKey=>$dominioArray) {
+                $row_dominio_00 = $dominioArray['tipo_codigo'];
+                $row_dominio_01 = $dominioArray['subtipo_codigo'];
+                $row_dominio_02 = $dominioArray['tipo_nombre'];
+
+                if ($dataJSON02['code'] == 200) {
+                    $totalAuditada = 0;
+            
+                    foreach ($dataJSON02['data'] as $auditadaKey=>$auditadaArray) {
+                        $row_auditada_00  = $auditadaArray['categoria_codigo'];
+                        $row_auditada_01  = $auditadaArray['subcategoria_codigo'];
+                        $row_auditada_02  = $auditadaArray['categoria_nombre'];
+                        $row_auditada_03  = $auditadaArray['subcategoria_nombre'];
+                        $row_auditada_04  = $auditadaArray['ot_auditada_cantidad'];
+                        
+                        if (($row_auditada_00 == $row_dominio_00)) {
+                            $totalAuditada = $totalAuditada + $row_auditada_04;
+                        }
+                    }
+                }
+
+                if ($totalAuditada > 0) {
+                    if ($charBandera == 0) {
+                        $charBandera    = 1;
+                        $charTitulo     = '"'.$row_dominio_02.'"';
+                        $charCantAud    = $totalAuditada;
+                    } else {
+                        $charTitulo     = $charTitulo.', "'.$row_dominio_02.'"';
+                        $charCantAud    = $charCantAud.', '.$totalAuditada;
+                    }
+                }
+            }
+        }
+
+        $result = array($charTitulo, $charCantAud);
+
+        return $result;
+    }
+
+    function getCantSubCategoria($dataJSON01, $dataJSON02, $dataJSON03){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            $charTitulo     = '';
+            $charCantExi    = '';
+            $charCantAud    = '';
+            $charBandera    = 0;
+            $totalExistencia= 0;
+            $totalAuditada  = 0;
+
+            foreach ($dataJSON01['data'] as $dominioKey=>$dominioArray) {
+                $row_dominio_00 = $dominioArray['tipo_codigo'];
+                $row_dominio_01 = $dominioArray['subtipo_codigo'];
+    
+                if ($dataJSON02['code'] == 200) {
+                    $charTitulo01    = '';
+                    $totalExistencia = 0;
+            
+                    foreach ($dataJSON02['data'] as $existenciaKey=>$existenciaArray) {
+                        $row_existencia_00  = $existenciaArray['categoria_codigo'];
+                        $row_existencia_01  = $existenciaArray['subcategoria_codigo'];
+                        $row_existencia_02  = $existenciaArray['categoria_nombre'];
+                        $row_existencia_03  = $existenciaArray['subcategoria_nombre'];
+                        $row_existencia_04  = $existenciaArray['ot_existencia_cantidad'];
+
+                        if (($row_existencia_00 == $row_dominio_00) && ($row_existencia_01 == $row_dominio_01)) {
+                            $charTitulo01   = $row_existencia_02.' - '.$row_existencia_03;
+                            $totalExistencia= $totalExistencia + $row_existencia_04;
+                        }
+                    }
+                }
+
+                if ($dataJSON03['code'] == 200) {
+                    $totalAuditada = 0;
+            
+                    foreach ($dataJSON03['data'] as $auditadaKey=>$auditadaArray) {
+                        $row_auditada_00  = $auditadaArray['categoria_codigo'];
+                        $row_auditada_01  = $auditadaArray['subcategoria_codigo'];
+                        $row_auditada_02  = $auditadaArray['categoria_nombre'];
+                        $row_auditada_03  = $auditadaArray['subcategoria_nombre'];
+                        $row_auditada_04  = $auditadaArray['ot_auditada_cantidad'];
+                        
+                        if (($row_auditada_00 == $row_dominio_00) && ($row_auditada_01 == $row_dominio_01)) {
+                            $totalAuditada = $totalAuditada + $row_auditada_04;
+                        }
+
+                        if ($totalExistencia == 0) {
+                            $charTitulo01   = $row_auditada_02.' - '.$row_auditada_03;
+                        }
+                    }
+                }
+
+                if ($totalExistencia > 0 || $totalAuditada > 0) {
+                    if ($charBandera == 0) {
+                        $charBandera    = 1;
+                        $charTitulo     = '"'.$charTitulo01.'"';
+                        $charCantExi    = $totalExistencia;
+                        $charCantAud    = $totalAuditada;
+                    } else {
+                        $charTitulo     = $charTitulo.', "'.$charTitulo01.'"';
+                        $charCantExi    = $charCantExi.', '.$totalExistencia;
+                        $charCantAud    = $charCantAud.', '.$totalAuditada;
+                    }
+                }
+            }
+        }
+
+        $result = array($charTitulo, $charCantExi, $charCantAud);
+
+        return $result;
+    }
 ?>
