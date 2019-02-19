@@ -103,7 +103,7 @@
     }
 
     $charPotrero        = getCantPotrero($potreroJSON, $otAudJSON);
-    $charCategoria      = getCantCategoria($dominio_subJSON, $otAudJSON);
+    $charCategoria      = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
     $charSubCategoria   = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
 
@@ -217,7 +217,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X CATEGOR&Iacute;A (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X CATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
                                 <div id="cantPoblacionxCategoria"></div>
                             </div>
                         </div>
@@ -869,12 +869,13 @@
                     x : "x",
                     columns: [
                         ["x", <?php echo $charCategoria[0]; ?>],
-                        ["Población Auditada", <?php echo $charCategoria[1]; ?>]
+                        ["Población Existencia", <?php echo $charCategoria[1]; ?>],
+                        ["Población Auditada", <?php echo $charCategoria[2]; ?>]
                     ],
                     type: "bar"
                 },
                 color: { 
-                    pattern: ["#4fc3f7"] 
+                    pattern: ["#ccc", "#4fc3f7"] 
                 },
                 size: { 
                     height: 270 
