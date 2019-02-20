@@ -103,6 +103,8 @@
     }
 
     $charPotrero        = getCantPotrero($potreroJSON, $otAudJSON);
+    $charOrigen         = getCantOrigen($potreroJSON, $otAudJSON);
+    $charRaza           = getCantRaza($potreroJSON, $otAudJSON);
     $charCategoria      = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
     $charSubCategoria   = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
@@ -208,6 +210,26 @@
                                 <h4 class="card-title">POBLACI&Oacute;N BOVINA X POTRERO (AUDITADA)</h4>
                                 <div id="cantPoblacionxPotrero">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X ORIGEN (AUDITADA)</h4>
+                                <div id="cantPoblacionxOrigen"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X RAZA (AUDITADA)</h4>
+                                <div id="cantPoblacionxRaza"></div>
                             </div>
                         </div>
                     </div>
@@ -950,6 +972,106 @@
                 bar: {
                     space: 0.2,
                     width: 15
+                }
+            });
+
+            var chart_05 = c3.generate({
+                bindto: "#cantPoblacionxOrigen",
+                data: {
+                    columns: [
+<?php
+    if ($dominioJSON['code'] == 200) {
+        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
+            $row_dominio_00 = $dominioArray['dominio_codigo'];
+            $row_dominio_01 = $dominioArray['dominio_nombre'];
+            $row_dominio_02 = $dominioArray['dominio_valor'];
+
+            if ($row_dominio_02 == 'ANIMALORIGEN') {
+                if ($otAudJSON['code'] == 200) {
+                    $totalAuditada  = 0;
+            
+                    foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+                        $row_auditada_00  = $auditadaArray['origen_codigo'];
+                        $row_auditada_02  = $auditadaArray['origen_nombre'];
+                        $row_auditada_03  = $auditadaArray['ot_auditada_cantidad'];
+
+                        if (($row_auditada_00 == $row_dominio_00)) {
+                            $charTitulo01   = $row_auditada_02;
+                            $totalAuditada  = $totalAuditada + $row_auditada_03;
+                        }
+                    }
+
+                    if ($totalAuditada > 0) {
+?>
+                        ["<?php echo $row_dominio_01; ?>", <?php echo $totalAuditada; ?>],
+<?php
+                    }
+                }
+            }
+        }
+    }
+?>
+                    ],
+                    type: "pie",
+                    onclick: function(o, n) { 
+                        console.log("onclick", o, n) 
+                    },
+                    onmouseover: function(o, n) { 
+                        console.log("onmouseover", o, n) 
+                    },
+                    onmouseout: function(o, n) { 
+                        console.log("onmouseout", o, n) 
+                    }
+                }
+            });
+
+            var chart_06 = c3.generate({
+                bindto: "#cantPoblacionxRaza",
+                data: {
+                    columns: [
+<?php
+    if ($dominioJSON['code'] == 200) {
+        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
+            $row_dominio_00 = $dominioArray['dominio_codigo'];
+            $row_dominio_01 = $dominioArray['dominio_nombre'];
+            $row_dominio_02 = $dominioArray['dominio_valor'];
+
+            if ($row_dominio_02 == 'ANIMALRAZA') {
+                if ($otAudJSON['code'] == 200) {
+                    $totalAuditada  = 0;
+            
+                    foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+                        $row_auditada_00  = $auditadaArray['raza_codigo'];
+                        $row_auditada_02  = $auditadaArray['raza_nombre'];
+                        $row_auditada_03  = $auditadaArray['ot_auditada_cantidad'];
+
+                        if (($row_auditada_00 == $row_dominio_00)) {
+                            $charTitulo01   = $row_auditada_02;
+                            $totalAuditada  = $totalAuditada + $row_auditada_03;
+                        }
+                    }
+
+                    if ($totalAuditada > 0) {
+?>
+                        ["<?php echo $row_dominio_01; ?>", <?php echo $totalAuditada; ?>],
+<?php
+                    }
+                }
+            }
+        }
+    }
+?>
+                    ],
+                    type: "pie",
+                    onclick: function(o, n) { 
+                        console.log("onclick", o, n) 
+                    },
+                    onmouseover: function(o, n) { 
+                        console.log("onmouseover", o, n) 
+                    },
+                    onmouseout: function(o, n) { 
+                        console.log("onmouseout", o, n) 
+                    }
                 }
             });
         });
