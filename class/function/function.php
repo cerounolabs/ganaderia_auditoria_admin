@@ -53,6 +53,34 @@
         return $result;
     }
 
+    function getCantDiaTrabajo($dataJSON01){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            $charTitulo     = '';
+            $charCantidad   = '';
+            $charBandera    = 0;
+
+            foreach ($dataJSON01['data'] as $potreroKey=>$potreroArray) {
+                $row_potrero_00 = $potreroArray['ot_auditada_titulo_2'];
+                $row_potrero_01 = $potreroArray['ot_auditada_cantidad'];
+                
+                if ($charBandera == 0) {
+                    $charBandera    = 1;
+                    $charTitulo     = '"'.$row_potrero_00.'"';
+                    $charCantidad   = $row_potrero_01;
+                } else {
+                    $charTitulo     = $charTitulo.', "'.$row_potrero_00.'"';
+                    $charCantidad   = $charCantidad.', '.$row_potrero_01;
+                }
+            }
+        }
+
+        $result = array($charTitulo, $charCantidad);
+
+        return $result;
+    }
+
     function getCantCategoria($dataJSON01, $dataJSON02, $dataJSON03){
         $result = array();
 

@@ -32,6 +32,7 @@
         $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
         $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
         $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
+        $otAudDiaTraJSON    = get_curl('1200/ot/resumen/dia/'.$workCodigo);
 
         if ($otExiJSON['code'] == 200) {
             $exiTotAdu = 0;
@@ -102,9 +103,17 @@
         }
     }
 
+    function ordenar( $a, $b ) {
+        return strtotime($a['fecha']) - strtotime($b['fecha']);
+    }
+     
+    function mostrar_array($datos) {
+        foreach($datos as $dato) 
+            echo "{$dato['ot_fecha']} -&gt; {$dato['nombre']}<br/>";
+    }
+
+    $charDiaTrabajo     = getCantDiaTrabajo($otAudDiaTraJSON);
     $charPotrero        = getCantPotrero($potreroJSON, $otAudJSON);
-    $charOrigen         = getCantOrigen($potreroJSON, $otAudJSON);
-    $charRaza           = getCantRaza($potreroJSON, $otAudJSON);
     $charCategoria      = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
     $charSubCategoria   = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
@@ -198,6 +207,15 @@
                                         <div id="cantPoblacionRealizado"></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card bg-light-info border-info">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X D&Iacute;A TRABAJO (AUDITADA)</h4>
+                                <div id="cantPoblacionxDiaTrabajo"></div>
                             </div>
                         </div>
                     </div>
@@ -896,9 +914,6 @@
                     ],
                     type: "bar"
                 },
-                color: { 
-                    pattern: ["#ccc", "#4fc3f7"] 
-                },
                 size: { 
                     height: 270 
                 },
@@ -940,9 +955,6 @@
                         ["Población Auditada", <?php echo $charSubCategoria[2]; ?>]
                     ],
                     type: "bar"
-                },
-                color: { 
-                    pattern: ["#ccc", "#4fc3f7"] 
                 },
                 size: { 
                     height: 270 
@@ -1072,6 +1084,50 @@
                     onmouseout: function(o, n) { 
                         console.log("onmouseout", o, n) 
                     }
+                }
+            });
+
+            var chart_07 = c3.generate({
+                bindto: "#cantPoblacionxDiaTrabajo",
+                data: {
+                    x : "x",
+                    columns: [
+                        ["x", <?php echo $charDiaTrabajo[0]; ?>],
+                        ["Población Existencia", <?php echo $charDiaTrabajo[1]; ?>]
+                    ],
+                    type: "bar"
+                },
+                color: { 
+                    pattern: ["#4fc3f7"] 
+                },
+                size: { 
+                    height: 163.6 
+                },
+                axis: {
+                    x: {
+                        type: "category"
+                    },
+                    y: {
+                        tick: {
+                            count: 3,
+                            outer: false
+                        }
+                    }
+                },
+                legend: {
+                    hide: false
+                },
+                grid: { 
+                    x: { 
+                        show: true 
+                    },
+                    y: {
+                        show: true
+                    }
+                },
+                bar: {
+                    space: 0.2,
+                    width: 15
                 }
             });
         });
