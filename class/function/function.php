@@ -11,6 +11,23 @@
         return $result;
     }
 
+    function getColorPositivoNegativo($nro){
+        $result = '';
+
+        if ($nro == 0) {
+            $result = '#3e5569';
+        }
+
+        if ($nro > 0) {
+            $result = '#1ca58f';
+        }
+
+        if ($nro < 0) {
+            $result = '#eb4c4c';
+        }
+        return $result;
+    }
+
     function getCantPotrero($dataJSON01, $dataJSON02){
         $result = array();
 

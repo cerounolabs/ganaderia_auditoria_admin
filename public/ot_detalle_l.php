@@ -33,6 +33,7 @@
         $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
         $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
         $otAudDiaTraJSON    = get_curl('1200/ot/resumen/dia/'.$workCodigo);
+        $propietarioJSON    = get_curl('1400/establecimiento/'.$row_ot_03);
 
         if ($otExiJSON['code'] == 200) {
             $exiTotAdu = 0;
@@ -101,15 +102,6 @@
         } else {
             $bovTotGen = number_format(0 , 2, ',', '.');
         }
-    }
-
-    function ordenar( $a, $b ) {
-        return strtotime($a['fecha']) - strtotime($b['fecha']);
-    }
-     
-    function mostrar_array($datos) {
-        foreach($datos as $dato) 
-            echo "{$dato['ot_fecha']} -&gt; {$dato['nombre']}<br/>";
     }
 
     $charDiaTrabajo     = getCantDiaTrabajo($otAudDiaTraJSON);
@@ -234,7 +226,16 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X PROPIETARIO (AUDITADA)</h4>
+                                <div id="cantPoblacionxPropietario"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N BOVINA X ORIGEN (AUDITADA)</h4>
@@ -243,7 +244,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">POBLACI&Oacute;N BOVINA X RAZA (AUDITADA)</h4>
@@ -278,492 +279,168 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="card border-success">
-                            <div class="card-header bg-success">
-                                <h4 class="m-b-0 text-white">PLANILLA EXISTENCIA</h4>
+                        <div class="card border-info">
+                            <div class="card-header bg-info">
+                                <h4 class="m-b-0 text-white">POBLACI&Oacute;N BOVINA DETALLADA (EXISTENCIA VS AUDITADA)</h4>
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                	<h4 class="col-6 card-title">&nbsp;</h4>
-                                	<h4 class="col-6 card-title" style="text-align: right;">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#existencia-animal"><i class="ti-plus"></i></button>
-                                	</h4>
-								</div>
                                 <div class="table-responsive">
-                                    <table id="tableLoadExistencia" class="table table-striped table-bordered">
-                                        <thead id="tableExistencia" class="<?php echo $workCodigo; ?>">
-                                            <tr>
-                                                <th>ELIMINAR</th>
-                                                <th>ORIGEN</th>
-                                                <th>RAZA</th>
-                                                <th>CATEGOR&Iacute;A</th>
-                                                <th>SUBCATEGOR&Iacute;A</th>
-                                                <th>PESO PROMEDIO</th>
-                                                <th>CANTIDAD</th>
+                                    <table id="tableLoadPoblacionDetallada" class="table table-striped table-bordered">
+                                        <thead id="tablePoblacionDetallada" class="<?php echo $workCodigo; ?>">
+                                            <tr class="text-center">
+                                                <th rowspan="2">ORIGEN</th>
+                                                <th rowspan="2">RAZA</th>
+                                                <th rowspan="2">CATEGOR&Iacute;A</th>
+                                                <th rowspan="2">SUBCATEGOR&Iacute;A</th>
+                                                <th colspan="2">CANTIDAD</th>
+                                                <th rowspan="2">DIFERENCIA</th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <th>EXISTENCIA</th>
+                                                <th>AUDITADA</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 <?php
-    if ($otExiJSON['code'] == 200) {
-        $exiTotAdu = 0;
-        $exiTotTer = 0;
-        $exiTotGen = 0;
+    if (($otExiJSON['code'] == 200) || ($otAudJSON['code'] == 200)) {
+        $totalExiAdulto     = 0;
+        $totalExiTernero    = 0;
+        $totalAudAdulto     = 0;
+        $totalAudTernero    = 0;
 
-        foreach ($otExiJSON['data'] as $existenciaKey=>$existenciaArray) {
-            $row_existencia_00  = $existenciaArray['origen_codigo'];
-            $row_existencia_01  = $existenciaArray['origen_nombre'];
-            $row_existencia_02  = $existenciaArray['raza_codigo'];
-            $row_existencia_03  = $existenciaArray['raza_nombre'];
-            $row_existencia_04  = $existenciaArray['categoria_codigo'];
-            $row_existencia_05  = $existenciaArray['categoria_nombre'];
-            $row_existencia_06  = $existenciaArray['subcategoria_codigo'];
-            $row_existencia_07  = $existenciaArray['subcategoria_nombre'];
-            $row_existencia_08  = 0.00;
-            $row_existencia_09  = $existenciaArray['ot_existencia_cantidad'];
-            $row_existencia_10  = $existenciaArray['ot_existencia_codigo'];
+        foreach ($dominioJSON['data'] as $domOrigenKey=>$domOrigenArray) {
+            $row_origen_00  = $domOrigenArray['dominio_codigo'];
+            $row_origen_01  = $domOrigenArray['dominio_nombre'];
+            $row_origen_02  = $domOrigenArray['dominio_valor'];
 
-            if ($row_existencia_04 == 40) {
-                $exiTotTer = $exiTotTer + $row_existencia_09;
-            } else {
-                $exiTotAdu = $exiTotAdu + $row_existencia_09;
-            }
+            if ($row_origen_02 == 'ANIMALORIGEN') {
+                foreach ($dominioJSON['data'] as $domRazaKey=>$domRazaArray) {
+                    $row_raza_00  = $domRazaArray['dominio_codigo'];
+                    $row_raza_01  = $domRazaArray['dominio_nombre'];
+                    $row_raza_02  = $domRazaArray['dominio_valor'];
+
+                    if ($row_raza_02 == 'ANIMALRAZA') {
+                        foreach ($dominio_subJSON['data'] as $domCategoriaKey=>$domCategoriaArray) {
+                            $row_categoria_00  = $domCategoriaArray['tipo_subtipo_codigo'];
+                            $row_categoria_01  = $domCategoriaArray['tipo_subtipo_valor'];
+                            $row_categoria_02  = $domCategoriaArray['tipo_codigo'];
+                            $row_categoria_03  = $domCategoriaArray['tipo_nombre'];
+                            $row_categoria_04  = $domCategoriaArray['tipo_valor'];
+                            $row_categoria_05  = $domCategoriaArray['subtipo_codigo'];
+                            $row_categoria_06  = $domCategoriaArray['subtipo_nombre'];
+                            $row_categoria_07  = $domCategoriaArray['subtipo_valor'];
+
+                            if ($row_categoria_01 == 'CATEGORIASUBCATEGORIA') {
+                                if ($otExiJSON['code'] == 200) {
+                                    $totalExistencia = 0;
+                            
+                                    foreach ($otExiJSON['data'] as $existenciaKey=>$existenciaArray) {
+                                        $row_existencia_00  = $existenciaArray['origen_codigo'];
+                                        $row_existencia_01  = $existenciaArray['raza_codigo'];
+                                        $row_existencia_02  = $existenciaArray['categoria_codigo'];
+                                        $row_existencia_03  = $existenciaArray['subcategoria_codigo'];
+                                        $row_existencia_04  = $existenciaArray['ot_existencia_cantidad'];
+                
+                                        if (($row_existencia_00 == $row_origen_00) && ($row_existencia_01 == $row_raza_00) && ($row_existencia_02 == $row_categoria_02) && ($row_existencia_03 == $row_categoria_05)) {
+                                            $totalExistencia = $totalExistencia + $row_existencia_04;
+
+                                            if ($row_existencia_02 == 40) {
+                                                $totalExiTernero    = $totalExiTernero + $row_existencia_04;
+                                            } else {
+                                                $totalExiAdulto     = $totalExiAdulto + $row_existencia_04;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($otAudJSON['code'] == 200) {
+                                    $totalAuditada = 0;
+                            
+                                    foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+                                        $row_auditada_00  = $auditadaArray['origen_codigo'];
+                                        $row_auditada_01  = $auditadaArray['raza_codigo'];
+                                        $row_auditada_02  = $auditadaArray['categoria_codigo'];
+                                        $row_auditada_03  = $auditadaArray['subcategoria_codigo'];
+                                        $row_auditada_04  = $auditadaArray['ot_auditada_cantidad'];
+                
+                                        if (($row_auditada_00 == $row_origen_00) && ($row_auditada_01 == $row_raza_00) && ($row_auditada_02 == $row_categoria_02) && ($row_auditada_03 == $row_categoria_05)) {
+                                            $totalAuditada = $totalAuditada + $row_auditada_04;
+
+                                            if ($row_auditada_02 == 40) {
+                                                $totalAudTernero    = $totalAudTernero + $row_auditada_04;
+                                            } else {
+                                                $totalAudAdulto     = $totalAudAdulto + $row_auditada_04;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (($totalExistencia > 0) || ($totalAuditada > 0) ) {
+                                    $totalDiferencia = $totalAuditada - $totalExistencia;
+                                    $styleDiferencia = getColorPositivoNegativo($totalDiferencia);
 ?>
                                             <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success" onclick="deteleItem(<?php echo $workCodigo; ?>, 1100, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
-                                                </td>
-                                                <td> <?php echo $row_existencia_01; ?> </td>
-                                                <td> <?php echo $row_existencia_03; ?> </td>
-                                                <td> <?php echo $row_existencia_05; ?> </td>
-                                                <td> <?php echo $row_existencia_07; ?> </td>
-                                                <td class="text-right"> <?php echo $row_existencia_08; ?> </td>
-                                                <td class="text-right"> <?php echo $row_existencia_09; ?> </td>
+                                                <td> <?php echo $row_origen_01; ?> </td>
+                                                <td> <?php echo $row_raza_01; ?> </td>
+                                                <td> <?php echo $row_categoria_03; ?> </td>
+                                                <td> <?php echo $row_categoria_06; ?> </td>
+                                                <td class="text-right"> <?php echo $totalExistencia; ?> </td>
+                                                <td class="text-right"> <?php echo $totalAuditada; ?> </td>
+                                                <td class="text-right" style="color:<?php echo $styleDiferencia; ?>;"> <?php echo $totalDiferencia; ?> </td>
                                             </tr>
 <?php
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-        $exiTotGen = $exiTotTer + $exiTotAdu;
     }
+
+    $totalDifAdulto     = $totalAudAdulto - $totalExiAdulto;
+    $totalDifTernero    = $totalAudTernero - $totalExiTernero;
+
+    $totalExiGeneral    = $totalExiAdulto + $totalExiTernero;
+    $totalAudGeneral    = $totalAudAdulto + $totalAudTernero;
+    $totalDifGeneral    = $totalAudGeneral - $totalExiGeneral;
+
+    $styleDifAdulto     = getColorPositivoNegativo($totalDifAdulto);
+    $styleDifTernero    = getColorPositivoNegativo($totalDifTernero);
+    $styleDifGeneral    = getColorPositivoNegativo($totalDifGeneral);
 ?>
                                         </tbody>
                                         <tfoot>
-                                            <tr>
-                                                <th>ELIMINAR</th>
+                                            <tr class="text-center">
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
                                                 <th>SUBCATEGOR&Iacute;A</th>
-                                                <th>PESO PROMEDIO</th>
-                                                <th>CANTIDAD</th>
+                                                <th>EXISTENCIA</th>
+                                                <th>AUDITADA</th>
+                                                <th>DIFERENCIA</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL ADULTO</th>
-                                                <th style="text-align:right;"><?php echo number_format($exiTotAdu, 0, ',', '.'); ?></th>
+                                                <th colspan="4">TOTAL ADULTO</th>
+                                                <th style="text-align:right;"><?php echo number_format($totalExiAdulto, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right;"><?php echo number_format($totalAudAdulto, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right; color:<?php echo $styleDifAdulto; ?>;"><?php echo number_format($totalDifAdulto, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="6">TOTAL TENERO</th>
-                                                <th style="text-align:right;"><?php echo number_format($exiTotTer, 0, ',', '.'); ?></th>
+                                                <th colspan="4">TOTAL TENERO</th>
+                                                <th style="text-align:right;"><?php echo number_format($totalExiTernero, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right;"><?php echo number_format($totalAudTernero, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right; color:<?php echo $styleDifTernero; ?>;"><?php echo number_format($totalDifTernero, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
-                                                <th style="text-align:right;"><?php echo number_format($exiTotGen, 0, ',', '.'); ?></th>
+                                                <th colspan="4">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th style="text-align:right;"><?php echo number_format($totalExiGeneral, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right;"><?php echo number_format($totalAudGeneral, 0, ',', '.'); ?></th>
+                                                <th style="text-align:right; color:<?php echo $styleDifGeneral; ?>;"><?php echo number_format($totalDifGeneral, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card border-danger">
-                            <div class="card-header bg-danger">
-                                <h4 class="m-b-0 text-white">PLANILLA AUDITADA</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                	<h4 class="col-10 card-title">&nbsp;</h4>
-                                    <h4 class="col-2 card-title" style="text-align: right;">
-                                		<a class="btn btn-danger" href="../public/ot_detalle_auditada_m.php?id1=<?php echo $row_ot_03; ?>&mode=C&codigo=<?php echo $workCodigo; ?>" role="button" title="Agregar"><i class="ti-plus"></i></a>
-                                	</h4>
-								</div>
-                                <div class="table-responsive">
-                                    <table id="tableLoadAuditada" class="table table-striped table-bordered">
-                                        <thead id="tableAuditada" class="<?php echo $workCodigo; ?>">
-                                            <tr>
-                                                <th>ELIMINAR</th>
-                                                <th>ORIGEN</th>
-                                                <th>RAZA</th>
-                                                <th>CATEGOR&Iacute;A</th>
-                                                <th>SUBCATEGOR&Iacute;A</th>
-                                                <th>PESO PROMEDIO</th>
-                                                <th>CANTIDAD</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-<?php
-    if ($otAudJSON['code'] == 200) {
-        $audTotAdu = 0;
-        $audTotTer = 0;
-        $audTotGen = 0;
-
-        foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
-            $row_auditada_00  = $auditadaArray['origen_codigo'];
-            $row_auditada_01  = $auditadaArray['origen_nombre'];
-            $row_auditada_02  = $auditadaArray['raza_codigo'];
-            $row_auditada_03  = $auditadaArray['raza_nombre'];
-            $row_auditada_04  = $auditadaArray['categoria_codigo'];
-            $row_auditada_05  = $auditadaArray['categoria_nombre'];
-            $row_auditada_06  = $auditadaArray['subcategoria_codigo'];
-            $row_auditada_07  = $auditadaArray['subcategoria_nombre'];
-            $row_auditada_08  = $auditadaArray['ot_auditada_peso'];
-            $row_auditada_09  = $auditadaArray['ot_auditada_cantidad'];
-
-            if ($row_auditada_04 == 40) {
-                $audTotTer = $audTotTer + $row_auditada_09;
-            } else {
-                $audTotAdu = $audTotAdu + $row_auditada_09;
-            }
-?>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
-                                                </td>
-                                                <td> <?php echo $row_auditada_01; ?> </td>
-                                                <td> <?php echo $row_auditada_03; ?> </td>
-                                                <td> <?php echo $row_auditada_05; ?> </td>
-                                                <td> <?php echo $row_auditada_07; ?> </td>
-                                                <td class="text-right"> <?php echo $row_auditada_08; ?></td>
-                                                <td class="text-right"> <?php echo $row_auditada_09; ?> </td>
-                                            </tr>
-<?php
-        }
-
-        $audTotGen = $audTotTer + $audTotAdu;
-    }
-?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ELIMINAR</th>
-                                                <th>ORIGEN</th>
-                                                <th>RAZA</th>
-                                                <th>CATEGOR&Iacute;A</th>
-                                                <th>SUBCATEGOR&Iacute;A</th>
-                                                <th>PESO PROMEDIO</th>
-                                                <th>CANTIDAD</th>
-                                            </tr>
-                                            <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL ADULTO</th>
-                                                <th style="text-align:right;"><?php echo number_format($audTotAdu, 0, ',', '.'); ?></th>
-                                            </tr>
-                                            <tr style="font-weight: bold;">
-                                                <th colspan="6">TOTAL TENERO</th>
-                                                <th style="text-align:right;"><?php echo number_format($audTotTer, 0, ',', '.'); ?></th>
-                                            </tr>
-                                            <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
-                                                <th style="text-align:right;"><?php echo number_format($audTotGen, 0, ',', '.'); ?></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div id="existencia-animal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="existenciaAnimal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="existenciaAnimal">Agregar Animal</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal form-material" method="post" action="../class/crud/ot_existencia_a.php">
-                                        <div class="form-group">
-                                            <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
-                                            <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="C" required readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="existenciaOrigen">Origen</label>
-                                            <select id="existenciaOrigen" name="existenciaOrigen" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-                                                <optgroup label="Origen">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_tipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_tipo_01          	= $dominioArray['dominio_codigo'];
-            $row_tipo_02          	= $dominioArray['dominio_nombre'];
-            $row_tipo_03          	= $dominioArray['dominio_valor'];
-            $row_tipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedTipo 			= '';
-
-            if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALORIGEN') {
-                if ($row_tipo_01 == 20){
-                    $selectedTipo = 'selected';
-                }
-?>
-												    <option value="<?php echo $row_tipo_01; ?>" <?php echo $selectedTipo; ?>><?php echo $row_tipo_02; ?></option>
-<?php
-            }
-        }
-    }
-?>
-												</optgroup>
-								            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="existenciaRaza">Raza</label>
-                                            <select id="existenciaRaza" name="existenciaRaza" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-									            <optgroup label="Raza">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_tipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_tipo_01          	= $dominioArray['dominio_codigo'];
-            $row_tipo_02          	= $dominioArray['dominio_nombre'];
-            $row_tipo_03          	= $dominioArray['dominio_valor'];
-            $row_tipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedTipo 			= '';
-
-            if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALRAZA') {
-                if ($row_tipo_01 == 86){
-                    $selectedTipo = 'selected';
-                }
-?>
-												    <option value="<?php echo $row_tipo_01; ?>" <?php echo $selectedTipo; ?>><?php echo $row_tipo_02; ?></option>
-<?php
-            }
-        }
-    }
-?>
-												</optgroup>
-								            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="existenciaCategoria">Categor&iacute;as - SubCategor&iacute;as</label>
-                                            <select id="existenciaCategoria" name="existenciaCategoria" class="select2 form-control custom-select" style="width: 100%; height:36px;">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_dominio_00      	= $dominioArray['dominio_codigo'];
-            $row_dominio_01      	= $dominioArray['estado_dominio_codigo'];
-            $row_dominio_02      	= $dominioArray['dominio_nombre'];
-            $row_dominio_03      	= $dominioArray['dominio_valor'];
-
-            if ($row_dominio_01 == 1 && $row_dominio_03 == "ANIMALCATEGORIA") {
-?>
-                                  			    <optgroup label="<?php echo $row_dominio_02; ?>">
-								
-<?php
-                if ($dominio_subJSON['code'] == 200) {
-                    foreach ($dominio_subJSON['data'] as $dominio_subKey=>$dominio_subArray) {
-                        $row_dominio_sub_00      	= $dominio_subArray['tipo_subtipo_codigo'];
-                        $row_dominio_sub_01      	= $dominio_subArray['estado_tipo_subtipo_codigo'];
-                        $row_dominio_sub_02      	= $dominio_subArray['estado_tipo_subtipo_nombre'];
-                        $row_dominio_sub_03      	= $dominio_subArray['subtipo_codigo'];
-                        $row_dominio_sub_04      	= $dominio_subArray['subtipo_nombre'];
-                        $row_dominio_sub_05      	= $dominio_subArray['tipo_codigo'];
-                        $row_dominio_sub_06      	= $dominio_subArray['tipo_nombre'];
-			
-			            if ($row_dominio_00 == $row_dominio_sub_05) {
-?>
-												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option>
-<?php
-			            }
-		            }
-	            }
-?>
-                                    		    </optgroup>
-<?php
-		    }
-        }
-    }
-?>
-                                		    </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="existenciaCantidad">Cantidad</label>
-                                            <input id="existenciaCantidad" name="existenciaCantidad" class="form-control" type="number" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="existenciaObservacion">Observaci&oacute;n</label>
-                                            <textarea id="existenciaObservacion" name="existenciaObservacion" class="form-control" rows="5"></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-info waves-effect">Guardar</button>
-                                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
-                                        </div>
-                                    </form>
-                                </div>      
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div id="auditada-animal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="auditadaAnimal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="auditadaAnimal">Agregar Animal</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal form-material" method="post" action="../class/crud/ot_auditada_a.php">
-                                        <div class="form-group">
-                                            <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
-                                            <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="C" required readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaPotrero">Secci&oacute;n - Potrero</label>
-                                            <select id="auditadaPotrero" name="auditadaPotrero" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-                                                <optgroup label="Secci&oacute;n - Potrero">
-<?php
-    if ($potreroJSON['code'] == 200) {
-        foreach ($potreroJSON['data'] as $potreroKey=>$potreroArray) {
-            $row_potrero_00          	= $potreroArray['potrero_codigo'];
-            $row_potrero_01          	= $potreroArray['estado_potrero_codigo'];
-            $row_potrero_02          	= $potreroArray['seccion_nombre'];
-            $row_potrero_03          	= $potreroArray['potrero_nombre'];
-            $selectedTipo 			= '';
-
-            if ($row_potrero_01 == 1) {
-?>
-												    <option value="<?php echo $row_potrero_00; ?>"><?php echo $row_potrero_02 .' - '.$row_potrero_03; ?></option>
-<?php
-            }
-        }
-    }
-?>
-												</optgroup>
-								            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaOrigen">Origen</label>
-                                            <select id="auditadaOrigen" name="auditadaOrigen" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-                                                <optgroup label="Origen">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_tipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_tipo_01          	= $dominioArray['dominio_codigo'];
-            $row_tipo_02          	= $dominioArray['dominio_nombre'];
-            $row_tipo_03          	= $dominioArray['dominio_valor'];
-            $row_tipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedTipo 			= '';
-
-            if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALORIGEN') {
-                if ($row_tipo_01 == 20){
-                    $selectedTipo = 'selected';
-                }
-?>
-												    <option value="<?php echo $row_tipo_01; ?>" <?php echo $selectedTipo; ?>><?php echo $row_tipo_02; ?></option>
-<?php
-            }
-        }
-    }
-?>
-												</optgroup>
-								            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaRaza">Raza</label>
-                                            <select id="auditadaRaza" name="auditadaRaza" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-									            <optgroup label="Raza">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_tipo_00          	= $dominioArray['estado_dominio_codigo'];
-            $row_tipo_01          	= $dominioArray['dominio_codigo'];
-            $row_tipo_02          	= $dominioArray['dominio_nombre'];
-            $row_tipo_03          	= $dominioArray['dominio_valor'];
-            $row_tipo_04         	= $dominioArray['dominio_observacion'];
-            $selectedTipo 			= '';
-
-            if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALRAZA') {
-                if ($row_tipo_01 == 86){
-                    $selectedTipo = 'selected';
-                }
-?>
-												    <option value="<?php echo $row_tipo_01; ?>" <?php echo $selectedTipo; ?>><?php echo $row_tipo_02; ?></option>
-<?php
-            }
-        }
-    }
-?>
-												</optgroup>
-								            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaCategoria">Categor&iacute;as - SubCategor&iacute;as</label>
-                                            <select id="auditadaCategoria" name="auditadaCategoria" class="select2 form-control custom-select" style="width: 100%; height:36px;">
-<?php
-    if ($dominioJSON['code'] == 200) {
-        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
-            $row_dominio_00      	= $dominioArray['dominio_codigo'];
-            $row_dominio_01      	= $dominioArray['estado_dominio_codigo'];
-            $row_dominio_02      	= $dominioArray['dominio_nombre'];
-            $row_dominio_03      	= $dominioArray['dominio_valor'];
-
-            if ($row_dominio_01 == 1 && $row_dominio_03 == "ANIMALCATEGORIA") {
-?>
-                                  			    <optgroup label="<?php echo $row_dominio_02; ?>">
-								
-<?php
-                if ($dominio_subJSON['code'] == 200) {
-                    foreach ($dominio_subJSON['data'] as $dominio_subKey=>$dominio_subArray) {
-                        $row_dominio_sub_00      	= $dominio_subArray['tipo_subtipo_codigo'];
-                        $row_dominio_sub_01      	= $dominio_subArray['estado_tipo_subtipo_codigo'];
-                        $row_dominio_sub_02      	= $dominio_subArray['estado_tipo_subtipo_nombre'];
-                        $row_dominio_sub_03      	= $dominio_subArray['subtipo_codigo'];
-                        $row_dominio_sub_04      	= $dominio_subArray['subtipo_nombre'];
-                        $row_dominio_sub_05      	= $dominio_subArray['tipo_codigo'];
-                        $row_dominio_sub_06      	= $dominio_subArray['tipo_nombre'];
-			
-			            if ($row_dominio_00 == $row_dominio_sub_05) {
-?>
-												    <option value="<?php echo $row_dominio_sub_00; ?>"><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option>
-<?php
-			            }
-		            }
-	            }
-?>
-                                    		    </optgroup>
-<?php
-		    }
-        }
-    }
-?>
-                                		    </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaFecha">Fecha</label>
-                                            <input id="auditadaFecha" name="auditadaFecha" class="form-control" type="date" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaCantidad">Cantidad</label>
-                                            <input id="auditadaCantidad" name="auditadaCantidad" class="form-control" type="number" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaPesoPromedio">Peso Promedio</label>
-                                            <input id="auditadaPesoPromedio" name="auditadaPesoPromedio" class="form-control" type="number" step=".01" value="0">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="auditadaObservacion">Observaci&oacute;n</label>
-                                            <textarea id="auditadaObservacion" name="auditadaObservacion" class="form-control" rows="5"></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-info waves-effect">Guardar</button>
-                                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
-                                        </div>
-                                    </form>
-                                </div>      
                             </div>
                         </div>
                     </div>
@@ -988,6 +665,53 @@
             });
 
             var chart_05 = c3.generate({
+                bindto: "#cantPoblacionxPropietario",
+                data: {
+                    columns: [
+<?php
+    if ($propietarioJSON['code'] == 200) {
+        foreach ($propietarioJSON['data'] as $propietarioKey=>$propietarioArray) {
+            $row_propietario_00 = $propietarioArray['persona_codigo'];
+            $row_propietario_01 = $propietarioArray['establecimiento_propietario_marca'];
+
+            if ($otAudJSON['code'] == 200) {
+                $totalAuditada  = 0;
+        
+                foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
+                    $row_auditada_00  = $auditadaArray['propietario_codigo'];
+                    $row_auditada_02  = $auditadaArray['propietario_marca'];
+                    $row_auditada_03  = $auditadaArray['ot_auditada_cantidad'];
+
+                    if (($row_auditada_00 == $row_propietario_00)) {
+                        $charTitulo01   = $row_auditada_02;
+                        $totalAuditada  = $totalAuditada + $row_auditada_03;
+                    }
+                }
+
+                if ($totalAuditada > 0) {
+?>
+                        ["<?php echo $charTitulo01; ?>", <?php echo $totalAuditada; ?>],
+<?php
+                }
+            }
+        }
+    }
+?>
+                    ],
+                    type: "pie",
+                    onclick: function(o, n) { 
+                        console.log("onclick", o, n) 
+                    },
+                    onmouseover: function(o, n) { 
+                        console.log("onmouseover", o, n) 
+                    },
+                    onmouseout: function(o, n) { 
+                        console.log("onmouseout", o, n) 
+                    }
+                }
+            });
+
+            var chart_06 = c3.generate({
                 bindto: "#cantPoblacionxOrigen",
                 data: {
                     columns: [
@@ -1037,7 +761,7 @@
                 }
             });
 
-            var chart_06 = c3.generate({
+            var chart_07 = c3.generate({
                 bindto: "#cantPoblacionxRaza",
                 data: {
                     columns: [
@@ -1087,7 +811,7 @@
                 }
             });
 
-            var chart_07 = c3.generate({
+            var chart_08 = c3.generate({
                 bindto: "#cantPoblacionxDiaTrabajo",
                 data: {
                     x : "x",
