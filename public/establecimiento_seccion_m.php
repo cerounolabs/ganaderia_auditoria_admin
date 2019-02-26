@@ -63,8 +63,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Establecimiento Secci&oacute;n</title>
 </head>
 
 <body>

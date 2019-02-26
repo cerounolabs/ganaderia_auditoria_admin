@@ -36,8 +36,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Par&aacute;metro <?php echo $dominioTitulo; ?></title>
 </head>
 
 <body>

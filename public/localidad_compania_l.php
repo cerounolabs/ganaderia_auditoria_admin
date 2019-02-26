@@ -11,8 +11,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Localidad Compa&ntilde;ia</title>
 </head>
 
 <body>

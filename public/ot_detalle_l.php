@@ -30,7 +30,7 @@
         $dominioJSON        = get_curl('500');
         $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
         $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
-        $otExiJSON          = get_curl('1100/ot/'.$workCodigo);
+        $otExiJSON          = get_curl('1100/ot/detalle/'.$workCodigo);
         $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
         $otAudDiaTraJSON    = get_curl('1200/ot/resumen/dia/'.$workCodigo);
         $propietarioJSON    = get_curl('1400/establecimiento/'.$row_ot_03);
@@ -117,8 +117,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - O.T. Ficha</title>
 </head>
 
 <body>

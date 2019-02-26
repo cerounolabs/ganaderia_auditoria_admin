@@ -64,8 +64,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Establecimiento Propietario</title>
 </head>
 
 <body>

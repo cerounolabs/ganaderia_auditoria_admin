@@ -13,8 +13,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Home</title>
 </head>
 
 <body>

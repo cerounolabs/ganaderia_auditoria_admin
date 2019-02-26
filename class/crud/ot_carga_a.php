@@ -49,7 +49,7 @@
 		}
 	}
 
-	header('Location: ../../public/ot_detalle_l.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
+	header('Location: ../../public/ot_carga_m.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>

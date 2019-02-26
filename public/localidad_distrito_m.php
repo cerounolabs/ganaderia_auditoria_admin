@@ -66,8 +66,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Localidad Distrito</title>
 </head>
 
 <body>

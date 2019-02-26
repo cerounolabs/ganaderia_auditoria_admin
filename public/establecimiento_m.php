@@ -70,8 +70,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Establecimiento</title>
 </head>
 
 <body>

@@ -76,8 +76,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Persona</title>
 </head>
 
 <body>

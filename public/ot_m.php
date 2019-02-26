@@ -56,8 +56,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Orden de Trabajo</title>
 </head>
 
 <body>

@@ -13,8 +13,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Establecimiento Potrero</title>
 </head>
 
 <body>

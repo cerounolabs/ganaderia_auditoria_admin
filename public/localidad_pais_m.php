@@ -58,8 +58,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Localidad Pa&iacute;s</title>
 </head>
 
 <body>

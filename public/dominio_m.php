@@ -135,8 +135,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Par&aacute;metro Tipo Dominio</title>
 </head>
 
 <body>

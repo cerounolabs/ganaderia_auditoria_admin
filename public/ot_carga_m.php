@@ -2,14 +2,7 @@
     require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
-?>
 
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-
-<head>
-<?php
-    include '../include/header.php';
     $workEstablecimiento    = $_GET['id1'];
     $workCodigo             = $_GET['codigo'];
     $workModo               = $_GET['mode'];
@@ -18,8 +11,14 @@
     $potreroJSON            = get_curl('900/establecimiento/'.$workEstablecimiento);
     $propietarioJSON        = get_curl('1400/establecimiento/'.$workEstablecimiento);
 ?>
-	
-	<title>Panel Administrador - Orden de Trabajo Planilla Auditada</title>
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+<?php
+    include '../include/header.php';
+?>
 </head>
 
 <body>
@@ -60,7 +59,7 @@
                                         <a href="../public/home.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="../public/ot_detalle_l.php?mode=R&codigo=<?php echo $workCodigo; ?>">Orden de Trabajo Detalle</a>
+                                        <a href="../public/ot_carga_l.php?mode=R&codigo=<?php echo $workCodigo; ?>">Orden de Trabajo Detalle</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Orden de Trabajo Carga</li>
                                 </ol>
@@ -84,13 +83,25 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/ot_auditada_a.php">
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/ot_carga_a.php">
                                     <div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="auditadaTipo"> Tipo </label>
+                                                <select id="auditadaTipo" name="auditadaTipo" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?> required>
+                                                    <optgroup label="Tipo">
+												        <option value="1"> Planilla Existencia </option>
+                                                        <option value="2"> Planilla Auditada </option>
+												    </optgroup>
+								                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="auditadaPotrero">Secci&oacute;n - Potrero</label>
                                                 <select id="auditadaPotrero" name="auditadaPotrero" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?> required>
@@ -116,13 +127,15 @@
 								                </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+
+                                        <div class="col-sm-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="auditadaFecha">Fecha</label>
                                                 <input id="auditadaFecha" name="auditadaFecha" class="form-control" type="date" placeholder="Nombre" required>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="table-responsive">
                                         <table id="tableLoad" class="table table-striped table-bordered">
                                             <thead>
@@ -1373,7 +1386,7 @@
                                     <br/>
                                     <br/>
                                     <button type="submit" class="btn btn-info"> Guardar </button>
-                                    <a role="button" class="btn btn-dark" href="../public/ot_detalle_l.php?mode=R&codigo=<?php echo $workCodigo; ?>">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/ot_carga_l.php?mode=R&codigo=<?php echo $workCodigo; ?>">Volver</a>
                                 </form>
                             </div>
                         </div>
@@ -1415,9 +1428,27 @@
     <div class="chat-windows"></div>
 <?php
     include '../include/footer.php';
+
+    if ($codeRest == 200) {
 ?>
+    <script>
+        $(function() {
+            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
+        });
+    </script>
+<?php
+    }
     
-    <script src="#"></script>
+    if ($codeRest == 204) {
+?>
+    <script>
+        $(function() {
+            toastr.error('<?php echo $msgRest; ?>', 'Error!');
+        });
+    </script>
+<?php
+    }
+?>
     <script>
         function sumaTotal() {
             var rowTotAdu = document.getElementById("totalCantAdulto");

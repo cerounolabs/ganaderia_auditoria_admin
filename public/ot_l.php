@@ -11,8 +11,6 @@
 <?php
     include '../include/header.php';
 ?>
-	
-	<title>Panel Administrador - Orden de Trabajo</title>
 </head>
 
 <body>
@@ -90,6 +88,7 @@
                                                 <th>FECHA INICIO</th>
                                                 <th>O.T.</th>
                                                 <th>DETALLE</th>
+                                                <th>CARGA</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -101,6 +100,7 @@
                                                 <th>FECHA INICIO</th>
                                                 <th>O.T.</th>
                                                 <th>DETALLE</th>
+                                                <th>CARGA</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </tfoot>
