@@ -3,13 +3,33 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-    $workEstablecimiento    = $_GET['id1'];
     $workCodigo             = $_GET['codigo'];
     $workModo               = $_GET['mode'];
     $dominioJSON            = get_curl('500');
     $dominio_subJSON        = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
-    $potreroJSON            = get_curl('900/establecimiento/'.$workEstablecimiento);
-    $propietarioJSON        = get_curl('1400/establecimiento/'.$workEstablecimiento);
+
+    if ($workCodigo <> 0) {
+        $otJSON             = get_curl('1000/'.$workCodigo);
+        
+		if ($otJSON['code'] == 200){
+			$row_ot_00  = $otJSON['data'][0]['ot_codigo'];
+			$row_ot_01	= $otJSON['data'][0]['estado_ot_codigo'];
+			$row_ot_02	= $otJSON['data'][0]['estado_ot_nombre'];
+			$row_ot_03	= $otJSON['data'][0]['establecimiento_codigo'];
+			$row_ot_04	= $otJSON['data'][0]['establecimiento_nombre'];
+			$row_ot_05	= $otJSON['data'][0]['establecimiento_sigor'];
+			$row_ot_06	= $otJSON['data'][0]['establecimiento_observacion'];
+			$row_ot_07	= $otJSON['data'][0]['ot_numero'];
+            $row_ot_08	= $otJSON['data'][0]['ot_fecha_inicio_trabajo'];
+            $row_ot_09	= $otJSON['data'][0]['ot_fecha_inicio_trabajo_2'];
+            $row_ot_10	= $otJSON['data'][0]['ot_fecha_final_trabajo'];
+            $row_ot_11	= $otJSON['data'][0]['ot_fecha_final_trabajo_2'];
+            $row_ot_12	= $otJSON['data'][0]['ot_observacion'];
+        }
+
+        $potreroJSON            = get_curl('900/establecimiento/'.$row_ot_03);
+        $propietarioJSON        = get_curl('1400/establecimiento/'.$row_ot_03);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -45,29 +65,7 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Carga de Planilla Auditada</h4>
-                        <div class="d-flex align-items-center"></div>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex no-block justify-content-end align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="../public/home.php">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="../public/ot_carga_l.php?mode=R&codigo=<?php echo $workCodigo; ?>">Orden de Trabajo Detalle</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Orden de Trabajo Carga</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -81,7 +79,35 @@
                 <!-- basic table -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary">
+                                <h4 class="m-b-0 text-white"><?php echo $row_ot_04; ?></h4></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Estado:</span> <?php echo $row_ot_02; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Fecha Inicio:</span>  <?php echo $row_ot_09; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">Fecha Fin:</span>  <?php echo $row_ot_11; ?></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="card-text"><span style="font-weight:bold;">O.T. Nro.:</span> <?php echo $row_ot_07; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-info">
+                            <div class="card-header bg-info">
+                                <h4 class="m-b-0 text-white">O.T. CARGA</h4>
+                            </div>
                             <div class="card-body">
                                 <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/ot_carga_a.php">
                                     <div class="form-group">
