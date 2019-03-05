@@ -3,45 +3,58 @@
 
 	require '../../class/function/curl_api.php';
 
-	$val01                          = $_POST['auditadaPotrero'];
-	$val02                          = $_POST['auditadaFecha'];
+	$val01	= $_POST['poblacionTipo'];
+	$val02	= $_POST['poblacionPotrero'];
+	$val03  = $_POST['poblacionFecha'];
 
-	$work01                         = $_POST['workCodigo'];
-	$work02                         = $_POST['workModo'];
+	switch ($val01) {
+		case '1':
+			$urlAPI = '1100';
+			break;
+		
+		case '2':
+			$urlAPI = '1200';
+			break;
+	}
 
-	for ($i = 1; $i < 11 ; $i++) {
-		$val03                          = $_POST['auditadaPropietario'.$i];
-		$val04                          = $_POST['auditadaOrigen'.$i];
-		$val05                          = $_POST['auditadaRaza'.$i];
-		$val06                          = $_POST['auditadaCategoria'.$i];
-		$val07                          = $_POST['auditadaCantidad'.$i];
-		$val08                          = $_POST['auditadaPesoPromedio'.$i];
-		$val09                          = $_POST['auditadaObservacion'.$i];
+	$work01	= $_POST['workCodigo'];
+	$work02 = $_POST['workModo'];
+	$work03 = $_POST['workCantidad'];
+	$work03 = $work03 + 1;
 
-		if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07)) {
+	for ($i = 1; $i < $work03 ; $i++) {
+		$val04                          = $_POST['poblacionPropietario'.$i];
+		$val05                          = $_POST['poblacionOrigen'.$i];
+		$val06                          = $_POST['poblacionRaza'.$i];
+		$val07                          = $_POST['poblacionCategoria'.$i];
+		$val08                          = $_POST['poblacionCantidad'.$i];
+		$val09                          = $_POST['poblacionPesoPromedio'.$i];
+		$val10                          = $_POST['poblacionObservacion'.$i];
+
+		if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08)) {
 			$dataJSON = json_encode(
 				array(
-					'propietario_codigo'       						=> $val03,
-					'origen_codigo'         						=> $val04,
-					'raza_codigo'       							=> $val05,
-					'categoria_subcategoria_codigo'					=> $val06,
-					'potrero_codigo'								=> $val01,
-					'ot_codigo'										=> $work01,
-					'ot_auditada_fecha'								=> $val02,
-					'ot_auditada_cantidad'							=> $val07,
-					'ot_auditada_peso'								=> $val08,
-					'ot_auditada_observacion'						=> ''
+					'propietario_codigo'       				=> $val04,
+					'origen_codigo'         				=> $val05,
+					'raza_codigo'       					=> $val06,
+					'categoria_subcategoria_codigo'			=> $val07,
+					'potrero_codigo'						=> $val02,
+					'ot_codigo'								=> $work01,
+					'ot_fecha'								=> $val03,
+					'ot_cantidad'							=> $val08,
+					'ot_peso'								=> $val09,
+					'ot_observacion'						=> $val10
 				));
 
 			switch($work02){
 				case 'C':
-					$result	= post_curl('1200', $dataJSON);
+					$result	= post_curl($urlAPI, $dataJSON);
 					break;
 				case 'U':
-					$result	= put_curl('1200/'.$work01, $dataJSON);
+					$result	= put_curl($urlAPI.'/'.$work01, $dataJSON);
 					break;
 				case 'D':
-					$result	= delete_curl('1200/'.$work01, $dataJSON);
+					$result	= delete_curl($urlAPI.'/'.$work01, $dataJSON);
 					break;
 			}
 

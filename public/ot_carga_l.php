@@ -114,6 +114,9 @@
                                         <thead id="tableExistencia" class="<?php echo $workCodigo; ?>">
                                             <tr>
                                                 <th>ELIMINAR</th>
+                                                <th>FECHA</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -130,34 +133,43 @@
         $exiTotGen = 0;
 
         foreach ($otExiJSON['data'] as $existenciaKey=>$existenciaArray) {
-            $row_existencia_00  = $existenciaArray['origen_codigo'];
-            $row_existencia_01  = $existenciaArray['origen_nombre'];
-            $row_existencia_02  = $existenciaArray['raza_codigo'];
-            $row_existencia_03  = $existenciaArray['raza_nombre'];
-            $row_existencia_04  = $existenciaArray['categoria_codigo'];
-            $row_existencia_05  = $existenciaArray['categoria_nombre'];
-            $row_existencia_06  = $existenciaArray['subcategoria_codigo'];
-            $row_existencia_07  = $existenciaArray['subcategoria_nombre'];
-            $row_existencia_08  = 0.00;
-            $row_existencia_09  = $existenciaArray['ot_existencia_cantidad'];
-            $row_existencia_10  = $existenciaArray['ot_existencia_codigo'];
+            $row_existencia_00  = $existenciaArray['potrero_codigo'];
+            $row_existencia_01  = $existenciaArray['potrero_nombre'];
+            $row_existencia_02  = $existenciaArray['propietario_codigo'];
+            $row_existencia_03  = $existenciaArray['propietario_marca'];
+            $row_existencia_04  = $existenciaArray['origen_codigo'];
+            $row_existencia_05  = $existenciaArray['origen_nombre'];
+            $row_existencia_06  = $existenciaArray['raza_codigo'];
+            $row_existencia_07  = $existenciaArray['raza_nombre'];
+            $row_existencia_08  = $existenciaArray['categoria_codigo'];
+            $row_existencia_09  = $existenciaArray['categoria_nombre'];
+            $row_existencia_10  = $existenciaArray['subcategoria_codigo'];
+            $row_existencia_11  = $existenciaArray['subcategoria_nombre'];
+            $row_existencia_12  = $existenciaArray['ot_existencia_codigo'];
+            $row_existencia_13  = $existenciaArray['ot_existencia_fecha_2'];
+            $row_existencia_14  = $existenciaArray['ot_existencia_peso'];
+            $row_existencia_15  = $existenciaArray['ot_existencia_cantidad'];
+            
 
-            if ($row_existencia_04 == 40) {
-                $exiTotTer = $exiTotTer + $row_existencia_09;
+            if ($row_existencia_08 == 40) {
+                $exiTotTer = $exiTotTer + $row_existencia_15;
             } else {
-                $exiTotAdu = $exiTotAdu + $row_existencia_09;
+                $exiTotAdu = $exiTotAdu + $row_existencia_15;
             }
 ?>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-success" onclick="deteleItem(<?php echo $workCodigo; ?>, 1100, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
+                                                    <button type="button" class="btn btn-success" onclick="deteleItem(<?php echo $workCodigo; ?>, 1100, <?php echo $row_existencia_12; ?>)"><i class="ti-trash"></i></button>
                                                 </td>
+                                                <td> <?php echo $row_existencia_13; ?> </td>
                                                 <td> <?php echo $row_existencia_01; ?> </td>
                                                 <td> <?php echo $row_existencia_03; ?> </td>
                                                 <td> <?php echo $row_existencia_05; ?> </td>
                                                 <td> <?php echo $row_existencia_07; ?> </td>
-                                                <td class="text-right"> <?php echo $row_existencia_08; ?> </td>
-                                                <td class="text-right"> <?php echo $row_existencia_09; ?> </td>
+                                                <td> <?php echo $row_existencia_09; ?> </td>
+                                                <td> <?php echo $row_existencia_11; ?> </td>
+                                                <td class="text-right"> <?php echo $row_existencia_14; ?> </td>
+                                                <td class="text-right"> <?php echo $row_existencia_15; ?> </td>
                                             </tr>
 <?php
         }
@@ -169,6 +181,9 @@
                                         <tfoot>
                                             <tr>
                                                 <th>ELIMINAR</th>
+                                                <th>FECHA</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -177,15 +192,15 @@
                                                 <th>CANTIDAD</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL ADULTO</th>
+                                                <th colspan="9">TOTAL ADULTO</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotAdu, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="6">TOTAL TENERO</th>
+                                                <th colspan="9">TOTAL TENERO</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotTer, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="9">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                 <th style="text-align:right;"><?php echo number_format($exiTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
@@ -208,6 +223,9 @@
                                         <thead id="tableAuditada" class="<?php echo $workCodigo; ?>">
                                             <tr>
                                                 <th>ELIMINAR</th>
+                                                <th>FECHA</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -224,33 +242,42 @@
         $audTotGen = 0;
 
         foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
-            $row_auditada_00  = $auditadaArray['origen_codigo'];
-            $row_auditada_01  = $auditadaArray['origen_nombre'];
-            $row_auditada_02  = $auditadaArray['raza_codigo'];
-            $row_auditada_03  = $auditadaArray['raza_nombre'];
-            $row_auditada_04  = $auditadaArray['categoria_codigo'];
-            $row_auditada_05  = $auditadaArray['categoria_nombre'];
-            $row_auditada_06  = $auditadaArray['subcategoria_codigo'];
-            $row_auditada_07  = $auditadaArray['subcategoria_nombre'];
-            $row_auditada_08  = $auditadaArray['ot_auditada_peso'];
-            $row_auditada_09  = $auditadaArray['ot_auditada_cantidad'];
+            $row_auditada_00  = $auditadaArray['potrero_codigo'];
+            $row_auditada_01  = $auditadaArray['potrero_nombre'];
+            $row_auditada_02  = $auditadaArray['propietario_codigo'];
+            $row_auditada_03  = $auditadaArray['propietario_marca'];
+            $row_auditada_04  = $auditadaArray['origen_codigo'];
+            $row_auditada_05  = $auditadaArray['origen_nombre'];
+            $row_auditada_06  = $auditadaArray['raza_codigo'];
+            $row_auditada_07  = $auditadaArray['raza_nombre'];
+            $row_auditada_08  = $auditadaArray['categoria_codigo'];
+            $row_auditada_09  = $auditadaArray['categoria_nombre'];
+            $row_auditada_10  = $auditadaArray['subcategoria_codigo'];
+            $row_auditada_11  = $auditadaArray['subcategoria_nombre'];
+            $row_auditada_12  = $auditadaArray['ot_auditada_codigo'];
+            $row_auditada_13  = $auditadaArray['ot_auditada_fecha_2'];
+            $row_auditada_14  = $auditadaArray['ot_auditada_peso'];
+            $row_auditada_15  = $auditadaArray['ot_auditada_cantidad'];
 
             if ($row_auditada_04 == 40) {
-                $audTotTer = $audTotTer + $row_auditada_09;
+                $audTotTer = $audTotTer + $row_auditada_15;
             } else {
-                $audTotAdu = $audTotAdu + $row_auditada_09;
+                $audTotAdu = $audTotAdu + $row_auditada_15;
             }
 ?>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_existencia_10; ?>)"><i class="ti-trash"></i></button>
+                                                    <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_auditada_12; ?>)"><i class="ti-trash"></i></button>
                                                 </td>
+                                                <td> <?php echo $row_auditada_13; ?> </td>
                                                 <td> <?php echo $row_auditada_01; ?> </td>
                                                 <td> <?php echo $row_auditada_03; ?> </td>
                                                 <td> <?php echo $row_auditada_05; ?> </td>
                                                 <td> <?php echo $row_auditada_07; ?> </td>
-                                                <td class="text-right"> <?php echo $row_auditada_08; ?></td>
-                                                <td class="text-right"> <?php echo $row_auditada_09; ?> </td>
+                                                <td> <?php echo $row_auditada_09; ?> </td>
+                                                <td> <?php echo $row_auditada_11; ?> </td>
+                                                <td class="text-right"> <?php echo $row_auditada_14; ?> </td>
+                                                <td class="text-right"> <?php echo $row_auditada_15; ?> </td>
                                             </tr>
 <?php
         }
@@ -262,6 +289,9 @@
                                         <tfoot>
                                             <tr>
                                                 <th>ELIMINAR</th>
+                                                <th>FECHA</th>
+                                                <th>POTRERO</th>
+                                                <th>PROPIETARIO</th>
                                                 <th>ORIGEN</th>
                                                 <th>RAZA</th>
                                                 <th>CATEGOR&Iacute;A</th>
@@ -270,15 +300,15 @@
                                                 <th>CANTIDAD</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL ADULTO</th>
+                                                <th colspan="9">TOTAL ADULTO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotAdu, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="6">TOTAL TENERO</th>
+                                                <th colspan="9">TOTAL TENERO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotTer, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="9">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
@@ -300,7 +330,7 @@
                 <!-- ============================================================== -->
             </div>
 
-            <a href="../public/ot_carga_m.php?mode=<?php echo $workModo; ?>&codigo=<?php echo $workCodigo; ?>" class="float">
+            <a href="../public/ot_carga_m.php?mode=C&codigo=<?php echo $workCodigo; ?>" class="float">
                 <i class="fa fa-plus custom-float"></i>
             </a>
             <!-- ============================================================== -->
