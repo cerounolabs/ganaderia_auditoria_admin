@@ -556,8 +556,8 @@
                 color: { 
                     pattern: ["#4fc3f7"] 
                 },
-                size: { 
-                    height: 270 
+                size: {
+                    height: 600
                 },
                 axis: { 
                     rotated: !0,

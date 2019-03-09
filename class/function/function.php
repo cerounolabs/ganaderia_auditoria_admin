@@ -112,9 +112,11 @@
             foreach ($dataJSON01['data'] as $dominioKey=>$dominioArray) {
                 $row_dominio_00 = $dominioArray['tipo_codigo'];
                 $row_dominio_01 = $dominioArray['subtipo_codigo'];
+                $row_dominio_02 = $dominioArray['tipo_nombre'];
+                $row_dominio_03 = $dominioArray['subtipo_nombre'];
+                $charTitulo01   = $row_dominio_02;
     
                 if ($dataJSON02['code'] == 200) {
-                    $charTitulo01    = '';
                     $totalExistencia = 0;
             
                     foreach ($dataJSON02['data'] as $existenciaKey=>$existenciaArray) {
@@ -125,7 +127,6 @@
                         $row_existencia_04  = $existenciaArray['ot_existencia_cantidad'];
 
                         if (($row_existencia_00 == $row_dominio_00)) {
-                            $charTitulo01   = $row_existencia_02;
                             $totalExistencia= $totalExistencia + $row_existencia_04;
                         }
                     }
@@ -143,10 +144,6 @@
                         
                         if (($row_auditada_00 == $row_dominio_00)) {
                             $totalAuditada = $totalAuditada + $row_auditada_04;
-                        }
-
-                        if ($totalExistencia == 0) {
-                            $charTitulo01   = $row_auditada_02;
                         }
                     }
                 }
@@ -185,9 +182,11 @@
             foreach ($dataJSON01['data'] as $dominioKey=>$dominioArray) {
                 $row_dominio_00 = $dominioArray['tipo_codigo'];
                 $row_dominio_01 = $dominioArray['subtipo_codigo'];
+                $row_dominio_02 = $dominioArray['tipo_nombre'];
+                $row_dominio_03 = $dominioArray['subtipo_nombre'];
+                $charTitulo01   = $row_dominio_02.' - '.$row_dominio_03;
     
                 if ($dataJSON02['code'] == 200) {
-                    $charTitulo01    = '';
                     $totalExistencia = 0;
             
                     foreach ($dataJSON02['data'] as $existenciaKey=>$existenciaArray) {
@@ -198,7 +197,6 @@
                         $row_existencia_04  = $existenciaArray['ot_existencia_cantidad'];
 
                         if (($row_existencia_00 == $row_dominio_00) && ($row_existencia_01 == $row_dominio_01)) {
-                            $charTitulo01   = $row_existencia_02.' - '.$row_existencia_03;
                             $totalExistencia= $totalExistencia + $row_existencia_04;
                         }
                     }
@@ -216,10 +214,6 @@
                         
                         if (($row_auditada_00 == $row_dominio_00) && ($row_auditada_01 == $row_dominio_01)) {
                             $totalAuditada = $totalAuditada + $row_auditada_04;
-                        }
-
-                        if ($totalExistencia == 0) {
-                            $charTitulo01   = $row_auditada_02.' - '.$row_auditada_03;
                         }
                     }
                 }
