@@ -29,6 +29,7 @@
 
         $dominioJSON        = get_curl('500');
         $dominio_subJSON    = get_curl('600/dominio/CATEGORIASUBCATEGORIA');
+        $seccionJSON        = get_curl('800/establecimiento/'.$row_ot_03);
         $potreroJSON        = get_curl('900/establecimiento/'.$row_ot_03);
         $otExiJSON          = get_curl('1100/ot/detalle/'.$workCodigo);
         $otAudJSON          = get_curl('1200/ot/detalle/'.$workCodigo);
@@ -104,10 +105,13 @@
         }
     }
 
-    $charDiaTrabajo     = getCantDiaTrabajo($otAudDiaTraJSON);
-    $charPotrero        = getCantPotrero($potreroJSON, $otAudJSON);
-    $charCategoria      = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
-    $charSubCategoria   = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
+    $charDiaTrabajo             = getCantDiaTrabajo($otAudDiaTraJSON);
+    $charSeccion                = getCantSeccion($seccionJSON, $otAudJSON);
+    $charSeccionCategoria       = getCantSeccionCategoria($seccionJSON, $dominioJSON, $otAudJSON);
+    $charSeccionSubCategoria    = getCantSeccionSubCategoria($seccionJSON, $dominioJSON, $dominioJSON, $otAudJSON);
+//    $charPotrero                = getCantPotrero($potreroJSON, $otAudJSON);
+    $charCategoria              = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
+    $charSubCategoria           = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
 
 <!DOCTYPE html>
@@ -212,18 +216,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X POTRERO (AUDITADA)</h4>
-                                <div id="cantPoblacionxPotrero">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
@@ -252,6 +244,30 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X SECCI&Oacute;N (AUDITADA)</h4>
+                                <div id="cantPoblacionxSeccion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X POTRERO (AUDITADA)</h4>
+                                <div id="cantPoblacionxPotrero">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+-->
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -543,13 +559,13 @@
                 },
             });
     
-            var chart_02 = c3.generate({
+/*            var chart_02 = c3.generate({
                 bindto: "#cantPoblacionxPotrero",
                 data: {
                     x : "x",
                     columns: [
-                        ["x", <?php echo $charPotrero[0]; ?>],
-                        ["Cantidad Bovino", <?php echo $charPotrero[1]; ?>],
+                        ["x", <?php //echo $charPotrero[0]; ?>],
+                        ["Cantidad Bovino", <?php //echo $charPotrero[1]; ?>],
                     ],
                     type: "bar"
                 },
@@ -577,7 +593,7 @@
                     hide: true
                 }
             });
-
+*/
             var chart_03 = c3.generate({
                 bindto: "#cantPoblacionxCategoria",
                 data: {
@@ -688,7 +704,7 @@
 
                 if ($totalAuditada > 0) {
 ?>
-                        ["<?php echo $charTitulo01; ?>", <?php echo $totalAuditada; ?>],
+                        ["<?php echo $charTitulo01.' '.$totalAuditada; ?>", <?php echo $totalAuditada; ?>],
 <?php
                 }
             }
@@ -737,7 +753,7 @@
 
                     if ($totalAuditada > 0) {
 ?>
-                        ["<?php echo $row_dominio_01; ?>", <?php echo $totalAuditada; ?>],
+                        ["<?php echo $row_dominio_01.' '.$totalAuditada; ?>", <?php echo $totalAuditada; ?>],
 <?php
                     }
                 }
@@ -787,7 +803,7 @@
 
                     if ($totalAuditada > 0) {
 ?>
-                        ["<?php echo $row_dominio_01; ?>", <?php echo $totalAuditada; ?>],
+                        ["<?php echo $row_dominio_01.' '.$totalAuditada; ?>", <?php echo $totalAuditada; ?>],
 <?php
                     }
                 }
@@ -815,7 +831,7 @@
                     x : "x",
                     columns: [
                         ["x", <?php echo $charDiaTrabajo[0]; ?>],
-                        ["Población Existencia", <?php echo $charDiaTrabajo[1]; ?>]
+                        ["Auditada", <?php echo $charDiaTrabajo[1]; ?>]
                     ],
                     type: "bar"
                 },
@@ -852,6 +868,115 @@
                     width: 15
                 }
             });
+        });
+
+        // Create the chart
+        Highcharts.chart('cantPoblacionxSeccion', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'POBLACIÓN BOVINA AGRUPADO X SECCIÓN - CATEGORÍA - SUBCATEGORÍA'
+            },
+            subtitle: {
+                text: 'Click sobre las columnas para ver los detalles'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total Población Bovina'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y}'
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> Cabezas<br/>'
+            },
+            "series": [
+                {
+                    "name": "Sección",
+                    "colorByPoint": true,
+                    "data": [
+<?php
+    foreach ($charSeccion as $seccionKey=>$seccionArray) {
+?>
+                        {
+                            "name": "<?php echo $seccionArray['name']; ?>",
+                            "y": <?php echo $seccionArray['value']; ?>,
+                            "drilldown": "<?php echo $seccionArray['name']; ?>"
+                        },
+<?php
+    }
+?>
+                    ]
+                }
+            ],
+            "drilldown": {
+                "series": [
+<?php
+    foreach ($charSeccion as $seccionKey=>$seccionArray) {
+?>
+                    {
+                        "id": "<?php echo $seccionArray['name']; ?>",
+                        "name": "<?php echo $seccionArray['name']; ?>",
+                        "data": [
+<?php
+        foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
+            if ($seccionArray['id'] == $seccionCategoriaArray['id']) {
+?>
+                            {
+                                "name": "<?php echo $seccionCategoriaArray['name']; ?>",
+                                "y": <?php echo $seccionCategoriaArray['value']; ?>,
+                                "drilldown": "<?php echo $seccionArray['name'].' - '.$seccionCategoriaArray['name']; ?>"
+                            },
+<?php
+            }
+        }
+?>
+                        ]
+                    },
+<?php
+    }
+
+    foreach ($charSeccion as $seccionKey=>$seccionArray) {
+        foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
+            if ($seccionArray['id'] == $seccionCategoriaArray['id']) {
+?>
+                    {
+                        "id": "<?php echo $seccionArray['name'].' - '.$seccionCategoriaArray['name']; ?>",
+                        "data": [
+<?php
+                foreach ($charSeccionSubCategoria as $seccionSubCategoriaKey=>$seccionSubCategoriaArray) {
+                    if (($seccionArray['id'] == $seccionSubCategoriaArray['id']) && ($seccionCategoriaArray['id2'] == $seccionSubCategoriaArray['id2'])) {
+?>
+                            [ "<?php echo $seccionCategoriaArray['name'].' - '.$seccionSubCategoriaArray['name']; ?>", <?php echo $seccionSubCategoriaArray['value']; ?>],
+<?php
+                    }
+                }
+?>
+                        ]
+                    },
+<?php
+            }
+        }
+    }
+?>
+                ]
+            }
         });
     </script>
 

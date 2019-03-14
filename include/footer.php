@@ -39,7 +39,6 @@
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
-    
     <!--chartis chart-->
     <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
     <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
@@ -64,7 +63,7 @@
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/extra-libs/toastr/toastr-init.js"></script>
 
-
+    <!--GaugeJS -->
     <script src="../assets/libs/gaugeJS/dist/gauge.min.js"></script>
 
     <!--Flot -->
@@ -78,3 +77,8 @@
 
     <!--Sweet Alert2 -->
     <script src="../assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!--Highcharts -->
+    <script src="../dist/js/pages/highcharts/highcharts.js"></script>
+    <script src="../dist/js/pages/highcharts/modules/data.js"></script>
+    <script src="../dist/js/pages/highcharts/modules/drilldown.js"></script>
