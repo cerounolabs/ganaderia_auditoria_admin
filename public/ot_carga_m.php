@@ -172,6 +172,7 @@
                                         <table id="tableLoad" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
+                                                    <th>ELIMINAR</th>
                                                     <th>PROPIETARIO</th>
                                                     <th>ORIGEN</th>
                                                     <th>RAZA</th>
@@ -184,6 +185,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>ELIMINAR</th>
                                                     <th>PROPIETARIO</th>
                                                     <th>ORIGEN</th>
                                                     <th>RAZA</th>
@@ -192,15 +194,15 @@
                                                     <th>CANTIDAD</th>
                                                 </tr>
                                                 <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                    <th colspan="5">TOTAL ADULTO</th>
+                                                    <th colspan="6">TOTAL ADULTO</th>
                                                     <th style="text-align:right;" id="totalCantAdulto">0</th>
                                                 </tr>
                                                 <tr style="font-weight: bold;">
-                                                    <th colspan="5">TOTAL TENERO</th>
+                                                    <th colspan="6">TOTAL TENERO</th>
                                                     <th style="text-align:right;" id="totalCantTernero">0</th>
                                                 </tr>
                                                 <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                    <th colspan="5">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                    <th colspan="6">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                     <th style="text-align:right;" id="totalCantGeneral">0</th>
                                                 </tr>
                                             </tfoot>
@@ -274,22 +276,31 @@
 ?>
     <script>
         $(document).ready(function() {
-            var tabDat = $('#tableLoad').DataTable();
+            var tabDat = $('#tableLoad').DataTable({
+                "paging":   false,
+                "ordering": false,
+                "searching": false,
+                "info":     false
+            });
             var colCod = 1;
-
-            
 
             $('#addRow').on( 'click', function () {
                 tabDat.row.add( [
-                    "<td><select id='poblacionPropietario"+ colCod +"' name='poblacionPropietario"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><optgroup label='Propietario'><option value='' selected disabled>Seleccionar</option><?php if ($propietarioJSON['code'] == 200) { foreach ($propietarioJSON['data'] as $propietarioKey=>$propietarioArray) { $row_propietario_00  = $propietarioArray['establecimiento_propietario_codigo']; $row_propietario_01  = $propietarioArray['establecimiento_propietario_marca']; ?> <option value='<?php echo $row_propietario_00; ?>'><?php echo $row_propietario_01; ?></option><?php } } ?></optgroup></select></td>",
-                    "<td><select id='poblacionOrigen"+ colCod +"' name='poblacionOrigen"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><optgroup label='Origen'><option value='' selected disabled>Seleccionar</option><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_tipo_00 = $dominioArray['estado_dominio_codigo']; $row_tipo_01 = $dominioArray['dominio_codigo']; $row_tipo_02 = $dominioArray['dominio_nombre']; $row_tipo_03 = $dominioArray['dominio_valor']; if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALORIGEN') { ?> <option value='<?php echo $row_tipo_01; ?>'><?php echo $row_tipo_02; ?></option><?php } } } ?></optgroup></select></td>",
-                    "<td><select id='poblacionRaza"+ colCod +"' name='poblacionRaza"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><optgroup label='Raza'><option value='' selected disabled>Seleccionar</option><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_tipo_00 = $dominioArray['estado_dominio_codigo']; $row_tipo_01 = $dominioArray['dominio_codigo']; $row_tipo_02 = $dominioArray['dominio_nombre']; $row_tipo_03 = $dominioArray['dominio_valor']; $row_tipo_04 = $dominioArray['dominio_observacion']; if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALRAZA') {?> <option value='<?php echo $row_tipo_01; ?>'><?php echo $row_tipo_02; ?></option><?php } } } ?></optgroup></select></td>",
-                    "<td><select id='poblacionCategoria"+ colCod +"' name='poblacionCategoria"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' onchange='sumaTotal()' required><option value='' selected disabled>Seleccionar</option><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_dominio_00 = $dominioArray['dominio_codigo']; $row_dominio_01 = $dominioArray['estado_dominio_codigo']; $row_dominio_02 = $dominioArray['dominio_nombre']; $row_dominio_03 = $dominioArray['dominio_valor']; if ($row_dominio_01 == 1 && $row_dominio_03 == 'ANIMALCATEGORIA') { ?> <optgroup label='<?php echo $row_dominio_02; ?>'> <?php if ($dominio_subJSON['code'] == 200) { foreach ($dominio_subJSON['data'] as $dominio_subKey=>$dominio_subArray) { $row_dominio_sub_00 = $dominio_subArray['tipo_subtipo_codigo']; $row_dominio_sub_01 = $dominio_subArray['estado_tipo_subtipo_codigo']; $row_dominio_sub_02 = $dominio_subArray['estado_tipo_subtipo_nombre']; $row_dominio_sub_03 = $dominio_subArray['subtipo_codigo']; $row_dominio_sub_04 = $dominio_subArray['subtipo_nombre']; $row_dominio_sub_05 = $dominio_subArray['tipo_codigo']; $row_dominio_sub_06 = $dominio_subArray['tipo_nombre']; if ($row_dominio_00 == $row_dominio_sub_05) { ?> <option value='<?php echo $row_dominio_sub_00; ?>'><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option><?php } } } ?> </optgroup> <?php } } } ?> </select></td>",
-                    "<td><input id='poblacionPesoPromedio"+ colCod +"' name='poblacionPesoPromedio"+ colCod +"' class='form-control' type='number' step='.01' value='0' onchange='sumaTotal()'></td>",
-                    "<td><input id='poblacionCantidad"+ colCod +"' name='poblacionCantidad"+ colCod +"' class='form-control' type='number' onchange='sumaTotal()'></td>"
+                    "<td><button id='poblacionCodigo"+ colCod +"' type='button' class='btn btn-danger'><i class='ti-trash'></i></button></td>",
+                    "<td><select id='poblacionPropietario"+ colCod +"' name='poblacionPropietario"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><optgroup label='Propietario'><?php if ($propietarioJSON['code'] == 200) { foreach ($propietarioJSON['data'] as $propietarioKey=>$propietarioArray) { $row_propietario_00  = $propietarioArray['establecimiento_propietario_codigo']; $row_propietario_01  = $propietarioArray['establecimiento_propietario_marca']; ?> <option value='<?php echo $row_propietario_00; ?>'><?php echo $row_propietario_01; ?></option><?php } } ?></optgroup></select></td>",
+                    "<td><select id='poblacionOrigen"+ colCod +"' name='poblacionOrigen"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_tipo_00 = $dominioArray['estado_dominio_codigo']; $row_tipo_01 = $dominioArray['dominio_codigo']; $row_tipo_02 = $dominioArray['dominio_nombre']; $row_tipo_03 = $dominioArray['dominio_valor']; if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALORIGEN') { ?> <option value='<?php echo $row_tipo_01; ?>'><?php echo $row_tipo_02; ?></option><?php } } } ?></optgroup></select></td>",
+                    "<td><select id='poblacionRaza"+ colCod +"' name='poblacionRaza"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' <?php echo $workReadonly; ?> onchange='sumaTotal()' required><optgroup label='Raza'><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_tipo_00 = $dominioArray['estado_dominio_codigo']; $row_tipo_01 = $dominioArray['dominio_codigo']; $row_tipo_02 = $dominioArray['dominio_nombre']; $row_tipo_03 = $dominioArray['dominio_valor']; $row_tipo_04 = $dominioArray['dominio_observacion']; if ($row_tipo_00 == 1 && $row_tipo_03 == 'ANIMALRAZA') {?> <option value='<?php echo $row_tipo_01; ?>'><?php echo $row_tipo_02; ?></option><?php } } } ?></optgroup></select></td>",
+                    "<td><select id='poblacionCategoria"+ colCod +"' name='poblacionCategoria"+ colCod +"' class='select2 form-control custom-select' style='width: 100%; height:36px;' onchange='sumaTotal()' required><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_dominio_00 = $dominioArray['dominio_codigo']; $row_dominio_01 = $dominioArray['estado_dominio_codigo']; $row_dominio_02 = $dominioArray['dominio_nombre']; $row_dominio_03 = $dominioArray['dominio_valor']; if ($row_dominio_01 == 1 && $row_dominio_03 == 'ANIMALCATEGORIA') { ?> <optgroup label='<?php echo $row_dominio_02; ?>'> <?php if ($dominio_subJSON['code'] == 200) { foreach ($dominio_subJSON['data'] as $dominio_subKey=>$dominio_subArray) { $row_dominio_sub_00 = $dominio_subArray['tipo_subtipo_codigo']; $row_dominio_sub_01 = $dominio_subArray['estado_tipo_subtipo_codigo']; $row_dominio_sub_02 = $dominio_subArray['estado_tipo_subtipo_nombre']; $row_dominio_sub_03 = $dominio_subArray['subtipo_codigo']; $row_dominio_sub_04 = $dominio_subArray['subtipo_nombre']; $row_dominio_sub_05 = $dominio_subArray['tipo_codigo']; $row_dominio_sub_06 = $dominio_subArray['tipo_nombre']; if ($row_dominio_00 == $row_dominio_sub_05) { ?> <option value='<?php echo $row_dominio_sub_00; ?>'><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option><?php } } } ?> </optgroup> <?php } } } ?> </select></td>",
+                    "<td><input  id='poblacionPesoPromedio"+ colCod +"' name='poblacionPesoPromedio"+ colCod +"' class='form-control' type='number' step='.01' value='0' onchange='sumaTotal()'></td>",
+                    "<td><input  id='poblacionCantidad"+ colCod +"' name='poblacionCantidad"+ colCod +"' class='form-control' type='number' onchange='sumaTotal()' required></td>"
                 ] ).draw( true );
                 colCod++;
             } );
+
+            $('#tableLoad').on('click', '.btn-danger', function () {
+                tabDat.row($(this).parents('tr')).remove().draw(false);
+                sumaTotal();
+            });
 
             $('#addRow').click(); 
         } );
@@ -309,7 +320,6 @@
                 var existeSiNo = isInPage(document.getElementById("poblacionCategoria"+index));
 
                 if (existeSiNo == false) {
-                    index = 100;
                 } else {
                     var rowCate = Number(document.getElementById("poblacionCategoria"+index).value);
                     var rowCant = Number(document.getElementById("poblacionCantidad"+index).value);

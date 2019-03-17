@@ -222,7 +222,8 @@
                                     <table id="tableLoadAuditada" class="table table-striped table-bordered">
                                         <thead id="tableAuditada" class="<?php echo $workCodigo; ?>">
                                             <tr>
-                                                <th>ELIMINAR</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
                                                 <th>FECHA</th>
                                                 <th>POTRERO</th>
                                                 <th>PROPIETARIO</th>
@@ -232,32 +233,35 @@
                                                 <th>SUBCATEGOR&Iacute;A</th>
                                                 <th>PESO PROMEDIO</th>
                                                 <th>CANTIDAD</th>
+                                                <th>TOTAL POTRERO</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 <?php
     if ($otAudJSON['code'] == 200) {
-        $audTotAdu = 0;
-        $audTotTer = 0;
-        $audTotGen = 0;
+        $audTotAdu  = 0;
+        $audTotTer  = 0;
+        $audTotGen  = 0;
+        $item       = 0;
 
         foreach ($otAudJSON['data'] as $auditadaKey=>$auditadaArray) {
-            $row_auditada_00  = $auditadaArray['potrero_codigo'];
-            $row_auditada_01  = $auditadaArray['potrero_nombre'];
-            $row_auditada_02  = $auditadaArray['propietario_codigo'];
-            $row_auditada_03  = $auditadaArray['propietario_marca'];
-            $row_auditada_04  = $auditadaArray['origen_codigo'];
-            $row_auditada_05  = $auditadaArray['origen_nombre'];
-            $row_auditada_06  = $auditadaArray['raza_codigo'];
-            $row_auditada_07  = $auditadaArray['raza_nombre'];
-            $row_auditada_08  = $auditadaArray['categoria_codigo'];
-            $row_auditada_09  = $auditadaArray['categoria_nombre'];
-            $row_auditada_10  = $auditadaArray['subcategoria_codigo'];
-            $row_auditada_11  = $auditadaArray['subcategoria_nombre'];
-            $row_auditada_12  = $auditadaArray['ot_auditada_codigo'];
-            $row_auditada_13  = $auditadaArray['ot_auditada_fecha_2'];
-            $row_auditada_14  = $auditadaArray['ot_auditada_peso'];
-            $row_auditada_15  = $auditadaArray['ot_auditada_cantidad'];
+            $row_auditada_00    = $auditadaArray['potrero_codigo'];
+            $row_auditada_01    = $auditadaArray['potrero_nombre'];
+            $row_auditada_02    = $auditadaArray['propietario_codigo'];
+            $row_auditada_03    = $auditadaArray['propietario_marca'];
+            $row_auditada_04    = $auditadaArray['origen_codigo'];
+            $row_auditada_05    = $auditadaArray['origen_nombre'];
+            $row_auditada_06    = $auditadaArray['raza_codigo'];
+            $row_auditada_07    = $auditadaArray['raza_nombre'];
+            $row_auditada_08    = $auditadaArray['categoria_codigo'];
+            $row_auditada_09    = $auditadaArray['categoria_nombre'];
+            $row_auditada_10    = $auditadaArray['subcategoria_codigo'];
+            $row_auditada_11    = $auditadaArray['subcategoria_nombre'];
+            $row_auditada_12    = $auditadaArray['ot_auditada_codigo'];
+            $row_auditada_13    = $auditadaArray['ot_auditada_fecha_2'];
+            $row_auditada_14    = $auditadaArray['ot_auditada_peso'];
+            $row_auditada_15    = $auditadaArray['ot_auditada_cantidad'];
+            $item               = $item + 1;
 
             if ($row_auditada_04 == 40) {
                 $audTotTer = $audTotTer + $row_auditada_15;
@@ -267,17 +271,21 @@
 ?>
                                             <tr>
                                                 <td>
+                                                    <button type="button" class="btn btn-success"><i class="ti-pencil"></i></button>
+                                                </td>
+                                                <td>
                                                     <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_auditada_12; ?>)"><i class="ti-trash"></i></button>
                                                 </td>
-                                                <td> <?php echo $row_auditada_13; ?> </td>
-                                                <td> <?php echo $row_auditada_01; ?> </td>
-                                                <td> <?php echo $row_auditada_03; ?> </td>
-                                                <td> <?php echo $row_auditada_05; ?> </td>
-                                                <td> <?php echo $row_auditada_07; ?> </td>
-                                                <td> <?php echo $row_auditada_09; ?> </td>
-                                                <td> <?php echo $row_auditada_11; ?> </td>
+                                                <td class="colFec"> <?php echo $row_auditada_13; ?> </td>
+                                                <td class="colPot"> <?php echo $row_auditada_01; ?> </td>
+                                                <td class="colPro"> <?php echo $row_auditada_03; ?> </td>
+                                                <td class="colOri"> <?php echo $row_auditada_05; ?> </td>
+                                                <td class="colRaz"> <?php echo $row_auditada_07; ?> </td>
+                                                <td class="colCat"> <?php echo $row_auditada_09; ?> </td>
+                                                <td class="colSub"> <?php echo $row_auditada_11; ?> </td>
                                                 <td class="text-right"> <?php echo $row_auditada_14; ?> </td>
-                                                <td class="text-right"> <?php echo $row_auditada_15; ?> </td>
+                                                <td class="colCan text-right"> <?php echo $row_auditada_15; ?> </td>
+                                                <td class="colTot"> 0 </td>
                                             </tr>
 <?php
         }
@@ -288,7 +296,8 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>ELIMINAR</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
                                                 <th>FECHA</th>
                                                 <th>POTRERO</th>
                                                 <th>PROPIETARIO</th>
@@ -298,17 +307,18 @@
                                                 <th>SUBCATEGOR&Iacute;A</th>
                                                 <th>PESO PROMEDIO</th>
                                                 <th>CANTIDAD</th>
+                                                <th>TOTAL POTRERO</th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="9">TOTAL ADULTO</th>
+                                                <th colspan="10">TOTAL ADULTO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotAdu, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="font-weight: bold;">
-                                                <th colspan="9">TOTAL TENERO</th>
+                                                <th colspan="10">TOTAL TENERO</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotTer, 0, ',', '.'); ?></th>
                                             </tr>
                                             <tr style="background-color:rgba(0,0,0,0.05); font-weight: bold;">
-                                                <th colspan="9">TOTAL POBLACI&Oacute;N BOVINA</th>
+                                                <th colspan="10">TOTAL POBLACI&Oacute;N BOVINA</th>
                                                 <th style="text-align:right;"><?php echo number_format($audTotGen, 0, ',', '.'); ?></th>
                                             </tr>
                                         </tfoot>
@@ -381,5 +391,11 @@
 ?>
 
     <script src="../js/ot_carga.js"></script>
+
+    <script>
+        colFecha("colFec");
+        colFechaPotrero("colFec", "colPot", "colCan", "colTot");
+        colAdd("colPro");
+    </script>
 </body>
 </html>

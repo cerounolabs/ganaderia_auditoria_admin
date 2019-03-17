@@ -49,7 +49,7 @@
                 }
     
                 if ($totalAnimal > 0) {
-                    $detalle    = array('id' => $row_seccion_00, 'name' => $row_seccion_01, 'value' => $totalAnimal);
+                    $detalle    = array('seccion_id' => $row_seccion_00, 'name' => $row_seccion_01, 'value' => $totalAnimal);
                     $result[]   = $detalle;
                 }
             }
@@ -58,7 +58,7 @@
         return $result;
     }
 
-    function getCantSeccionCategoria($dataJSON01, $dataJSON02, $dataJSON03){
+    function getCantSeccionPotrero($dataJSON01, $dataJSON02, $dataJSON03){
         $result = array();
 
         if ($dataJSON01['code'] == 200) {
@@ -67,29 +67,30 @@
                 $row_seccion_01 = $seccionArray['seccion_nombre'];
 
                 if ($dataJSON02['code'] == 200) {
-                    foreach ($dataJSON02['data'] as $dominioKey=>$dominioArray) {
-                        $row_dominio_00 = $dominioArray['dominio_codigo'];
-                        $row_dominio_01 = $dominioArray['dominio_nombre'];
-                        $row_dominio_02 = $dominioArray['dominio_valor'];
+                    foreach ($dataJSON02['data'] as $potreroKey=>$potreroArray) {
+                        $row_potrero_00 = $potreroArray['seccion_codigo'];
+                        $row_potrero_01 = $potreroArray['seccion_nombre'];
+                        $row_potrero_02 = $potreroArray['potrero_codigo'];
+                        $row_potrero_03 = $potreroArray['potrero_nombre'];
 
-                        if ($row_dominio_02 == 'ANIMALCATEGORIA') {
+                        if ($row_potrero_00 == $row_seccion_00) {
                             if ($dataJSON03['code'] == 200) {
                                 $totalAnimal = 0;
                     
                                 foreach ($dataJSON03['data'] as $auditadaKey=>$auditadaArray) {
                                     $row_auditada_00  = $auditadaArray['seccion_codigo'];
-                                    $row_auditada_01  = $auditadaArray['categoria_codigo'];
-                                    $row_auditada_02  = $auditadaArray['categoria_nombre'];
+                                    $row_auditada_01  = $auditadaArray['potrero_codigo'];
+                                    $row_auditada_02  = $auditadaArray['categoria_codigo'];
                                     $row_auditada_03  = $auditadaArray['ot_auditada_cantidad'];
 
-                                    if (($row_auditada_00 == $row_seccion_00) && ($row_auditada_01 == $row_dominio_00)) {
+                                    if (($row_auditada_00 == $row_seccion_00) && ($row_auditada_01 == $row_potrero_02)) {
                                         $totalAnimal = $totalAnimal + $row_auditada_03;
                                     }
                                 }
                             }
 
                             if ($totalAnimal > 0) {
-                                $detalle    = array('id' => $row_seccion_00, 'id2' => $row_dominio_00, 'name' => $row_dominio_01, 'value' => $totalAnimal);
+                                $detalle    = array('seccion_id' => $row_seccion_00, 'potrero_id' => $row_potrero_02, 'name' => $row_potrero_03, 'value' => $totalAnimal);
                                 $result[]   = $detalle;
                             }
                         }
@@ -101,7 +102,7 @@
         return $result;
     }
 
-    function getCantSeccionSubCategoria($dataJSON01, $dataJSON02, $dataJSON03, $dataJSON04){
+    function getCantSeccionCategoria($dataJSON01, $dataJSON02, $dataJSON03, $dataJSON04){
         $result = array();
 
         if ($dataJSON01['code'] == 200) {
@@ -110,39 +111,103 @@
                 $row_seccion_01 = $seccionArray['seccion_nombre'];
 
                 if ($dataJSON02['code'] == 200) {
-                    foreach ($dataJSON02['data'] as $dominioKey=>$dominioArray) {
-                        $row_dominio_00 = $dominioArray['dominio_codigo'];
-                        $row_dominio_01 = $dominioArray['dominio_nombre'];
-                        $row_dominio_02 = $dominioArray['dominio_valor'];
+                    foreach ($dataJSON02['data'] as $potreroKey=>$potreroArray) {
+                        $row_potrero_00 = $potreroArray['seccion_codigo'];
+                        $row_potrero_01 = $potreroArray['seccion_nombre'];
+                        $row_potrero_02 = $potreroArray['potrero_codigo'];
+                        $row_potrero_03 = $potreroArray['potrero_nombre'];
 
-                        if ($row_dominio_02 == 'ANIMALCATEGORIA') {
+                        if ($row_potrero_00 == $row_seccion_00) {
                             if ($dataJSON03['code'] == 200) {
-                                foreach ($dataJSON03['data'] as $subdominioKey=>$subdominioArray) {
-                                    $row_subdominio_00 = $subdominioArray['dominio_codigo'];
-                                    $row_subdominio_01 = $subdominioArray['dominio_nombre'];
-                                    $row_subdominio_02 = $subdominioArray['dominio_valor'];
+                                foreach ($dataJSON03['data'] as $categoriaKey=>$categoriaArray) {
+                                    $row_categoria_00 = $categoriaArray['dominio_codigo'];
+                                    $row_categoria_01 = $categoriaArray['dominio_nombre'];
+                                    $row_categoria_02 = $categoriaArray['dominio_valor'];
 
-                                    if ($row_subdominio_02 == 'ANIMALSUBCATEGORIA') {
+                                    if ($row_categoria_02 == 'ANIMALCATEGORIA') {
                                         if ($dataJSON04['code'] == 200) {
                                             $totalAnimal = 0;
                                 
                                             foreach ($dataJSON04['data'] as $auditadaKey=>$auditadaArray) {
                                                 $row_auditada_00  = $auditadaArray['seccion_codigo'];
-                                                $row_auditada_01  = $auditadaArray['categoria_codigo'];
-                                                $row_auditada_02  = $auditadaArray['categoria_nombre'];
-                                                $row_auditada_03  = $auditadaArray['subcategoria_codigo'];
-                                                $row_auditada_04  = $auditadaArray['subcategoria_nombre'];
-                                                $row_auditada_05  = $auditadaArray['ot_auditada_cantidad'];
+                                                $row_auditada_01  = $auditadaArray['potrero_codigo'];
+                                                $row_auditada_02  = $auditadaArray['categoria_codigo'];
+                                                $row_auditada_03  = $auditadaArray['ot_auditada_cantidad'];
 
-                                                if (($row_auditada_00 == $row_seccion_00) && ($row_auditada_01 == $row_dominio_00) && ($row_auditada_03 == $row_subdominio_00)) {
-                                                    $totalAnimal = $totalAnimal + $row_auditada_05;
+                                                if (($row_auditada_00 == $row_seccion_00) && ($row_auditada_01 == $row_potrero_02) && ($row_auditada_02 == $row_categoria_00)) {
+                                                    $totalAnimal = $totalAnimal + $row_auditada_03;
                                                 }
                                             }
                                         }
 
                                         if ($totalAnimal > 0) {
-                                            $detalle    = array('id' => $row_seccion_00, 'id2' => $row_dominio_00, 'name' => $row_subdominio_01, 'value' => $totalAnimal);
+                                            $detalle    = array('seccion_id' => $row_seccion_00, 'potrero_id' => $row_potrero_02, 'categoria_id' => $row_categoria_00, 'name' => $row_categoria_01, 'value' => $totalAnimal);
                                             $result[]   = $detalle;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    function getCantSeccionSubCategoria($dataJSON01, $dataJSON02, $dataJSON03, $dataJSON04, $dataJSON05){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            foreach ($dataJSON01['data'] as $seccionKey=>$seccionArray) {
+                $row_seccion_00 = $seccionArray['seccion_codigo'];
+                $row_seccion_01 = $seccionArray['seccion_nombre'];
+
+                if ($dataJSON02['code'] == 200) {
+                    foreach ($dataJSON02['data'] as $potreroKey=>$potreroArray) {
+                        $row_potrero_00 = $potreroArray['seccion_codigo'];
+                        $row_potrero_01 = $potreroArray['seccion_nombre'];
+                        $row_potrero_02 = $potreroArray['potrero_codigo'];
+                        $row_potrero_03 = $potreroArray['potrero_nombre'];
+
+                        if ($row_potrero_00 == $row_seccion_00) {
+                            if ($dataJSON03['code'] == 200) {
+                                foreach ($dataJSON03['data'] as $categoriaKey=>$categoriaArray) {
+                                    $row_categoria_00 = $categoriaArray['dominio_codigo'];
+                                    $row_categoria_01 = $categoriaArray['dominio_nombre'];
+                                    $row_categoria_02 = $categoriaArray['dominio_valor'];
+
+                                    if ($row_categoria_02 == 'ANIMALCATEGORIA') {
+                                        if ($dataJSON04['code'] == 200) {
+                                            foreach ($dataJSON04['data'] as $subcategoriaKey=>$subcategoriaArray) {
+                                                $row_subcategoria_00 = $subcategoriaArray['dominio_codigo'];
+                                                $row_subcategoria_01 = $subcategoriaArray['dominio_nombre'];
+                                                $row_subcategoria_02 = $subcategoriaArray['dominio_valor'];
+            
+                                                if ($row_subcategoria_02 == 'ANIMALSUBCATEGORIA') {
+                                                    if ($dataJSON05['code'] == 200) {
+                                                        $totalAnimal = 0;
+                                            
+                                                        foreach ($dataJSON05['data'] as $auditadaKey=>$auditadaArray) {
+                                                            $row_auditada_00  = $auditadaArray['seccion_codigo'];
+                                                            $row_auditada_01  = $auditadaArray['potrero_codigo'];
+                                                            $row_auditada_02  = $auditadaArray['categoria_codigo'];
+                                                            $row_auditada_03  = $auditadaArray['subcategoria_codigo'];
+                                                            $row_auditada_04  = $auditadaArray['ot_auditada_cantidad'];
+
+                                                            if (($row_auditada_00 == $row_seccion_00) && ($row_auditada_01 == $row_potrero_02) && ($row_auditada_02 == $row_categoria_00) && ($row_auditada_03 == $row_subcategoria_00)) {
+                                                                $totalAnimal = $totalAnimal + $row_auditada_04;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if ($totalAnimal > 0) {
+                                                        $detalle    = array('seccion_id' => $row_seccion_00, 'potrero_id' => $row_potrero_02, 'categoria_id' => $row_categoria_00, 'subcategoria_id' => $row_subcategoria_00, 'name' => $row_subcategoria_01, 'value' => $totalAnimal);
+                                                        $result[]   = $detalle;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }

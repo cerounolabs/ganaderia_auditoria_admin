@@ -106,9 +106,14 @@
     }
 
     $charDiaTrabajo             = getCantDiaTrabajo($otAudDiaTraJSON);
+    
     $charSeccion                = getCantSeccion($seccionJSON, $otAudJSON);
-    $charSeccionCategoria       = getCantSeccionCategoria($seccionJSON, $dominioJSON, $otAudJSON);
-    $charSeccionSubCategoria    = getCantSeccionSubCategoria($seccionJSON, $dominioJSON, $dominioJSON, $otAudJSON);
+    $charSeccionPotrero         = getCantSeccionPotrero($seccionJSON, $potreroJSON, $otAudJSON);
+    $charSeccionCategoria       = getCantSeccionCategoria($seccionJSON, $potreroJSON, $dominioJSON, $otAudJSON);
+    $charSeccionSubCategoria    = getCantSeccionSubCategoria($seccionJSON, $potreroJSON, $dominioJSON, $dominioJSON, $otAudJSON);
+
+//    $charPotreroCategoria       = getCantPotreroCategoria($potreroJSON, $dominioJSON, $otAudJSON);
+
 //    $charPotrero                = getCantPotrero($potreroJSON, $otAudJSON);
     $charCategoria              = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
     $charSubCategoria           = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
@@ -256,6 +261,18 @@
                     </div>
                 </div>
 <!--
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X SECCI&Oacute;N (AUDITADA)</h4>
+                                <div id="cantPoblacionxSecCatSubCat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -876,7 +893,7 @@
                 type: 'column'
             },
             title: {
-                text: 'POBLACIÓN BOVINA AGRUPADO X SECCIÓN - CATEGORÍA - SUBCATEGORÍA'
+                text: 'POBLACIÓN BOVINA AGRUPADO X SECCIÓN - POTRERO - CATEGORÍA - SUBCATEGORÍA'
             },
             subtitle: {
                 text: 'Click sobre las columnas para ver los detalles'
@@ -935,13 +952,13 @@
                         "name": "<?php echo $seccionArray['name']; ?>",
                         "data": [
 <?php
-        foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
-            if ($seccionArray['id'] == $seccionCategoriaArray['id']) {
+        foreach ($charSeccionPotrero as $seccionPotreroKey=>$seccionPotreroArray) {
+            if ($seccionArray['seccion_id'] == $seccionPotreroArray['seccion_id']) {
 ?>
                             {
-                                "name": "<?php echo $seccionCategoriaArray['name']; ?>",
-                                "y": <?php echo $seccionCategoriaArray['value']; ?>,
-                                "drilldown": "<?php echo $seccionArray['name'].' - '.$seccionCategoriaArray['name']; ?>"
+                                "name": "<?php echo $seccionPotreroArray['name']; ?>",
+                                "y": <?php echo $seccionPotreroArray['value']; ?>,
+                                "drilldown": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name']; ?>"
                             },
 <?php
             }
@@ -951,19 +968,23 @@
                     },
 <?php
     }
-
     foreach ($charSeccion as $seccionKey=>$seccionArray) {
-        foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
-            if ($seccionArray['id'] == $seccionCategoriaArray['id']) {
+        foreach ($charSeccionPotrero as $seccionPotreroKey=>$seccionPotreroArray) {
+            if ($seccionArray['seccion_id'] == $seccionPotreroArray['seccion_id']) {
 ?>
                     {
-                        "id": "<?php echo $seccionArray['name'].' - '.$seccionCategoriaArray['name']; ?>",
+                        "id": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name']; ?>",
+                        "name": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name']; ?>",
                         "data": [
 <?php
-                foreach ($charSeccionSubCategoria as $seccionSubCategoriaKey=>$seccionSubCategoriaArray) {
-                    if (($seccionArray['id'] == $seccionSubCategoriaArray['id']) && ($seccionCategoriaArray['id2'] == $seccionSubCategoriaArray['id2'])) {
+                foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
+                    if (($seccionArray['seccion_id'] == $seccionCategoriaArray['seccion_id']) && ($seccionPotreroArray['potrero_id'] == $seccionCategoriaArray['potrero_id'])) {
 ?>
-                            [ "<?php echo $seccionCategoriaArray['name'].' - '.$seccionSubCategoriaArray['name']; ?>", <?php echo $seccionSubCategoriaArray['value']; ?>],
+                            {
+                                "name": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name'].' - '.$seccionCategoriaArray['name']; ?>",
+                                "y": <?php echo $seccionCategoriaArray['value']; ?>,
+                                "drilldown": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name'].' - '.$seccionCategoriaArray['name']; ?>"
+                            },
 <?php
                     }
                 }
@@ -971,6 +992,33 @@
                         ]
                     },
 <?php
+            }
+        }
+    }
+
+    foreach ($charSeccion as $seccionKey=>$seccionArray) {
+        foreach ($charSeccionPotrero as $seccionPotreroKey=>$seccionPotreroArray) {
+            if ($seccionArray['seccion_id'] == $seccionPotreroArray['seccion_id']) {
+                foreach ($charSeccionCategoria as $seccionCategoriaKey=>$seccionCategoriaArray) {
+                    if (($seccionArray['seccion_id'] == $seccionCategoriaArray['seccion_id']) && ($seccionPotreroArray['potrero_id'] == $seccionCategoriaArray['potrero_id'])) {
+?>
+                    {
+                        "id": "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name'].' - '.$seccionCategoriaArray['name']; ?>",
+                        "data": [
+<?php
+                        foreach ($charSeccionSubCategoria as $seccionSubCategoriaKey=>$seccionSubCategoriaArray) {
+                            if (($seccionArray['seccion_id'] == $seccionSubCategoriaArray['seccion_id']) && ($seccionPotreroArray['potrero_id'] == $seccionSubCategoriaArray['potrero_id']) && ($seccionCategoriaArray['categoria_id'] == $seccionSubCategoriaArray['categoria_id'])) {
+?>
+                            [ "<?php echo $seccionArray['name'].' - '.$seccionPotreroArray['name'].' - '.$seccionCategoriaArray['name'].' - '.$seccionSubCategoriaArray['name']; ?>", <?php echo $seccionSubCategoriaArray['value']; ?>],
+<?php
+                            }
+                        }
+?>
+                        ]
+                    },
+<?php
+                    }
+                }
             }
         }
     }
