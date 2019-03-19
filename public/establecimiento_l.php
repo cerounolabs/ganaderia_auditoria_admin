@@ -90,6 +90,7 @@
                                                 <th>DISTRITO</th>
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
+                                                <th>O.T.</th>
                                                 <th>PROPIETARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
@@ -104,6 +105,7 @@
                                                 <th>DISTRITO</th>
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
+                                                <th>O.T.</th>
                                                 <th>PROPIETARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
