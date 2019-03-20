@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var codigo		= document.getElementById('tableCodigo').className;
-	var urlDominio = 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/1500/rol/'+ codigo;
+	var urlDominio 	= 'https://www.cerouno.me/ganaderia_auditoria/public/api/v1/1500/rol/'+ codigo;
 	
 	$('#tableLoad').DataTable({
 		processing	: true,
@@ -24,8 +24,7 @@ $(document).ready(function() {
 			{ targets			: [5], visible : true,  searchable : true,  orderData : [5, 0] },
 			{ targets			: [6], visible : true,  searchable : true,  orderData : [6, 0] },
 			{ targets			: [7], visible : true,  searchable : true,  orderData : [7, 0] },
-			{ targets			: [8], visible : true,  searchable : true,  orderData : [8, 0] },
-			{ targets			: [9], visible : true,  searchable : true,  orderData : [9, 0] }
+			{ targets			: [8], visible : true,  searchable : true,  orderData : [8, 0] }
 		],
 		columns		: [
 			{ data				: 'acceso_codigo', name : 'acceso_codigo'},
@@ -36,7 +35,7 @@ $(document).ready(function() {
 			{ data				: 'acceso_insertar', name : 'acceso_insertar'},
 			{ data				: 'acceso_modificar', name : 'acceso_modificar'},
 			{ data				: 'acceso_eliminar', name : 'acceso_eliminar'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/usuario_rol_acceso_m.php?mode=R&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/usuario_rol_acceso_m.php?mode=U&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/usuario_rol_acceso_m.php?mode=D&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
+			{ render			: function (data, type, full, meta) {return '<a href="../public/usuario_rol_programa_m.php?mode=R&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/usuario_rol_programa_m.php?mode=U&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/usuario_rol_programa_m.php?mode=D&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
 		]
 	});
 });

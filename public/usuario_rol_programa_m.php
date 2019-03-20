@@ -13,12 +13,15 @@
 		$dataJSON			= get_curl('1500/'.$workCodigo);
 
 		if ($dataJSON['code'] == 200){
-            $row_00			= $dataJSON['data'][0]['usuario_codigo'];
-            $row_01			= $dataJSON['data'][0]['estado_usuario_codigo'];
+            $row_00			= $dataJSON['data'][0]['acceso_codigo'];
+            $row_01			= $dataJSON['data'][0]['estado_acceso_codigo'];
 			$row_02			= $dataJSON['data'][0]['rol_codigo'];
-			$row_03			= $dataJSON['data'][0]['persona_codigo'];
-            $row_04			= $dataJSON['data'][0]['usuario_nombre'];
-            $row_05			= $dataJSON['data'][0]['usuario_contrasena'];
+			$row_03			= $dataJSON['data'][0]['programa_codigo'];
+            $row_04			= $dataJSON['data'][0]['acceso_ingresar'];
+            $row_05			= $dataJSON['data'][0]['acceso_visualizar'];
+            $row_06			= $dataJSON['data'][0]['acceso_insertar'];
+            $row_07			= $dataJSON['data'][0]['acceso_modificar'];
+            $row_08			= $dataJSON['data'][0]['acceso_eliminar'];
         }
         
         if ($row_01 == 1){
@@ -27,6 +30,46 @@
         }else{
             $row_01_h = '';
             $row_01_d = 'selected';
+        }
+
+        if ($row_04 == 'N'){
+            $row_04_h = 'selected';
+            $row_04_d = '';
+        }else{
+            $row_04_h = '';
+            $row_04_d = 'selected';
+        }
+
+        if ($row_05 == 'N'){
+            $row_05_h = 'selected';
+            $row_05_d = '';
+        }else{
+            $row_05_h = '';
+            $row_05_d = 'selected';
+        }
+
+        if ($row_06 == 'N'){
+            $row_06_h = 'selected';
+            $row_06_d = '';
+        }else{
+            $row_06_h = '';
+            $row_06_d = 'selected';
+        }
+
+        if ($row_07 == 'N'){
+            $row_07_h = 'selected';
+            $row_07_d = '';
+        }else{
+            $row_07_h = '';
+            $row_07_d = 'selected';
+        }
+
+        if ($row_08 == 'N'){
+            $row_08_h = 'selected';
+            $row_08_d = '';
+        }else{
+            $row_08_h = '';
+            $row_08_d = 'selected';
         }
 	}
 
@@ -100,8 +143,11 @@
                                     <li class="breadcrumb-item">
                                         <a href="../public/home.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item" aria-current="page">
-                                        <a href="../public/usuario_l.php">Usuario</a>
+                                    <li class="breadcrumb-item">
+                                        <a href="../public/usuario_rol_l.php">Rol</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="../public/usuario_rol_programa_l.php">Rol Programa</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -125,16 +171,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Usuario</h4>
-                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/usuario_a.php">
+                                <h4 class="card-title">Rol Programa</h4>
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/usuario_rol_programa_a.php">
                                 	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="estadoUsuario">Estado</label>
-                                            <select id="estadoUsuario" name="estadoUsuario" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                            <label for="estadoRolPrograma">Estado</label>
+                                            <select id="estadoRolPrograma" name="estadoRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
                                                 <optgroup label="Estado">
                                                     <option value="1" <?php echo $row_01_h; ?>>Habilitado</option>
                                                     <option value="2" <?php echo $row_01_d; ?>>Deshabilitado</option>
@@ -143,8 +189,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="rolUsuario">Rol</label>
-                                		        <select id="rolUsuario" name="rolUsuario" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <label for="rolRolPrograma">Rol</label>
+                                		        <select id="rolRolPrograma" name="rolRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
 													<optgroup label="Rol">
 <?php
     if ($dominioJSON['code'] == 200) {
@@ -173,34 +219,25 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="personaUsuario">Persona</label>
-                                		        <select id="personaUsuario" name="personaUsuario" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
-													<optgroup label="Persona">
+                                                <label for="programaRolPrograma">Programa</label>
+                                		        <select id="programaRolPrograma" name="programaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+													<optgroup label="Programa">
 <?php
-    if ($personaJSON['code'] == 200) {
-        foreach ($personaJSON['data'] as $personaKey=>$personaArray) {
-            $row_persona_00          	= $personaArray['estado_persona_codigo'];
-            $row_persona_01          	= $personaArray['persona_codigo'];
-            $row_persona_02          	= $personaArray['persona_nombre'];
-            $row_persona_03          	= $personaArray['persona_apellido'];
-            $row_persona_04         	= $personaArray['persona_razon_social'];
-            $row_persona_05         	= $personaArray['persona_documento'];
-            $row_persona_06         	= $personaArray['tipo_persona_codigo'];
-            $row_persona_07         	= $personaArray['tipo_documento_codigo'];
-            $selectedPersona 			= '';
+    if ($dominioJSON['code'] == 200) {
+        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
+            $row_estado_00          	= $dominioArray['estado_dominio_codigo'];
+            $row_estado_01          	= $dominioArray['dominio_codigo'];
+            $row_estado_02          	= $dominioArray['dominio_nombre'];
+            $row_estado_03          	= $dominioArray['dominio_valor'];
+            $row_estado_04         	    = $dominioArray['dominio_observacion'];
+            $selectedEstado 			= '';
 
-            if ($row_persona_06 == 53){
-                $nombrePersona = 'CI '.$row_persona_05.', '.$row_persona_02.' '.$row_persona_03;
-            } else {
-                $nombrePersona = 'RUC '.$row_persona_05.', '.$row_persona_04;
-            }
-
-            if ($row_persona_00 == 1) {
-                if ($row_03 == $row_persona_01){
-                    $selectedPersona = 'selected';
+            if ($row_estado_00 == 1 && $row_estado_03 == 'USUARIOPROGRAMA') {
+                if ($row_02 == $row_estado_01){
+                    $selectedEstado = 'selected';
                 }
 ?>
-											    <option value="<?php echo $row_persona_01; ?>" <?php echo $selectedPersona; ?>><?php echo $nombrePersona; ?></option>
+														<option value="<?php echo $row_estado_01; ?>" <?php echo $selectedEstado; ?>><?php echo $row_estado_02; ?></option>
 <?php
             }
         }
@@ -212,27 +249,54 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="nombreUsuario">Usuario</label>
-                                                <input id="nombreUsuario" name="nombreUsuario" class="form-control" type="text" placeholder="Usuario" value="<?php echo $row_04; ?>" <?php echo $workReadonly; ?> requerid>
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label for="ingresaRolPrograma">Ingresar</label>
+                                            <select id="ingresaRolPrograma" name="ingresaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <optgroup label="Ingresar">
+                                                    <option value="N" <?php echo $row_04_h; ?>>NO</option>
+                                                    <option value="S" <?php echo $row_04_d; ?>>SI</option>
+                                                </optgroup>
+                                            </select>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="contrasena1Usuario">Contrase&ntilde;a</label>
-                                                <input id="contrasena1Usuario" name="contrasena1Usuario" class="form-control" type="password" placeholder="Contraseña" value="<?php echo $row_06; ?>" <?php echo $workReadonly; ?> requerid>
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label for="visualizaRolPrograma">Visualizar</label>
+                                            <select id="visualizaRolPrograma" name="visualizaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <optgroup label="Visualizar">
+                                                    <option value="N" <?php echo $row_05_h; ?>>NO</option>
+                                                    <option value="S" <?php echo $row_05_d; ?>>SI</option>
+                                                </optgroup>
+                                            </select>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="contrasena2Usuario">Confirmar Contrase&ntilde;a</label>
-                                                <input id="contrasena2Usuario" name="contrasena2Usuario" class="form-control" type="password" placeholder="Confirmar Contraseña" value="<?php echo $row_06; ?>" <?php echo $workReadonly; ?> requerid>
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label for="insertaRolPrograma">Insertar</label>
+                                            <select id="insertaRolPrograma" name="insertaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <optgroup label="Insertar">
+                                                    <option value="N" <?php echo $row_06_h; ?>>NO</option>
+                                                    <option value="S" <?php echo $row_06_d; ?>>SI</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="modificaRolPrograma">Modificar</label>
+                                            <select id="modificaRolPrograma" name="modificaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <optgroup label="Modificar">
+                                                    <option value="N" <?php echo $row_07_h; ?>>NO</option>
+                                                    <option value="S" <?php echo $row_07_d; ?>>SI</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="eliminaRolPrograma">Eliminar</label>
+                                            <select id="eliminaRolPrograma" name="eliminaRolPrograma" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                                <optgroup label="Eliminar">
+                                                    <option value="N" <?php echo $row_08_h; ?>>NO</option>
+                                                    <option value="S" <?php echo $row_08_d; ?>>SI</option>
+                                                </optgroup>
+                                            </select>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/usuario_l.php">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/usuario_rol_programa_l.php">Volver</a>
                                 </form>
                             </div>
                         </div>
@@ -273,7 +337,7 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <div class="chat-windows"></div>
-    <?php
+<?php
     include '../include/footer.php';
 
     if ($codeRest == 200) {
@@ -286,7 +350,7 @@
 <?php
     }
     
-    if ($codeRest == 204) {
+    if (($codeRest == 204) || ($codeRest == 400)) {
 ?>
     <script>
         $(function() {
