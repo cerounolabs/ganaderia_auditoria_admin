@@ -204,6 +204,27 @@
                             </ul>
                         </li>
 
+						<li class="sidebar-item">
+                        	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                           		<i class="icon-Affiliate"></i>
+                           		<span class="hide-menu"> Usuario </span>
+                           	</a>
+                            <ul aria-expanded="false" class="collapse first-level">
+								<li class="sidebar-item">
+                               		<a href="../public/usuario_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-usuario-usuario"></i>
+                               			<span class="hide-menu"> Usuario </span>
+                               		</a>
+                               	</li>
+								<li class="sidebar-item">
+                               		<a href="../public/usuario_rol_acceso_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-usuario-acceso"></i>
+                               			<span class="hide-menu"> Rol Acceso </span>
+                               		</a>
+                               	</li>
+                            </ul>
+                        </li>
+
                         <li class="sidebar-item">
                         	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                            		<i class="icon-Box-withFolders"></i>
