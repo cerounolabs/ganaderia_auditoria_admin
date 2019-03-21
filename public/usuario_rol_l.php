@@ -2,8 +2,6 @@
     require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
-
-    $workRol  = $_GET['id1'];
 ?>
 
 <!DOCTYPE html>
@@ -52,10 +50,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="../public/home.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="../public/usuario_rol_l.php">Rol</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Rol Programa</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Rol</li>
                                 </ol>
                             </nav>
                         </div>
@@ -77,24 +72,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                	<h4 class="col-10 card-title">Rol Programa</h4>
+                            	<div class="row">
+                            		<h4 class="col-10 card-title">Rol</h4>
                                 	<h4 class="col-2 card-title" style="text-align: right;">
-                                		<a class="btn btn-info" href="../public/usuario_rol_programa_m.php?id1=<?php echo $workRol; ?>&mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
+                                		<a class="btn btn-info" href="../public/usuario_rol_m.php?mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
                                 	</h4>
-								</div>
+                            	</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table table-striped table-bordered">
-                                            <thead id="tableCodigo" class="<?php echo $workRol; ?>">
+                                        <thead>
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
+                                                <th>TIPO</th>
+                                                <th>ROL</th>
                                                 <th>PROGRAMA</th>
-                                                <th>INGRESAR</th>
-                                                <th>VISUALIZAR</th>
-                                                <th>INSERTAR</th>
-                                                <th>MODIFICAR</th>
-                                                <th>ELIMINAR</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -102,12 +94,9 @@
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
+                                                <th>TIPO</th>
+                                                <th>ROL</th>
                                                 <th>PROGRAMA</th>
-                                                <th>INGRESAR</th>
-                                                <th>VISUALIZAR</th>
-                                                <th>INSERTAR</th>
-                                                <th>MODIFICAR</th>
-                                                <th>ELIMINAR</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </tfoot>
@@ -155,6 +144,6 @@
     include '../include/footer.php';
 ?>
     
-    <script src="../js/usuario_rol_programa.js"></script>
+    <script src="../js/usuario_rol.js"></script>
 </body>
 </html>

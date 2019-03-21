@@ -35,7 +35,7 @@ $(document).ready(function() {
 			{ data				: 'acceso_insertar', name : 'acceso_insertar'},
 			{ data				: 'acceso_modificar', name : 'acceso_modificar'},
 			{ data				: 'acceso_eliminar', name : 'acceso_eliminar'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/usuario_rol_programa_m.php?mode=R&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/usuario_rol_programa_m.php?mode=U&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/usuario_rol_programa_m.php?mode=D&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
+			{ render			: function (data, type, full, meta) {return '<a href="../public/usuario_rol_programa_m.php?id1=' + codigo + '&mode=R&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-primary"><i class="ti-eye"></i>&nbsp;</a>&nbsp;<a href="../public/usuario_rol_programa_m.php?id1=' + codigo + '&mode=U&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-success"><i class="ti-pencil"></i>&nbsp;</a></a>&nbsp;<a href="../public/usuario_rol_programa_m.php?id1=' + codigo + '&mode=D&codigo=' + full.acceso_codigo + '" role="button" class="btn btn-danger"><i class="ti-trash"></i>&nbsp;</a>';}}
 		]
 	});
 });

@@ -14,7 +14,8 @@
 	$val08                          = $_POST['eliminaRolPrograma'];
 
     $work01                         = $_POST['workCodigo'];
-    $work02                         = $_POST['workModo'];
+	$work02                         = $_POST['workModo'];
+	$work03                         = $_POST['workRol'];
 
 	if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08)) {
 		$dataJSON = json_encode(
@@ -44,7 +45,7 @@
 	
 	$result		= json_decode($result, true);
 
-	header('Location: ../../public/usuario_rol_programa_m.php?mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
+	header('Location: ../../public/usuario_rol_programa_m.php?id1='.$work03.'mode='.$work02.'&codigo='.$work01.'&code='.$result['code'].'&msg='.$result['message']);
 
 	ob_end_flush();
 ?>

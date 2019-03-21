@@ -5,6 +5,7 @@
 
 	$workCodigo 	            = $_GET['codigo'];
     $workModo 		            = $_GET['mode'];
+    $workRol                    = $_GET['id1'];
     $codeRest                   = $_GET['code'];
     $msgRest                    = $_GET['msg'];
     $dominioJSON		        = get_curl('500');
@@ -147,7 +148,7 @@
                                         <a href="../public/usuario_rol_l.php">Rol</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="../public/usuario_rol_programa_l.php">Rol Programa</a>
+                                        <a href="../public/usuario_rol_programa_l.php?id1=<?php echo $workRol; ?>">Rol Programa</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
@@ -176,6 +177,7 @@
                                 	<div class="form-group">
                                         <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
                                         <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
+                                        <input id="workRol" name="workRol" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workRol; ?>" required readonly>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
@@ -233,7 +235,7 @@
             $selectedEstado 			= '';
 
             if ($row_estado_00 == 1 && $row_estado_03 == 'USUARIOPROGRAMA') {
-                if ($row_02 == $row_estado_01){
+                if ($row_03 == $row_estado_01){
                     $selectedEstado = 'selected';
                 }
 ?>
@@ -296,7 +298,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
-                                    <a role="button" class="btn btn-dark" href="../public/usuario_rol_programa_l.php">Volver</a>
+                                    <a role="button" class="btn btn-dark" href="../public/usuario_rol_programa_l.php?id1=<?php echo $workRol; ?>">Volver</a>
                                 </form>
                             </div>
                         </div>

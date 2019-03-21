@@ -3,7 +3,54 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
 
-    $workRol  = $_GET['id1'];
+	$workCodigo 	= $_GET['codigo'];
+	$workModo 		= $_GET['mode'];
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
+    $dominioNombre 	= 'USUARIOROL';
+
+	if ($workCodigo <> 0){
+		$dataJSON			= get_curl('500/'.$workCodigo);
+
+		if ($dataJSON['code'] == 200){
+			$row_01			= $dataJSON['data'][0]['estado_dominio_codigo'];
+			$row_02			= $dataJSON['data'][0]['dominio_codigo'];
+			$row_03			= $dataJSON['data'][0]['dominio_nombre'];
+			$row_04			= $dataJSON['data'][0]['dominio_valor'];
+			$row_05			= $dataJSON['data'][0]['dominio_observacion'];
+
+			if ($row_01 == 1){
+				$row_01_h = 'selected';
+				$row_01_d = '';
+			}else{
+				$row_01_h = '';
+				$row_01_d = 'selected';
+			}
+		}
+	}
+
+	switch($workModo){
+		case 'C':
+			$workReadonly	= '';
+			$workATitulo	= 'Agregar';
+			$workAStyle		= 'btn-info';
+			break;
+		case 'R':
+			$workReadonly	= 'disabled';
+			$workATitulo	= 'Ver';
+			$workAStyle		= 'btn-primary';
+			break;
+		case 'U':
+			$workReadonly	= '';
+			$workATitulo	= 'Actualizar';
+			$workAStyle		= 'btn-success';
+			break;
+		case 'D':
+			$workReadonly	= 'disabled';
+			$workATitulo	= 'Eliminar';
+			$workAStyle		= 'btn-danger';
+			break;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +89,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Listado</h4>
+                        <h4 class="page-title">Mantenimiento</h4>
                         <div class="d-flex align-items-center"></div>
                     </div>
                     <div class="col-7 align-self-center">
@@ -52,10 +99,10 @@
                                     <li class="breadcrumb-item">
                                         <a href="../public/home.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item">
+                                    <li class="breadcrumb-item" aria-current="page">
                                         <a href="../public/usuario_rol_l.php">Rol</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Rol Programa</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mantenimiento</li>
                                 </ol>
                             </nav>
                         </div>
@@ -72,51 +119,47 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <!-- basic table -->
+                <!-- row -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                	<h4 class="col-10 card-title">Rol Programa</h4>
-                                	<h4 class="col-2 card-title" style="text-align: right;">
-                                		<a class="btn btn-info" href="../public/usuario_rol_programa_m.php?id1=<?php echo $workRol; ?>&mode=C&codigo=0" role="button" title="Agregar"><i class="ti-plus"></i></a>
-                                	</h4>
-								</div>
-                                <div class="table-responsive">
-                                    <table id="tableLoad" class="table table-striped table-bordered">
-                                            <thead id="tableCodigo" class="<?php echo $workRol; ?>">
-                                            <tr>
-                                                <th>C&Oacute;DIGO</th>
-                                                <th>ESTADO</th>
-                                                <th>PROGRAMA</th>
-                                                <th>INGRESAR</th>
-                                                <th>VISUALIZAR</th>
-                                                <th>INSERTAR</th>
-                                                <th>MODIFICAR</th>
-                                                <th>ELIMINAR</th>
-                                                <th style="width: 130px;">&nbsp;</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>C&Oacute;DIGO</th>
-                                                <th>ESTADO</th>
-                                                <th>PROGRAMA</th>
-                                                <th>INGRESAR</th>
-                                                <th>VISUALIZAR</th>
-                                                <th>INSERTAR</th>
-                                                <th>MODIFICAR</th>
-                                                <th>ELIMINAR</th>
-                                                <th style="width: 130px;">&nbsp;</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                <h4 class="card-title">Rol</h4>
+                                <form id="form" data-parsley-validate class="m-t-30" method="post" action="../class/crud/usuario_rol_a.php">
+                                   	<div class="form-group">
+                                        <input id="workCodigo" name="workCodigo" class="form-control" type="hidden" placeholder="Codigo" value="<?php echo $workCodigo; ?>" required readonly>
+                                        <input id="workModo" name="workModo" class="form-control" type="hidden" placeholder="Modo" value="<?php echo $workModo; ?>" required readonly>
+                                        <input id="workDominio" name="workDominio" class="form-control" type="hidden" placeholder="Dominio" value="16" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dominioEstado">Estado</label>
+                                		<select id="dominioEstado" name="dominioEstado" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+                                    		<optgroup label="Estado">
+                                        		<option value="1" <?php echo $row_01_h; ?>>Habilitado</option>
+                                        		<option value="2" <?php echo $row_01_d; ?>>Deshabilitado</option>
+                                    		</optgroup>
+                                		</select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dominioNombre">Nombre</label>
+                                        <input id="dominioNombre" name="dominioNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_03; ?>" required <?php echo $workReadonly; ?>>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dominioValor">Dominio</label>
+                                        <input id="dominioValor" name="dominioValor" class="form-control" type="text" placeholder="Dominio" value="<?php echo $dominioNombre; ?>" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                    	<label for="dominioObservacion">Observaci&oacute;n</label>
+                                    	<textarea id="dominioObservacion" name="dominioObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_05; ?></textarea>
+                                	</div>
+                                    <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
+                                    <a role="button" class="btn btn-dark" href="../public/usuario_rol_l.php">Volver</a>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -153,8 +196,26 @@
     <div class="chat-windows"></div>
 <?php
     include '../include/footer.php';
+
+    if ($codeRest == 200) {
 ?>
+    <script>
+        $(function() {
+            toastr.success('<?php echo $msgRest; ?>', 'Correcto!');
+        });
+    </script>
+<?php
+    }
     
-    <script src="../js/usuario_rol_programa.js"></script>
+    if ($codeRest == 204) {
+?>
+    <script>
+        $(function() {
+            toastr.error('<?php echo $msgRest; ?>', 'Error!');
+        });
+    </script>
+<?php
+    }
+?>
 </body>
 </html>

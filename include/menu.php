@@ -217,9 +217,9 @@
                                		</a>
                                	</li>
 								<li class="sidebar-item">
-                               		<a href="../public/usuario_rol_programa_l.php" class="sidebar-link">
-                               			<i class="mdi mdi-usuario-programa"></i>
-                               			<span class="hide-menu"> Rol Programa </span>
+                               		<a href="../public/usuario_rol_l.php" class="sidebar-link">
+                               			<i class="mdi mdi-usuario-rol"></i>
+                               			<span class="hide-menu"> Rol </span>
                                		</a>
                                	</li>
                             </ul>
