@@ -4,6 +4,8 @@
     require '../class/session/session_system.php';
 
     $tipoJSON		= get_curl('500');
+    $codeRest       = $_GET['code'];
+    $msgRest        = $_GET['msg'];
 ?>
 
 <!DOCTYPE html>

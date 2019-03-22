@@ -6,6 +6,7 @@
     unset($_SESSION['sysIP']);
     unset($_SESSION['sysRoC']);
     unset($_SESSION['sysRoN']);
+    unset($_SESSION['sysAcc']);
     unset($_SESSION['expire']);
     session_unset();
     session_destroy();

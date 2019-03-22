@@ -13,19 +13,25 @@
             'usuario_var01'     => $user,
             'usuario_var02'     => $pass,
             'usuario_var03'		=> $uuid,
-            'usuario_var04'		=> $dip
+            'usuario_var04'		=> $dip,
+            'usuario_var05'		=> $_SERVER['HTTP_HOST'],
+            'usuario_var06'		=> $_SERVER['HTTP_USER_AGENT'],
+            'usuario_var07'		=> $_SERVER['HTTP_REFERER']
         ));
 
     $detalleJSON    = post_curl('000', $dataJSON);
     $detalleJSON    = json_decode($detalleJSON, true);
 
     if ($detalleJSON['code'] === 200) {
+        $accesoJSON             = get_curl('1500/rol/'.$detalleJSON['data']['rol_codigo']);
+
         $_SESSION['sysUsu']     = $user;
         $_SESSION['sysNom']     = $detalleJSON['data']['persona_nombre'];
         $_SESSION['sysUuid'] 	= $uuid;
         $_SESSION['sysIP'] 	    = $dip;
         $_SESSION['sysRoC']     = $detalleJSON['data']['rol_codigo'];
         $_SESSION['sysRoN']     = $detalleJSON['data']['rol_nombre'];
+        $_SESSION['sysAcc']     = $accesoJSON;
         $_SESSION['expire']     = time() + 3600;
         
         header('Location: ../../public/home.php');
