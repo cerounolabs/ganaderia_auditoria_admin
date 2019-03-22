@@ -4,10 +4,13 @@
     if ($expire < time()) {
         header('Location: ../../class/session/session_logout.php');
     } else {
-		$sysUsu             		= $_SESSION['sysUsu'];
-    	$sysUuid             		= $_SESSION['sysUuid'];
-    	$sysIP             		    = $_SESSION['sysIP'];
-        $sysExp             		= $_SESSION['expire'];
+        $sysUsu     = $_SESSION['sysUsu'];
+        $sysNom     = $_SESSION['sysNom'];
+    	$sysUuid    = $_SESSION['sysUuid'];
+        $sysIP      = $_SESSION['sysIP'];
+        $sysRoC     = $_SESSION['sysRoC'];
+        $sysRoN     = $_SESSION['sysRoN'];
+        $sysExp     = $_SESSION['expire'];
 
         if (isset($sysUsu) && isset($sysUuid) && isset($sysIP)) {
             if ($sysUsu == '' ) {

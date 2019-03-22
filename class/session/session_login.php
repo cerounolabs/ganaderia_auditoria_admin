@@ -3,26 +3,29 @@
     require '../../class/function/curl_api.php';
     require '../../class/function/function.php';
 
-    $user                       	= $_POST['val_01'];
-    $pass                           = $_POST['val_02'];
-    $uuid                           = getUUID();
-    $dip                            = $_SERVER['REMOTE_ADDR'];
+    $user           = $_POST['val_01'];
+    $pass           = $_POST['val_02'];
+    $uuid           = getUUID();
+    $dip            = $_SERVER['REMOTE_ADDR'];
 
-    $dataJSON = json_encode(
+    $dataJSON       = json_encode(
         array(
-            'usuario_var01'             => $user,
-            'usuario_var02'       		=> $pass,
-            'usuario_var03'				=> $uuid,
-            'usuario_var04'				=> $dip
+            'usuario_var01'     => $user,
+            'usuario_var02'     => $pass,
+            'usuario_var03'		=> $uuid,
+            'usuario_var04'		=> $dip
         ));
 
-    $detalleJSON                	= post_curl('000', $dataJSON);
-    $detalleJSON                    = json_decode($detalleJSON, true);
+    $detalleJSON    = post_curl('000', $dataJSON);
+    $detalleJSON    = json_decode($detalleJSON, true);
 
     if ($detalleJSON['code'] === 200) {
         $_SESSION['sysUsu']     = $user;
+        $_SESSION['sysNom']     = $detalleJSON['data']['persona_nombre'];
         $_SESSION['sysUuid'] 	= $uuid;
         $_SESSION['sysIP'] 	    = $dip;
+        $_SESSION['sysRoC']     = $detalleJSON['data']['rol_codigo'];
+        $_SESSION['sysRoN']     = $detalleJSON['data']['rol_nombre'];
         $_SESSION['expire']     = time() + 3600;
         
         header('Location: ../../public/home.php');

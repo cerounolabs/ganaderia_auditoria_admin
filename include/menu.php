@@ -88,8 +88,8 @@
                                         <img src="../assets/images/users/default.png" alt="user" class="img-circle" width="60">
                                     </div>
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0"><?php echo "Administrador"; ?></h4>
-                                        <p class=" m-b-0"><?php echo $sysUsu; ?></p>
+                                        <h4 class="m-b-0"><?php echo $sysNom; ?></h4>
+										<p class=" m-b-0"><?php echo $sysRoN; ?></p>
 										<p class=" m-b-0"><?php echo $sysIP; ?></p>
                                     </div>
                                 </div>

@@ -1,7 +1,7 @@
 <?php
-    require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
+    require '../class/session/session_system.php';
 
     $workRol  = $_GET['id1'];
 ?>

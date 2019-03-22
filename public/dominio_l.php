@@ -1,10 +1,10 @@
 <?php
-    require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
+    require '../class/session/session_system.php';
     
-	$dominioCodigo 	= $_GET['dominio'];
-
+    $dominioCodigo 	= $_GET['dominio'];
+    
 	switch($dominioCodigo){
 		case 3:
 			$dominioTitulo = 'Dominio';

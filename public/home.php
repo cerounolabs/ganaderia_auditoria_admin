@@ -1,7 +1,7 @@
 <?php
-    require '../class/session/session_system.php';
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
+    require '../class/session/session_system.php';
 
     $tipoJSON		= get_curl('500');
 ?>
@@ -92,6 +92,16 @@
     <div class="chat-windows"></div>
 <?php
     include '../include/footer.php';
+   
+    if ($codeRest == 401) {
+?>
+    <script>
+        $(function() {
+            toastr.error('<?php echo $msgRest; ?>', 'Error!');
+        });
+    </script>
+<?php
+    }
 ?>
 
 </body>
