@@ -85,7 +85,7 @@
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table table-striped table-bordered">
-                                            <thead id="tableCodigo" class="<?php echo $workRol; ?>">
+                                        <thead id="tableCodigo" class="<?php echo $workRol; ?>">
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>

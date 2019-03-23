@@ -26,7 +26,7 @@
         $accesoJSON             = get_curl('1500/rol/'.$detalleJSON['data']['rol_codigo']);
 
         $_SESSION['sysUsu']     = $user;
-        $_SESSION['sysNom']     = $detalleJSON['data']['persona_nombre'];
+        $_SESSION['sysNom']     = $detalleJSON['data']['persona_completo'];
         $_SESSION['sysUuid'] 	= $uuid;
         $_SESSION['sysIP'] 	    = $dip;
         $_SESSION['sysRoC']     = $detalleJSON['data']['rol_codigo'];

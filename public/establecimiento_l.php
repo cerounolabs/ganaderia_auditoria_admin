@@ -80,18 +80,16 @@
 								</div>
                                 <div class="table-responsive">
                                     <table id="tableLoad" class="table table-striped table-bordered">
-                                        <thead>
+                                        <thead id="tableCodigo" class="<?php echo $sysUsu; ?>">
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>PA&Iacute;S</th>
-                                                <th>DEPARTAMENTO</th>
-                                                <th>DISTRITO</th>
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
                                                 <th>O.T.</th>
                                                 <th>PROPIETARIO</th>
+                                                <th>USUARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -100,13 +98,11 @@
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>PA&Iacute;S</th>
-                                                <th>DEPARTAMENTO</th>
-                                                <th>DISTRITO</th>
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
                                                 <th>O.T.</th>
                                                 <th>PROPIETARIO</th>
+                                                <th>USUARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </tfoot>
