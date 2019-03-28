@@ -124,6 +124,14 @@
                         		<i class="icon-Car-Wheel"></i>
                         		<span class="hide-menu"> Dashboard </span>
                         	</a>
+							<ul aria-expanded="false" class="collapse first-level">
+                            	<li class="sidebar-item">
+                               		<a href="../public/home.php" class="sidebar-link">
+                               			<i class="mdi mdi-ot-ot"></i>
+                               			<span class="hide-menu"> Home </span>
+                               		</a>
+                               	</li>
+                            </ul>
                         </li>
                         
                         <li class="sidebar-item">

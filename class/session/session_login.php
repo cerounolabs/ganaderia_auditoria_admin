@@ -14,9 +14,9 @@
             'usuario_var02'     => $pass,
             'usuario_var03'		=> $uuid,
             'usuario_var04'		=> $dip,
-            'usuario_var05'		=> $_SERVER['HTTP_HOST'],
-            'usuario_var06'		=> $_SERVER['HTTP_USER_AGENT'],
-            'usuario_var07'		=> $_SERVER['HTTP_REFERER']
+            'usuario_var05'		=> 'auditoria.cerouno.com.py', //$_SERVER['HTTP_HOST'],
+            'usuario_var06'		=> 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0', //$_SERVER['HTTP_USER_AGENT'],
+            'usuario_var07'		=> 'http://auditoria.cerouno.com.py/' //$_SERVER['HTTP_REFERER']
         ));
 
     $detalleJSON    = post_curl('000', $dataJSON);

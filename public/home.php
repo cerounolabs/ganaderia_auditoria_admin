@@ -67,7 +67,59 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-            
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- basic table -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                	<h4 class="col-10 card-title">Orden de Trabajo</h4>
+                                	<h4 class="col-2 card-title" style="text-align: right;">
+                                	</h4>
+								</div>
+                                <div class="table-responsive">
+                                    <table id="tableLoad" class="table table-striped table-bordered">
+                                        <thead id="tableCodigo" class="<?php echo $sysUsu; ?>">
+                                            <tr>
+                                                <th>C&Oacute;DIGO</th>
+                                                <th>ESTABLECIMIENTO</th>
+                                                <th>ESTADO</th>
+                                                <th>FECHA INICIO</th>
+                                                <th>FECHA FIN</th>
+                                                <th>O.T.</th>
+                                                <th>DETALLE</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>C&Oacute;DIGO</th>
+                                                <th>ESTABLECIMIENTO</th>
+                                                <th>ESTADO</th>
+                                                <th>FECHA INICIO</th>
+                                                <th>FECHA FIN</th>
+                                                <th>O.T.</th>
+                                                <th>DETALLE</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -99,5 +151,6 @@
     }
 ?>
 
+    <script src="../js/home.js"></script>
 </body>
 </html>
