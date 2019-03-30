@@ -114,7 +114,7 @@
 
 //    $charPotreroCategoria       = getCantPotreroCategoria($potreroJSON, $dominioJSON, $otAudJSON);
 
-//    $charPotrero                = getCantPotrero($potreroJSON, $otAudJSON);
+    $charPotrero                = getCantPotrero($potreroJSON, $otAudJSON);
     $charCategoria              = getCantCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
     $charSubCategoria           = getCantSubCategoria($dominio_subJSON, $otExiJSON, $otAudJSON);
 ?>
@@ -272,7 +272,7 @@
                         </div>
                     </div>
                 </div>
-
+-->
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -284,7 +284,7 @@
                         </div>
                     </div>
                 </div>
--->
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -569,13 +569,13 @@
                 },
             });
     
-/*            var chart_02 = c3.generate({
+            var chart_02 = c3.generate({
                 bindto: "#cantPoblacionxPotrero",
                 data: {
                     x : "x",
                     columns: [
-                        ["x", <?php //echo $charPotrero[0]; ?>],
-                        ["Cantidad Bovino", <?php //echo $charPotrero[1]; ?>],
+                        ["x", <?php echo $charPotrero[0]; ?>],
+                        ["Cantidad Bovino", <?php echo $charPotrero[1]; ?>],
                     ],
                     type: "bar"
                 },
@@ -603,7 +603,7 @@
                     hide: true
                 }
             });
-*/
+
             var chart_03 = c3.generate({
                 bindto: "#cantPoblacionxCategoria",
                 data: {
