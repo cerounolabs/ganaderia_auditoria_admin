@@ -3,9 +3,11 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-    $tipoJSON		= get_curl('500');
+    $ganaderoJSON   = get_curl('1000/resumen/establecimiento/'.$sysUsu);
     $codeRest       = $_GET['code'];
     $msgRest        = $_GET['msg'];
+
+    $charGanadero   = getCantEstablecimiento($ganaderoJSON);
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +73,17 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- basic table -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X ESTABLECIMIENTO (AUDITADA)</h4>
+                                <div id="resumenGanadero"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -150,7 +163,56 @@
 <?php
     }
 ?>
+    <script>
+        $(function() {
+            'use strict';
 
+            var chart_01 = c3.generate({
+                bindto: "#resumenGanadero",
+                data: {
+                    x : "x",
+                    columns: [
+                        ["x", <?php echo $charGanadero[0]; ?>],
+                        ["Establecimiento", <?php echo $charGanadero[1]; ?>]
+                    ],
+                    type: "bar"
+                },
+                color: { 
+                    pattern: ["#4fc3f7"] 
+                },
+                size: { 
+                    //height: 163.6 
+                },
+                axis: {
+                    x: {
+                        type: "category"
+                    },
+                    y: {
+                        tick: {
+                            count: 3,
+                            outer: false
+                        }
+                    }
+                },
+                legend: {
+                    hide: false
+                },
+                grid: { 
+                    x: { 
+                        show: true 
+                    },
+                    y: {
+                        show: true
+                    }
+                },
+                bar: {
+                    space: 0.2,
+                    width: 15
+                }
+            });
+        });
+    </script>
+    
     <script src="../js/home.js"></script>
 </body>
 </html>

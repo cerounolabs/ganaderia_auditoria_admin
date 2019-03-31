@@ -46,7 +46,7 @@
 			$workAStyle		= 'btn-success';
 			break;
 		case 'D':
-			$workReadonly	= 'disabled';
+			$workReadonly	= '';
 			$workATitulo	= 'Eliminar';
 			$workAStyle		= 'btn-danger';
 			break;

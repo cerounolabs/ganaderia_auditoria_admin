@@ -28,6 +28,35 @@
         return $result;
     }
 
+    function getCantEstablecimiento($dataJSON01){
+        $result = array();
+
+        if ($dataJSON01['code'] == 200) {
+            $charTitulo     = '';
+            $charCantidad   = '';
+            $charBandera    = 0;
+
+            foreach ($dataJSON01['data'] as $establecimientoKey=>$establecimientoArray) {
+                $row_establecimiento_00 = $establecimientoArray['establecimiento_codigo'];
+                $row_establecimiento_01 = $establecimientoArray['establecimiento_nombre'];
+                $row_establecimiento_02 = $establecimientoArray['ot_auditada_cantidad'];
+                
+                if ($charBandera == 0) {
+                    $charBandera    = 1;
+                    $charTitulo     = '"'.$row_establecimiento_01.'"';
+                    $charCantidad   = $row_establecimiento_02;
+                } else {
+                    $charTitulo     = $charTitulo.', "'.$row_establecimiento_01.'"';
+                    $charCantidad   = $charCantidad.', '.$row_establecimiento_02;
+                }
+            }
+        }
+
+        $result = array($charTitulo, $charCantidad);
+
+        return $result;
+    }
+
     function getCantSeccion($dataJSON01, $dataJSON02){
         $result = array();
 
