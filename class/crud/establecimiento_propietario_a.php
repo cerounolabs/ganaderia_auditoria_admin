@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	ob_start();
 
     require '../../class/function/curl_api.php';
@@ -10,7 +11,10 @@
 
     $work01                         = $_POST['workCodigo'];
     $work02                         = $_POST['workModo'];
-    $work03                         = $_POST['workId1'];
+	$work03                         = $_POST['workId1'];
+	
+	$sysUsu     					= $_SESSION['sysUsu'];
+    $sysIP      					= $_SESSION['sysIP'];
 
     if (isset($val01) && isset($val02)) {
         $dataJSON = json_encode(
@@ -18,7 +22,10 @@
                 'estado_establecimiento_propietario_codigo'	=> $val01,
 				'establecimiento_codigo'       				=> $work03,
 				'persona_codigo'							=> $val02,
-				'estado_establecimiento_propietario_marca'	=> $val03
+				'estado_establecimiento_propietario_marca'	=> $val03,
+				'auditoria_usuario'							=> $sysUsu,
+				'auditoria_fechahora'						=> date('Y-m-d H:i:s'),
+				'auditoria_ip'								=> $sysIP
             ));
 		
 		switch($work02){

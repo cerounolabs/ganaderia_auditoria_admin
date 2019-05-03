@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	ob_start();
 
     require '../../class/function/curl_api.php';
@@ -13,13 +14,19 @@
     $work02                         = $_POST['workModo'];
 	$work03                         = $_POST['workDominio'];
 
+	$sysUsu     					= $_SESSION['sysUsu'];
+    $sysIP      					= $_SESSION['sysIP'];
+
     if (isset($val01) && isset($val02) && isset($val03)) {
         $dataJSON = json_encode(
             array(
                 'estado_dominio_codigo'             => $val01,
 				'dominio_nombre'       				=> $val02,
 				'dominio_valor'						=> $val03,
-				'dominio_observacion'				=> $val04
+				'dominio_observacion'				=> $val04,
+				'auditoria_usuario'					=> $sysUsu,
+				'auditoria_fechahora'				=> date('Y-m-d H:i:s'),
+				'auditoria_ip'						=> $sysIP
             ));
 		
 		switch($work02){

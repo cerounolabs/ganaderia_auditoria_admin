@@ -1,11 +1,15 @@
 <?php
+	session_start();
 	ob_start();
 
 	require '../../class/function/curl_api.php';
 
-	$val01	= $_POST['poblacionTipo'];
-	$val02	= $_POST['poblacionPotrero'];
-	$val03  = $_POST['poblacionFecha'];
+	$val01							= $_POST['poblacionTipo'];
+	$val02							= $_POST['poblacionPotrero'];
+	$val03  						= $_POST['poblacionFecha'];
+
+	$sysUsu     					= $_SESSION['sysUsu'];
+    $sysIP      					= $_SESSION['sysIP'];
 
 	switch ($val01) {
 		case '1':
@@ -34,16 +38,19 @@
 		if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08)) {
 			$dataJSON = json_encode(
 				array(
-					'propietario_codigo'       				=> $val04,
-					'origen_codigo'         				=> $val05,
-					'raza_codigo'       					=> $val06,
-					'categoria_subcategoria_codigo'			=> $val07,
-					'potrero_codigo'						=> $val02,
-					'ot_codigo'								=> $work01,
-					'ot_fecha'								=> $val03,
-					'ot_cantidad'							=> $val08,
-					'ot_peso'								=> $val09,
-					'ot_observacion'						=> $val10
+					'propietario_codigo'       			=> $val04,
+					'origen_codigo'         			=> $val05,
+					'raza_codigo'       				=> $val06,
+					'categoria_subcategoria_codigo'		=> $val07,
+					'potrero_codigo'					=> $val02,
+					'ot_codigo'							=> $work01,
+					'ot_fecha'							=> $val03,
+					'ot_cantidad'						=> $val08,
+					'ot_peso'							=> $val09,
+					'ot_observacion'					=> $val10,
+					'auditoria_usuario'					=> $sysUsu,
+					'auditoria_fechahora'				=> date('Y-m-d H:i:s'),
+					'auditoria_ip'						=> $sysIP
 				));
 
 			switch($work02){

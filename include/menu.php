@@ -410,7 +410,124 @@
 									</ul>
                                 </li>
                             </ul>
-                        </li>
+						</li>
+						
+						<li class="sidebar-item">
+                        	<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                           		<i class="icon-Security-Block "></i>
+                           		<span class="hide-menu"> Auditoria </span>
+                           	</a>
+                            <ul aria-expanded="false" class="collapse first-level">
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-localidad"></i>
+										<span class="hide-menu">Localidad</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-localidad-pais"></i>
+												<span class="hide-menu"> P&aacute;is</span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-localidad-departamento"></i>
+												<span class="hide-menu"> Departamento</span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-localidad-distrito"></i>
+												<span class="hide-menu"> Distrito</span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-localidad-compania"></i>
+												<span class="hide-menu"> Compa&ntilde;ia</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-establecimiento"></i>
+										<span class="hide-menu">Establecimiento</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-establecimiento-establecimiento"></i>
+												<span class="hide-menu"> Establecimiento</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-ot"></i>
+										<span class="hide-menu">Orden Trabajo</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-ot-ot"></i>
+												<span class="hide-menu"> Orden Trabajo</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-persona"></i>
+										<span class="hide-menu">Persona</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-persona-persona"></i>
+												<span class="hide-menu"> Persona</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-usuario"></i>
+										<span class="hide-menu">Usuario</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-usuario-usuario"></i>
+												<span class="hide-menu"> Usuario</span>
+											</a>
+										</li>
+										<li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-usuario-rol"></i>
+												<span class="hide-menu"> Rol</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+								<li class="sidebar-item">
+									<a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+										<i class="mdi mdi-auditoria-parametro"></i>
+										<span class="hide-menu">Par&aacute;metro</span>
+									</a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+											<a href="javascript:void(0)" class="sidebar-link">
+												<i class="mdi mdi-auditoria-parametro-parametro"></i>
+												<span class="hide-menu"> Par&aacute;metro</span>
+											</a>
+										</li>
+                                    </ul>
+								</li>
+                            </ul>
+						</li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

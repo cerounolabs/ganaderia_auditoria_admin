@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	ob_start();
 
     require '../../class/function/curl_api.php';
@@ -17,6 +18,9 @@
 	$work02                         = $_POST['workModo'];
 	$work03                         = $_POST['workRol'];
 
+	$sysUsu     					= $_SESSION['sysUsu'];
+    $sysIP      					= $_SESSION['sysIP'];
+
 	if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($val06) && isset($val07) && isset($val08)) {
 		$dataJSON = json_encode(
 			array(
@@ -27,7 +31,10 @@
 				'acceso_visualizar'					=> $val05,
 				'acceso_insertar'					=> $val06,
 				'acceso_modificar'					=> $val07,
-				'acceso_eliminar'					=> $val08
+				'acceso_eliminar'					=> $val08,
+				'auditoria_usuario'					=> $sysUsu,
+				'auditoria_fechahora'				=> date('Y-m-d H:i:s'),
+				'auditoria_ip'						=> $sysIP
 			));
 		
 		switch($work02){
