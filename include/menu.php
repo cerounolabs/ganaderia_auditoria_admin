@@ -457,7 +457,7 @@
 									</a>
                                     <ul aria-expanded="false" class="collapse second-level">
                                         <li class="sidebar-item">
-											<a href="javascript:void(0)" class="sidebar-link">
+											<a href="../public/auditoria_establecimiento_l.php" class="sidebar-link">
 												<i class="mdi mdi-auditoria-establecimiento-establecimiento"></i>
 												<span class="hide-menu"> Establecimiento</span>
 											</a>
@@ -519,9 +519,9 @@
 									</a>
                                     <ul aria-expanded="false" class="collapse second-level">
                                         <li class="sidebar-item">
-											<a href="javascript:void(0)" class="sidebar-link">
-												<i class="mdi mdi-auditoria-parametro-parametro"></i>
-												<span class="hide-menu"> Par&aacute;metro</span>
+											<a href="../public/auditoria_dominio_l.php" class="sidebar-link">
+												<i class="mdi mdi-auditoria-parametro-dominio"></i>
+												<span class="hide-menu"> Dominio</span>
 											</a>
 										</li>
                                     </ul>
