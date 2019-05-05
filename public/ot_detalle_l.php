@@ -213,7 +213,7 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="card bg-light-info border-info">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X D&Iacute;A TRABAJO (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR D&Iacute;A TRABAJO (AUDITADA)</h4>
                                 <div id="cantPoblacionxDiaTrabajo"></div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X PROPIETARIO (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR PROPIETARIO (AUDITADA)</h4>
                                 <div id="cantPoblacionxPropietario"></div>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X ORIGEN (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR ORIGEN (AUDITADA)</h4>
                                 <div id="cantPoblacionxOrigen"></div>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X RAZA (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR RAZA (AUDITADA)</h4>
                                 <div id="cantPoblacionxRaza"></div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X SECCI&Oacute;N (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR SECCI&Oacute;N (AUDITADA)</h4>
                                 <div id="cantPoblacionxSeccion">
                                 </div>
                             </div>
@@ -277,7 +277,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X POTRERO (AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR POTRERO (AUDITADA)</h4>
                                 <div id="cantPoblacionxPotrero">
                                 </div>
                             </div>
@@ -289,7 +289,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X CATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR CATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
                                 <div id="cantPoblacionxCategoria"></div>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">POBLACI&Oacute;N BOVINA X SUBCATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
+                                <h4 class="card-title">POBLACI&Oacute;N BOVINA POR SUBCATEGOR&Iacute;A (EXISTENCIA VS AUDITADA)</h4>
                                 <div id="cantPoblacionxSubCategoria">
                                 </div>
                             </div>
@@ -886,7 +886,7 @@
                 type: 'column'
             },
             title: {
-                text: 'POBLACIÓN BOVINA AGRUPADO X SECCIÓN - POTRERO - CATEGORÍA - SUBCATEGORÍA'
+                text: 'POBLACIÓN BOVINA AGRUPADO POR SECCIÓN - POTRERO - CATEGORÍA - SUBCATEGORÍA'
             },
             subtitle: {
                 text: 'Click sobre las columnas para ver los detalles'

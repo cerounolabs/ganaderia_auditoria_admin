@@ -99,22 +99,16 @@
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>ESTADO</th>
-                                                <th>FECHA INICIO</th>
-                                                <th>FECHA FIN</th>
+                                                <th>SIGOR</th>
                                                 <th>O.T.</th>
-                                                <th>DETALLE</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>ESTADO</th>
-                                                <th>FECHA INICIO</th>
-                                                <th>FECHA FIN</th>
+                                                <th>SIGOR</th>
                                                 <th>O.T.</th>
-                                                <th>DETALLE</th>
                                             </tr>
                                         </tfoot>
                                     </table>
