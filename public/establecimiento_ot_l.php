@@ -90,6 +90,7 @@
                                                 <th>FECHA INICIO</th>
                                                 <th>O.T.</th>
                                                 <th>DETALLE</th>
+                                                <th>REPORTE</th>
                                                 <th>CARGA</th>
                                             </tr>
                                         </thead>
@@ -101,6 +102,7 @@
                                                 <th>FECHA INICIO</th>
                                                 <th>O.T.</th>
                                                 <th>DETALLE</th>
+                                                <th>REPORTE</th>
                                                 <th>CARGA</th>
                                             </tr>
                                         </tfoot>
