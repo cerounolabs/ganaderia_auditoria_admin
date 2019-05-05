@@ -88,7 +88,7 @@
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
                                                 <th>O.T.</th>
-                                                <th>PROPIETARIO</th>
+                                                <th>PERSONA</th>
                                                 <th>USUARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
@@ -101,7 +101,7 @@
                                                 <th>SECCI&Oacute;N</th>
                                                 <th>POTRERO</th>
                                                 <th>O.T.</th>
-                                                <th>PROPIETARIO</th>
+                                                <th>PERSONA</th>
                                                 <th>USUARIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>

@@ -90,7 +90,8 @@
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>PROPIETARIO</th>
+                                                <th>PERSONA / EMPRESA</th>
+                                                <th>CARGO</th>
                                                 <th>MARCA</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
@@ -100,7 +101,8 @@
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
                                                 <th>ESTABLECIMIENTO</th>
-                                                <th>PROPIETARIO</th>
+                                                <th>PERSONA / EMPRESA</th>
+                                                <th>CARGO</th>
                                                 <th>MARCA</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>

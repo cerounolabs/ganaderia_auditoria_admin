@@ -124,6 +124,10 @@
         case 68:
 			$dominioTitulo 	= 'Programa';
 			$dominioNombre 	= 'USUARIOPROGRAMA';
+            break;
+        case 87:
+            $dominioTitulo 	= 'Cargo';
+			$dominioNombre 	= 'ESTABLECIMIENTOCARGO';
 			break;
 	}
 ?>

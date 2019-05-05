@@ -251,6 +251,12 @@
 												<span class="hide-menu"> Tipo Estado </span>
 											</a>
 										</li>
+										<li class="sidebar-item">
+											<a href="../public/dominio_l.php?dominio=87" class="sidebar-link">
+												<i class="mdi mdi-parametro-establecimiento-cargo"></i>
+												<span class="hide-menu"> Tipo Cargo </span>
+											</a>
+										</li>
 									</ul>
                                 </li>
                                 <li class="sidebar-item">

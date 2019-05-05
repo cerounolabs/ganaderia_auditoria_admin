@@ -7,7 +7,8 @@
 	$val00                          = $_POST['propietarioCodigo'];
 	$val01                          = $_POST['propietarioEstado'];
 	$val02                          = $_POST['propietarioPersona'];
-	$val03                          = $_POST['propietarioMarca'];
+	$val03                          = $_POST['propietarioCargo'];
+	$val04                          = $_POST['propietarioMarca'];
 
     $work01                         = $_POST['workCodigo'];
     $work02                         = $_POST['workModo'];
@@ -22,7 +23,8 @@
                 'estado_establecimiento_propietario_codigo'	=> $val01,
 				'establecimiento_codigo'       				=> $work03,
 				'persona_codigo'							=> $val02,
-				'estado_establecimiento_propietario_marca'	=> $val03,
+				'cargo_codigo'								=> $val03,
+				'estado_establecimiento_propietario_marca'	=> $val04,
 				'auditoria_usuario'							=> $sysUsu,
 				'auditoria_fechahora'						=> date('Y-m-d H:i:s'),
 				'auditoria_ip'								=> $sysIP

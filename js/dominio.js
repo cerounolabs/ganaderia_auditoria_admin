@@ -58,6 +58,9 @@ $(document).ready(function() {
 		case 'USUARIOPROGRAMA':
 			codDominio	= 68;
 			break;
+		case 'ESTABLECIMIENTOCARGO':
+			codDominio	= 87;
+			break;
 	}
 	
 	$('#tableLoad').DataTable({

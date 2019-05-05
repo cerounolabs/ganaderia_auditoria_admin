@@ -8,6 +8,7 @@
     $workEstablecimiento    = $_GET['id1'];
     $codeRest               = $_GET['code'];
     $msgRest                = $_GET['msg'];
+    $dominioJSON		    = get_curl('500');
     $personaJSON	        = get_curl('1300');
 
 	if ($workCodigo <> 0){
@@ -17,7 +18,8 @@
 			$row_01			= $dataJSON['data'][0]['estado_establecimiento_propietario_codigo'];
 			$row_02			= $dataJSON['data'][0]['establecimiento_codigo'];
             $row_03			= $dataJSON['data'][0]['persona_codigo'];
-            $row_04			= $dataJSON['data'][0]['establecimiento_propietario_marca'];
+            $row_04			= $dataJSON['data'][0]['cargo_codigo'];
+            $row_05			= $dataJSON['data'][0]['establecimiento_propietario_marca'];
 
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
@@ -148,7 +150,7 @@
                                 		</select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="propietarioPersona">Persona</label>
+                                        <label for="propietarioPersona">Persona / Empresa</label>
                                 		<select id="propietarioPersona" name="propietarioPersona" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
 										    <optgroup label="Persona">
                                                 <option value="0" <?php echo $workSelect; ?> disabled>Seleccionar</option>
@@ -186,8 +188,36 @@
 									    </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="propietarioCargo">Cargo</label>
+                                        <select id="propietarioCargo" name="propietarioCargo" class="select2 form-control custom-select" style="width: 100%; height:36px;" <?php echo $workReadonly; ?>>
+										    <optgroup label="Cargo">
+<?php
+    if ($dominioJSON['code'] == 200) {
+        foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) {
+            $row_cargo_00          	= $dominioArray['estado_dominio_codigo'];
+            $row_cargo_01          	= $dominioArray['dominio_codigo'];
+            $row_cargo_02          	= $dominioArray['dominio_nombre'];
+            $row_cargo_03          	= $dominioArray['dominio_valor'];
+            $row_cargo_04         	= $dominioArray['dominio_observacion'];
+            $selectedCargo 			= '';
+
+            if ($row_cargo_00 == 1 && $row_cargo_03 == 'ESTABLECIMIENTOCARGO') {
+                if ($row_04 == $row_cargo_01){
+                    $selectedCargo = 'selected';
+                }
+?>
+														<option value="<?php echo $row_cargo_01; ?>" <?php echo $selectedCargo; ?>><?php echo $row_cargo_02; ?></option>
+<?php
+            }
+        }
+    }
+?>
+													</optgroup>
+												</select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="propietarioMarca">Marca</label>
-                                        <input id="propietarioMarca" name="propietarioMarca" class="form-control" type="text" placeholder="Marca" value="<?php echo $row_04; ?>" required <?php echo $workReadonly; ?> maxlength="10">
+                                        <input id="propietarioMarca" name="propietarioMarca" class="form-control" type="text" placeholder="Marca" value="<?php echo $row_05; ?>" required <?php echo $workReadonly; ?> maxlength="10">
                                     </div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
                                     <a role="button" class="btn btn-dark" href="../public/establecimiento_propietario_l.php?id1=<?php echo $workEstablecimiento; ?>">Volver</a>
