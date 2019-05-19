@@ -31,9 +31,9 @@ $(document).ready(function() {
 			{ data				: 'estado_ot_nombre', name : 'estado_ot_nombre'},
 			{ data				: 'ot_fecha_inicio_trabajo_2', name : 'ot_fecha_inicio_trabajo_2'},
 			{ data				: 'ot_numero', name : 'ot_numero'},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_detalle_l.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-primary"><i class="ti-bar-chart"></i>&nbsp;</a>&nbsp;';}},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_reporte_l.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-success"><i class="ti-image"></i>&nbsp;</a>&nbsp;';}},
-			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_carga_l.php?mode=R&codigo=' + full.ot_codigo + '" role="button" class="btn btn-warning"><i class="ti-layout"></i>&nbsp;</a>&nbsp;';}},
+			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_detalle_l.php?mode=R&id1=' + full.establecimiento_codigo + '&id2=' + full.ot_codigo + '" role="button" class="btn btn-primary"><i class="ti-bar-chart"></i>&nbsp;</a>&nbsp;';}},
+			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_reporte_l.php?mode=R&id1=' + full.establecimiento_codigo + '&id2=' + full.ot_codigo + '" role="button" class="btn btn-success"><i class="ti-image"></i>&nbsp;</a>&nbsp;';}},
+			{ render			: function (data, type, full, meta) {return '<a href="../public/ot_carga_l.php?mode=R&id1=' + full.establecimiento_codigo + '&id2=' + full.ot_codigo + '" role="button" class="btn btn-warning"><i class="ti-layout"></i>&nbsp;</a>&nbsp;';}},
 		]
 	});
 });
