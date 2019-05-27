@@ -3,7 +3,7 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-	$workCodigo 	    = $_GET['codigo'];
+	$workCodigo 	    = $_GET['id2'];
     $workModo 		    = $_GET['mode'];
     $codeRest           = $_GET['code'];
     $msgRest            = $_GET['msg'];

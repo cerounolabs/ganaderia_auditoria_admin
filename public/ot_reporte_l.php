@@ -94,20 +94,24 @@
                                         </thead>
                                         <tboby>
                                             <tr>
+                                                <td><a href="../report/ot_existencia_poblacion.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR POBLACI&Oacute;N</a></td>
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR POBLACI&Oacute;N, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
+                                            </tr>
+                                            <tr>
                                                 <td><a href="../report/ot_existencia_origen.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR ORIGEN</a></td>
-                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR ORIGEN, CATEGOR&Iacute;, SUBCATEGOR&Iacute;</td> 
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR ORIGEN, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
                                             </tr>
                                             <tr>
                                                 <td><a href="../report/ot_existencia_potrero.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR POTRERO</a></td>
-                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR POTRERO, CATEGOR&Iacute;, SUBCATEGOR&Iacute;</td> 
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR POTRERO, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
                                             </tr>
                                             <tr>
                                                 <td><a href="../report/ot_existencia_propietario.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR PROPIETARIO</a></td>
-                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR PROPIETARIO, CATEGOR&Iacute;, SUBCATEGOR&Iacute;</td> 
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR PROPIETARIO, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
                                             </tr>
                                             <tr>
                                                 <td><a href="../report/ot_existencia_raza.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR RAZA</a></td>
-                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR RAZA, CATEGOR&Iacute;, SUBCATEGOR&Iacute;</td> 
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR RAZA, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
                                             </tr>
                                         </tboby>
                                         <tfoot>
