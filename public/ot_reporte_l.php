@@ -94,6 +94,10 @@
                                         </thead>
                                         <tboby>
                                             <tr>
+                                                <td><a href="../report/ot_parte_diario.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">PARTE DIARIO</a></td>
+                                                <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR FECHA, PROTERO, ORIGEN, RAZA, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
+                                            </tr>
+                                            <tr>
                                                 <td><a href="../report/ot_existencia_poblacion.php?id1=<?php echo $workOrdenTrabajo; ?>" target="_blank">EXISTENCIA POR POBLACI&Oacute;N</a></td>
                                                 <td>DETALLE DE LAS EXISTENCIAS DETALLANDO POR POBLACI&Oacute;N, CATEGOR&Iacute;A, SUBCATEGOR&Iacute;A</td> 
                                             </tr>

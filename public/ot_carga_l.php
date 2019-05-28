@@ -223,7 +223,6 @@
                                         <thead id="tableAuditada" class="<?php echo $workCodigo; ?>">
                                             <tr>
                                                 <th>&nbsp;</th>
-                                                <th>&nbsp;</th>
                                                 <th>FECHA</th>
                                                 <th>POTRERO</th>
                                                 <th>PROPIETARIO</th>
@@ -271,9 +270,6 @@
 ?>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-success"><i class="ti-pencil"></i></button>
-                                                </td>
-                                                <td>
                                                     <button type="button" class="btn btn-danger" onclick="deteleItem(<?php echo $workCodigo; ?>, 1200, <?php echo $row_auditada_12; ?>)"><i class="ti-trash"></i></button>
                                                 </td>
                                                 <td class="colFec"> <?php echo $row_auditada_13; ?> </td>
@@ -296,7 +292,6 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>&nbsp;</th>
                                                 <th>&nbsp;</th>
                                                 <th>FECHA</th>
                                                 <th>POTRERO</th>
