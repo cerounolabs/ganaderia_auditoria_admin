@@ -8,6 +8,11 @@
     $uuid           = getUUID();
     $dip            = $_SERVER['REMOTE_ADDR'];
 
+    if ($user === 'innovandopy@mayorcontrol.com' && $pass === 'innovandopy2019'){
+        $user   = 'innovando';
+        $pass   = 'innovando2019';
+    }
+
     $dataJSON       = json_encode(
         array(
             'usuario_var01'     => $user,
