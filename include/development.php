@@ -3,8 +3,7 @@
             <!-- ============================================================== -->
             <footer class="footer text-center">
                 Todos los derechos reservados. Dise&ntilde;ado y desarrollado por 
-                <!--<a href="http://cerouno.com.py">CEROUNO Labs</a>.-->
-                TIC'S & GANADERIA S.A.
+                <a href="https://mayorcontrol.com">MAYORCONTROL</a> &copy; <?php echo date('Y'); ?>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
