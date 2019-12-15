@@ -7727,7 +7727,7 @@ html[dir="ltr"] body .p-l-0 {
   overflow: hidden; }
 
 .page-wrapper {
-  background: #fff;
+  background: #f0f0f0;
   position: relative;
   transition: 0.2s ease-in;
   display: none; }

@@ -2,87 +2,22 @@
     require '../class/function/curl_api.php';
     require '../class/function/function.php';
     require '../class/session/session_system.php';
+
+    if (isset($_GET['code'])){
+        $codeRest 		= $_GET['code'];
+    } else {
+        $codeRest 		= '';
+    }
+
+    if (isset($_GET['msg'])){
+        $msgRest 		= $_GET['msg'];
+    } else {
+        $msgRest 		= '';
+    }
     
     $dominioCodigo 	= $_GET['dominio'];
-    
-	switch($dominioCodigo){
-		case 3:
-			$dominioTitulo = 'Dominio';
-			$dominioNombre = 'DOMINIOSISTEMA';
-            break;
-        case 4:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'DOMINIOESTADO';
-            break;
-        case 5:
-			$dominioTitulo = 'Estado';
-			$dominioNombre = 'ESTABLECIMIENTOESTADO';
-            break;
-        case 6:
-			$dominioTitulo = 'Estado';
-			$dominioNombre = 'ANIMALESTADO';
-			break;
-		case 7:
-			$dominioTitulo = 'Especie';
-			$dominioNombre = 'ANIMALESPECIE';
-            break;
-		case 8:
-			$dominioTitulo 	= 'Raza';
-			$dominioNombre 	= 'ANIMALRAZA';
-            break;
-		case 9:
-			$dominioTitulo 	= 'Categoria';
-			$dominioNombre 	= 'ANIMALCATEGORIA';
-            break;
-		case 10:
-			$dominioTitulo 	= 'SubCategoria';
-			$dominioNombre 	= 'ANIMALSUBCATEGORIA';
-            break;
-		case 11:
-			$dominioTitulo 	= 'Origen';
-			$dominioNombre 	= 'ANIMALORIGEN';
-            break;
-        case 12:
-			$dominioTitulo 	= 'Recuento';
-			$dominioNombre 	= 'ANIMALRECUENTO';
-            break;
-        case 13:
-			$dominioTitulo 	= 'Persona';
-			$dominioNombre 	= 'PERSONATIPO';
-            break;
-        case 14:
-			$dominioTitulo 	= 'Documento';
-			$dominioNombre 	= 'PERSONADOCUMENTO';
-            break;
-        case 15:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'USUARIOESTADO';
-            break;
-        case 16:
-			$dominioTitulo 	= 'Rol';
-			$dominioNombre 	= 'USUARIOROL';
-            break;
-        case 17:
-			$dominioTitulo 	= 'Acceso';
-			$dominioNombre 	= 'USUARIOACCESO';
-            break;
-        case 18:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'ORDENTRABAJOESTADO';
-            break;
-        case 19:
-			$dominioTitulo 	= 'Orden Trabajo';
-			$dominioNombre 	= 'ORDENTRABAJOTIPO';
-            break;
-        case 68:
-			$dominioTitulo 	= 'Programa';
-			$dominioNombre 	= 'USUARIOPROGRAMA';
-            break;
-        case 87:
-            $dominioTitulo 	= 'Cargo';
-			$dominioNombre 	= 'ESTABLECIMIENTOCARGO';
-			break;
-	}
+    $dominioTitulo  = getDominio($dominioCodigo)[0];
+    $dominioNombre  = getDominio($dominioCodigo)[1];
 ?>
 
 <!DOCTYPE html>
@@ -166,19 +101,11 @@
                                                 <th>C&Oacute;DIGO</th>
                                                 <th>ESTADO</th>
                                                 <th>TIPO</th>
+                                                <th>BUSQUEDA</th>
                                                 <th>DOMINIO</th>
                                                 <th style="width: 130px;">&nbsp;</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>C&Oacute;DIGO</th>
-                                                <th>ESTADO</th>
-                                                <th>TIPO</th>
-                                                <th>DOMINIO</th>
-                                                <th style="width: 130px;">&nbsp;</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

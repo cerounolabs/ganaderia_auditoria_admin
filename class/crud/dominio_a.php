@@ -8,7 +8,8 @@
     $val01                          = $_POST['dominioEstado'];
     $val02                          = $_POST['dominioNombre'];
     $val03                          = $_POST['dominioValor'];
-    $val04                          = $_POST['dominioObservacion'];
+	$val04                          = $_POST['dominioBusqueda'];
+	$val05                          = $_POST['dominioObservacion'];
 
     $work01                         = $_POST['workCodigo'];
     $work02                         = $_POST['workModo'];
@@ -23,7 +24,8 @@
                 'estado_dominio_codigo'             => $val01,
 				'dominio_nombre'       				=> $val02,
 				'dominio_valor'						=> $val03,
-				'dominio_observacion'				=> $val04,
+				'dominio_busqueda'					=> $val04,
+				'dominio_observacion'				=> $val05,
 				'auditoria_usuario'					=> $sysUsu,
 				'auditoria_fechahora'				=> date('Y-m-d H:i:s'),
 				'auditoria_ip'						=> $sysIP
