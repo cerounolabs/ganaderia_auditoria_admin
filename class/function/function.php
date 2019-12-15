@@ -11,6 +11,92 @@
         return $result;
     }
 
+    function getDominio($var01){
+        $result = array();
+
+        switch($var01){
+            case 3:
+                $dominioTitulo 	= 'Dominio';
+                $dominioValor 	= 'DOMINIOSISTEMA';
+                break;
+            case 4:
+                $dominioTitulo 	= 'Estado';
+                $dominioValor 	= 'DOMINIOESTADO';
+                break;
+            case 5:
+                $dominioTitulo = 'Estado';
+                $dominioValor = 'ESTABLECIMIENTOESTADO';
+                break;
+            case 6:
+                $dominioTitulo 	= 'Estado';
+                $dominioValor 	= 'ANIMALESTADO';
+                break;
+            case 7:
+                $dominioTitulo	= 'Especie';
+                $dominioValor 	= 'ANIMALESPECIE';
+                break;
+            case 8:
+                $dominioTitulo 	= 'Raza';
+                $dominioValor 	= 'ANIMALRAZA';
+                break;
+            case 9:
+                $dominioTitulo 	= 'Categoria';
+                $dominioValor 	= 'ANIMALCATEGORIA';
+                break;
+            case 10:
+                $dominioTitulo 	= 'SubCategoria';
+                $dominioValor 	= 'ANIMALSUBCATEGORIA';
+                break;
+            case 11:
+                $dominioTitulo 	= 'Origen';
+                $dominioValor 	= 'ANIMALORIGEN';
+                break;
+            case 12:
+                $dominioTitulo 	= 'Recuento';
+                $dominioValor 	= 'ANIMALRECUENTO';
+                break;
+            case 13:
+                $dominioTitulo 	= 'Persona';
+                $dominioValor 	= 'PERSONATIPO';
+                break;
+            case 14:
+                $dominioTitulo 	= 'Documento';
+                $dominioValor 	= 'PERSONADOCUMENTO';
+                break;
+            case 15:
+                $dominioTitulo 	= 'Estado';
+                $dominioValor 	= 'USUARIOESTADO';
+                break;
+            case 16:
+                $dominioTitulo 	= 'Rol';
+                $dominioValor 	= 'USUARIOROL';
+                break;
+            case 17:
+                $dominioTitulo 	= 'Acceso';
+                $dominioValor 	= 'USUARIOACCESO';
+                break;
+            case 18:
+                $dominioTitulo 	= 'Estado';
+                $dominioValor 	= 'ORDENTRABAJOESTADO';
+                break;
+            case 19:
+                $dominioTitulo 	= 'Orden Trabajo';
+                $dominioValor 	= 'ORDENTRABAJOTIPO';
+                break;
+            case 68:
+                $dominioTitulo 	= 'Programa';
+                $dominioValor 	= 'USUARIOPROGRAMA';
+                break;
+            case 87:
+                $dominioTitulo 	= 'Cargo';
+                $dominioValor 	= 'ESTABLECIMIENTOCARGO';
+                break;
+        }
+
+        $result = array($dominioTitulo, $dominioValor);
+        return $result;
+    }
+
     function getColorPositivoNegativo($nro){
         $result = '';
 

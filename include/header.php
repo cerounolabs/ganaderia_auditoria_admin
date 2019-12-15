@@ -11,7 +11,7 @@
     <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 	<link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 	<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-	<link href="../dist/css/style.min.css" rel="stylesheet">
+	<link href="../dist/css/style.css" rel="stylesheet">
 	<link href="../dist/css/custom.css" rel="stylesheet">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -3,11 +3,35 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-	$workCodigo 	= $_GET['codigo'];
-	$workModo 		= $_GET['mode'];
-    $workValor 		= $_GET['dominio'];
-    $codeRest       = $_GET['code'];
-    $msgRest        = $_GET['msg'];
+    if (isset($_GET['code'])){
+        $codeRest 		= $_GET['code'];
+    } else {
+        $codeRest 		= '';
+    }
+
+    if (isset($_GET['msg'])){
+        $msgRest 		= $_GET['msg'];
+    } else {
+        $msgRest 		= '';
+    }
+
+    if (isset($_GET['codigo'])){
+        $workCodigo 	= $_GET['codigo'];
+    } else {
+        $workCodigo 	= 0;
+    }
+
+    if (isset($_GET['mode'])){
+        $workModo 		= $_GET['mode'];
+    } else {
+        $workModo 		= 'R';
+    }
+
+    if (isset($_GET['dominio'])){
+        $workValor 		= $_GET['dominio'];
+    } else {
+        $workValor 		= '';
+    }
 
 	if ($workCodigo <> 0){
 		$dataJSON			= get_curl('500/'.$workCodigo);
@@ -16,8 +40,9 @@
 			$row_01			= $dataJSON['data'][0]['estado_dominio_codigo'];
 			$row_02			= $dataJSON['data'][0]['dominio_codigo'];
 			$row_03			= $dataJSON['data'][0]['dominio_nombre'];
-			$row_04			= $dataJSON['data'][0]['dominio_valor'];
-			$row_05			= $dataJSON['data'][0]['dominio_observacion'];
+            $row_04			= $dataJSON['data'][0]['dominio_valor'];
+            $row_05			= $dataJSON['data'][0]['dominio_busqueda'];
+			$row_06			= $dataJSON['data'][0]['dominio_observacion'];
 
 			if ($row_01 == 1){
 				$row_01_h = 'selected';
@@ -26,8 +51,26 @@
 				$row_01_h = '';
 				$row_01_d = 'selected';
 			}
-		}
-	}
+		} else {
+            $row_01			= 0;
+            $row_01_h       = 'selected';
+			$row_01_d       = '';
+			$row_02			= 0;
+			$row_03			= '';
+            $row_04			= '';
+            $row_05			= '';
+			$row_06			= '';
+        }
+	} else {
+        $row_01			= 0;
+        $row_01_h       = 'selected';
+		$row_01_d       = '';
+        $row_02			= 0;
+        $row_03			= '';
+        $row_04			= '';
+        $row_05			= '';
+        $row_06			= '';
+    }
 
 	switch($workModo){
 		case 'C':
@@ -50,86 +93,10 @@
 			$workATitulo	= 'Eliminar';
 			$workAStyle		= 'btn-danger';
 			break;
-	}
-
-	switch($workValor){
-		case 3:
-			$dominioTitulo 	= 'Dominio';
-			$dominioNombre 	= 'DOMINIOSISTEMA';
-            break;
-        case 4:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'DOMINIOESTADO';
-            break;
-        case 5:
-			$dominioTitulo = 'Estado';
-			$dominioNombre = 'ESTABLECIMIENTOESTADO';
-            break;
-        case 6:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'ANIMALESTADO';
-			break;
-		case 7:
-			$dominioTitulo	= 'Especie';
-			$dominioNombre 	= 'ANIMALESPECIE';
-            break;
-		case 8:
-			$dominioTitulo 	= 'Raza';
-			$dominioNombre 	= 'ANIMALRAZA';
-            break;
-		case 9:
-			$dominioTitulo 	= 'Categoria';
-			$dominioNombre 	= 'ANIMALCATEGORIA';
-            break;
-		case 10:
-			$dominioTitulo 	= 'SubCategoria';
-			$dominioNombre 	= 'ANIMALSUBCATEGORIA';
-            break;
-		case 11:
-			$dominioTitulo 	= 'Origen';
-			$dominioNombre 	= 'ANIMALORIGEN';
-            break;
-        case 12:
-			$dominioTitulo 	= 'Recuento';
-			$dominioNombre 	= 'ANIMALRECUENTO';
-            break;
-        case 13:
-			$dominioTitulo 	= 'Persona';
-			$dominioNombre 	= 'PERSONATIPO';
-            break;
-        case 14:
-			$dominioTitulo 	= 'Documento';
-			$dominioNombre 	= 'PERSONADOCUMENTO';
-            break;
-        case 15:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'USUARIOESTADO';
-            break;
-        case 16:
-			$dominioTitulo 	= 'Rol';
-			$dominioNombre 	= 'USUARIOROL';
-            break;
-        case 17:
-			$dominioTitulo 	= 'Acceso';
-			$dominioNombre 	= 'USUARIOACCESO';
-            break;
-        case 18:
-			$dominioTitulo 	= 'Estado';
-			$dominioNombre 	= 'ORDENTRABAJOESTADO';
-            break;
-        case 19:
-			$dominioTitulo 	= 'Orden Trabajo';
-			$dominioNombre 	= 'ORDENTRABAJOTIPO';
-            break;
-        case 68:
-			$dominioTitulo 	= 'Programa';
-			$dominioNombre 	= 'USUARIOPROGRAMA';
-            break;
-        case 87:
-            $dominioTitulo 	= 'Cargo';
-			$dominioNombre 	= 'ESTABLECIMIENTOCARGO';
-			break;
-	}
+    }
+    
+    $dominioTitulo  = getDominio($workValor)[0];
+    $dominioNombre  = getDominio($workValor)[1];
 ?>
 
 <!DOCTYPE html>
@@ -221,15 +188,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="dominioNombre">Nombre</label>
-                                        <input id="dominioNombre" name="dominioNombre" class="form-control" type="text" placeholder="Nombre" value="<?php echo $row_03; ?>" required <?php echo $workReadonly; ?>>
+                                        <input id="dominioNombre" name="dominioNombre" class="form-control" type="text" style="text-transform:uppercase;" placeholder="Nombre" value="<?php echo $row_03; ?>" required <?php echo $workReadonly; ?>>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dominioBusqueda">Busqueda</label>
+                                        <input id="dominioBusqueda" name="dominioBusqueda" class="form-control" type="text" style="text-transform:uppercase;" placeholder="Busqueda" value="<?php echo $row_05; ?>" required <?php echo $workReadonly; ?>>
                                     </div>
                                     <div class="form-group">
                                         <label for="dominioValor">Dominio</label>
-                                        <input id="dominioValor" name="dominioValor" class="form-control" type="text" placeholder="Dominio" value="<?php echo $dominioNombre; ?>" required readonly>
+                                        <input id="dominioValor" name="dominioValor" class="form-control" type="text" style="text-transform:uppercase;" placeholder="Dominio" value="<?php echo $dominioNombre; ?>" required readonly>
                                     </div>
                                     <div class="form-group">
                                     	<label for="dominioObservacion">Observaci&oacute;n</label>
-                                    	<textarea id="dominioObservacion" name="dominioObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_05; ?></textarea>
+                                    	<textarea id="dominioObservacion" name="dominioObservacion" class="form-control" rows="5" <?php echo $workReadonly; ?>><?php echo $row_06; ?></textarea>
                                 	</div>
                                     <button type="submit" class="btn <?php echo $workAStyle; ?>" <?php echo $workReadonly; ?>><?php echo $workATitulo; ?></button>
                                     <a role="button" class="btn btn-dark" href="../public/dominio_l.php?dominio=<?php echo $workValor; ?>">Volver</a>
