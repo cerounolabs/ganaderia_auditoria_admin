@@ -3,10 +3,19 @@
     require '../class/function/function.php';
     require '../class/session/session_system.php';
 
-    $ganaderoJSON   = get_curl('1000/resumen/establecimiento/'.$sysUsu);
-    $codeRest       = $_GET['code'];
-    $msgRest        = $_GET['msg'];
+    if (isset($_GET['code'])){
+        $codeRest 		= $_GET['code'];
+    } else {
+        $codeRest 		= '';
+    }
 
+    if (isset($_GET['msg'])){
+        $msgRest 		= $_GET['msg'];
+    } else {
+        $msgRest 		= '';
+    }
+
+    $ganaderoJSON   = get_curl('1000/resumen/establecimiento/'.$sysUsu);
     $charGanadero   = getCantEstablecimiento($ganaderoJSON);
 ?>
 
