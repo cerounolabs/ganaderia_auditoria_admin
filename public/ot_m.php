@@ -212,27 +212,27 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <div class="col-sm-12 col-md-6 col-lg-3">
                                             <div class="form-group">
                                                 <label for="var005">Establecimiento</label>
                                                 <select class="select2 form-control custom-select" id="var005" name="var005" onblur="loadPropietario(1);" style="width:100%; height:40px;">
                                                     <optgroup label="Establecimiento">
-        <?php
-            if ($establecimientoJSON['code'] == 200) {
-                foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
-                    $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
-                    $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
-                    $selected 				            = '';
-                    
-                    if ($row_02 == $row_establecimiento_00){
-                        $selected = 'selected';
-                    }
-        ?>
-                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
-        <?php
-                }
+<?php
+    if ($establecimientoJSON['code'] == 200) {
+        foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
+            $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
+            $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
+            $selected 				            = '';
+            
+            if ($row_02 == $row_establecimiento_00){
+                $selected = 'selected';
             }
-        ?>
+?>
+                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
+<?php
+        }
+    }
+?>
                                                     </optgroup>
                                                 </select>
                                             </div>
@@ -243,22 +243,22 @@
                                                 <label for="var006">Administrador/Responsable</label>
                                                 <select class="select2 form-control custom-select" id="var006" name="var006" style="width:100%; height:40px;">
                                                     <optgroup label="Establecimiento">
-        <?php
-            if ($establecimientoJSON['code'] == 200) {
-                foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
-                    $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
-                    $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
-                    $selected 				            = '';
-                    
-                    if ($row_02 == $row_establecimiento_00){
-                        $selected = 'selected';
-                    }
-        ?>
-                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
-        <?php
-                }
+<?php
+    if ($establecimientoJSON['code'] == 200) {
+        foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
+            $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
+            $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
+            $selected 				            = '';
+            
+            if ($row_02 == $row_establecimiento_00){
+                $selected = 'selected';
             }
-        ?>
+?>
+                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
+<?php
+        }
+    }
+?>
                                                     </optgroup>
                                                 </select>
                                             </div>
@@ -269,22 +269,38 @@
                                                 <label for="var007">Certificador/Auditor</label>
                                                 <select class="select2 form-control custom-select" id="var007" name="var007" style="width:100%; height:40px;">
                                                     <optgroup label="Establecimiento">
-        <?php
-            if ($establecimientoJSON['code'] == 200) {
-                foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
-                    $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
-                    $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
-                    $selected 				            = '';
-                    
-                    if ($row_02 == $row_establecimiento_00){
-                        $selected = 'selected';
-                    }
-        ?>
-                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
-        <?php
-                }
+<?php
+    if ($establecimientoJSON['code'] == 200) {
+        foreach ($establecimientoJSON['data'] as $detalleKey=>$detalleArray) {
+            $row_establecimiento_00          	= $detalleArray['establecimiento_codigo'];
+            $row_establecimiento_01          	= $detalleArray['establecimiento_nombre'];
+            $selected 				            = '';
+            
+            if ($row_02 == $row_establecimiento_00){
+                $selected = 'selected';
             }
-        ?>
+?>
+                                                        <option value="<?php echo $row_establecimiento_00; ?>" <?php echo $selected; ?>><?php echo $row_establecimiento_01; ?></option>
+<?php
+        }
+    }
+?>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="var008">Template de Carga</label>
+                                                <select class="select2 form-control custom-select" id="var008" name="var008" style="width:100%; height:40px;">
+                                                    <optgroup label="Template">
+                                                        <option value="1"> Template 01</option>
+                                                        <option value="2"> Template 02</option>
+                                                        <option value="3"> Template 03</option>
+                                                        <option value="4"> Template 04</option>
+                                                        <option value="5"> Template 05</option>
+                                                        <option value="6"> Template 06</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
@@ -541,6 +557,54 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <h4 class="col-2 card-title">POBLACI&Oacute;N BOVINA TOTAL</h4>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table id="tableTotal" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>CATEGORÍA</th>
+                                                            <th>DESMAMANTE</th>
+                                                            <th>VAQUILLA</th>
+                                                            <th>VACA</th>
+                                                            <th>NOVILLO</th>
+                                                            <th>SE&Ntilde;UELO</th>
+                                                            <th>BUEY</th>
+                                                            <th>TORO</th>
+                                                            <th>TOTAL ADULTO</th>
+                                                            <th>TOTAL TERNERO</th>
+                                                            <th>TOTAL</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>CANTIDAD</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
