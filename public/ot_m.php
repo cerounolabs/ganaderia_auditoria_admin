@@ -578,32 +578,32 @@
                                                 <table id="tableTotal" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>CATEGORÍA</th>
-                                                            <th>DESMAMANTE</th>
-                                                            <th>VAQUILLA</th>
-                                                            <th>VACA</th>
-                                                            <th>NOVILLO</th>
-                                                            <th>SE&Ntilde;UELO</th>
-                                                            <th>BUEY</th>
-                                                            <th>TORO</th>
-                                                            <th>TOTAL ADULTO</th>
-                                                            <th>TOTAL TERNERO</th>
-                                                            <th>TOTAL</th>
+                                                            <th class="text-left">CATEGORÍA</th>
+                                                            <th class="text-center">DESMAMANTE</th>
+                                                            <th class="text-center">VAQUILLA</th>
+                                                            <th class="text-center">VACA</th>
+                                                            <th class="text-center">NOVILLO</th>
+                                                            <th class="text-center">SE&Ntilde;UELO</th>
+                                                            <th class="text-center">BUEY</th>
+                                                            <th class="text-center">TORO</th>
+                                                            <th class="text-center">TOTAL ADULTO</th>
+                                                            <th class="text-center">TOTAL TERNERO</th>
+                                                            <th class="text-center">TOTAL</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>CANTIDAD</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
+                                                            <td class="text-left">CANTIDAD</td>
+                                                            <td id="tot01" class="text-center">0</td>
+                                                            <td id="tot02" class="text-center">0</td>
+                                                            <td id="tot03" class="text-center">0</td>
+                                                            <td id="tot04" class="text-center">0</td>
+                                                            <td id="tot05" class="text-center">0</td>
+                                                            <td id="tot06" class="text-center">0</td>
+                                                            <td id="tot07" class="text-center">0</td>
+                                                            <td id="tot08" class="text-center">0</td>
+                                                            <td id="tot09" class="text-center">0</td>
+                                                            <td id="tot10" class="text-center">0</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -688,17 +688,18 @@
             $('#addRow').on('click', function () {
                 tabDat.row.add([
                     "<td><button id='var300_"+ colCod +"' type='button' class='btn btn-danger'><i class='ti-trash'></i></button></td>",
-                    "<td><select id='var301_"+ colCod +"' name='var301_"+ colCod +"' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
-                    "<td><select id='var302_"+ colCod +"' name='var302_"+ colCod +"' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
-                    "<td><select id='var303_"+ colCod +"' name='var303_"+ colCod +"' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
-                    "<td><select id='var304_"+ colCod +"' name='var304_"+ colCod +"' class='select2 form-control custom-select' style='width:100%; height:40px;' required><?php if ($dominioJSON['code'] == 200) { foreach ($dominioJSON['data'] as $dominioKey=>$dominioArray) { $row_dominio_00 = $dominioArray['dominio_codigo']; $row_dominio_01 = $dominioArray['estado_dominio_codigo']; $row_dominio_02 = $dominioArray['dominio_nombre']; $row_dominio_03 = $dominioArray['dominio_valor']; if ($row_dominio_01 == 1 && $row_dominio_03 == 'ANIMALCATEGORIA') { ?> <optgroup label='<?php echo $row_dominio_02; ?>'> <?php if ($subdominioJSON['code'] == 200) { foreach ($subdominioJSON['data'] as $dominio_subKey=>$dominio_subArray) { $row_dominio_sub_00 = $dominio_subArray['tipo_subtipo_codigo']; $row_dominio_sub_01 = $dominio_subArray['estado_tipo_subtipo_codigo']; $row_dominio_sub_02 = $dominio_subArray['estado_tipo_subtipo_nombre']; $row_dominio_sub_03 = $dominio_subArray['subtipo_codigo']; $row_dominio_sub_04 = $dominio_subArray['subtipo_nombre']; $row_dominio_sub_05 = $dominio_subArray['tipo_codigo']; $row_dominio_sub_06 = $dominio_subArray['tipo_nombre']; if ($row_dominio_00 == $row_dominio_sub_05) { ?> <option value='<?php echo $row_dominio_sub_00; ?>'><?php echo $row_dominio_sub_06.' - '.$row_dominio_sub_04; ?></option><?php } } } ?> </optgroup> <?php } } } ?> </select></td>",
-                    "<td><input  id='var305_"+ colCod +"' name='var305_"+ colCod +"' class='form-control' type='number' step='.01' value='0' style='width:100%; height:40px;'></td>",
-                    "<td><input  id='var306_"+ colCod +"' name='var306_"+ colCod +"' class='form-control' type='number' min='1' required></td>"
+                    "<td><select id='var301_"+ colCod +"' name='var301_"+ colCod +"' onblur='sumaTotal();' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
+                    "<td><select id='var302_"+ colCod +"' name='var302_"+ colCod +"' onblur='sumaTotal();' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
+                    "<td><select id='var303_"+ colCod +"' name='var303_"+ colCod +"' onblur='sumaTotal();' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
+                    "<td><select id='var304_"+ colCod +"' name='var304_"+ colCod +"' onblur='sumaTotal();' class='select2 form-control custom-select' style='width:100%; height:40px;' required></select></td>",
+                    "<td><input  id='var305_"+ colCod +"' name='var305_"+ colCod +"' onblur='sumaTotal();' class='form-control' type='number' step='.01' value='0' style='width:100%; height:40px;'></td>",
+                    "<td><input  id='var306_"+ colCod +"' name='var306_"+ colCod +"' onblur='sumaTotal();' class='form-control' type='number' min='1' required></td>"
                 ]).draw(true);
                 
                 loadPropietario(colCod);
                 loadOrigen(colCod);
                 loadRaza(colCod);
+                loadCategoria(colCod);
 
                 colCod++;
             });
@@ -780,6 +781,92 @@
                     xSELC.add(option, null);
                 }
             });
+        }
+
+        function loadCategoria(rowInd) {
+            var xDATA   = '<?php echo json_encode($dominioJSON['data']); ?>';
+            var xDATA1  = '<?php echo json_encode($subdominioJSON['data']); ?>';
+            var xJSON   = JSON.parse(xDATA);
+            var xJSON1  = JSON.parse(xDATA1);
+            var xSELC   = document.getElementById('var304_'+rowInd);
+
+            while (xSELC.length > 0) {
+                xSELC.remove(0);
+            }
+            
+            xJSON.forEach(element => {
+                if (element.estado_dominio_codigo == 1 && element.dominio_valor == 'ANIMALCATEGORIA') {
+                    var optgroup    = document.createElement('optgroup');
+                    optgroup.label  = element.dominio_nombre;
+
+                    xJSON1.forEach(element1 => {
+                        if (element.dominio_codigo == element1.tipo_codigo) {
+                            var option      = document.createElement('option');
+                            option.value    = element.dominio_codigo + '_' + element1.subtipo_codigo;
+                            option.text     = element.dominio_nombre + ' - ' + element1.subtipo_nombre;
+
+                            optgroup.appendChild(option);
+                        }
+                    });
+
+                    xSELC.add(optgroup, null);
+                }
+            });
+        }
+
+        function sumaTotal() {
+            var rowTotDes   = document.getElementById("tot01");
+            var rowTotVaq   = document.getElementById("tot02");
+            var rowTotVac   = document.getElementById("tot03");
+            var rowTotNov   = document.getElementById("tot04");
+            var rowTotSen   = document.getElementById("tot05");
+            var rowTotBue   = document.getElementById("tot06");
+            var rowTotTor   = document.getElementById("tot07");
+            var rowTotAdu   = document.getElementById("tot08");
+            var rowTotTer   = document.getElementById("tot09");
+            var rowTotGen   = document.getElementById("tot10");
+
+            var totDes      = 0;
+            var totVaq      = 0;
+            var totVac      = 0;
+            var totNov      = 0;
+            var totSen      = 0;
+            var totBue      = 0;
+            var totTor      = 0;
+            var totAdu      = 0;
+            var totTer      = 0;
+            var totGen      = 0;
+
+            for (let index = 1; index < 100; index++) {
+                var existeSiNo = isInPage(document.getElementById("var304_"+index));
+
+                if (existeSiNo != false) {
+                    var rowCate = Number(document.getElementById("var304_"+index).value);
+                    var rowCant = Number(document.getElementById("var305_"+index).value);
+                    var rowPos  = rowCate.search('_');
+                    rowCate     = rowCate.substr(rowPos);
+
+                    console.log(rowCate);
+
+                    if (rowCate == 29 || rowCate == 30) {
+                        totTer = totTer + rowCant;
+                    } else {
+                        totAdu = totAdu + rowCant;
+                    }
+
+                    totCan = index;
+                }
+            }
+
+            rowTotCan.value     = totCan;
+            totPob              = totTer + totAdu;
+            rowTotAdu.innerHTML = totAdu;
+            rowTotTer.innerHTML = totTer;
+            rowTotGen.innerHTML = totPob;
+        }
+
+        function isInPage(node) {
+            return (node === document.body) ? false : document.body.contains(node);
         }
     </script>
 </body>
